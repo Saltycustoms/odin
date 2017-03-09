@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @order.uuid %>
+</p>
+
+<p>
+  <strong>Billing address:</strong>
+  <%= @order.billing_address_id %>
+</p>
+
+<p>
+  <strong>Shipping address:</strong>
+  <%= @order.shipping_address_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order.status %>
+</p>
+
+<p>
+  <strong>Shipment total cents:</strong>
+  <%= @order.shipment_total_cents %>
+</p>
+
+<p>
+  <strong>Subtotal cents:</strong>
+  <%= @order.subtotal_cents %>
+</p>
+
+<p>
+  <strong>Net total cents:</strong>
+  <%= @order.net_total_cents %>
+</p>
+
+<p>
+  <strong>Tax cents:</strong>
+  <%= @order.tax_cents %>
+</p>
+
+<p>
+  <strong>Grand total cents:</strong>
+  <%= @order.grand_total_cents %>
+</p>
+
+<p>
+  <strong>Coupon:</strong>
+  <%= @order.coupon %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @order.currency %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @order.customer_id %>
+</p>
+
+<p>
+  <strong>Due date:</strong>
+  <%= @order.due_date %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

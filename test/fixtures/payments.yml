@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ref: MyString
+  amount_cents: MyString
+  order_id: 1
+  gateway_id: 1
+  type: 
+  raw_data: MyText
+  status: 1
+  properties: 
+
+two:
+  ref: MyString
+  amount_cents: MyString
+  order_id: 1
+  gateway_id: 1
+  type: 
+  raw_data: MyText
+  status: 1
+  properties: 

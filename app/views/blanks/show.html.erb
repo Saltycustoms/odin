@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Price cents:</strong>
+  <%= @blank.price_cents %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @blank.name %>
+</p>
+
+<p>
+  <strong>Meta:</strong>
+  <%= @blank.meta %>
+</p>
+
+<%= link_to 'Edit', edit_blank_path(@blank) %> |
+<%= link_to 'Back', blanks_path %>

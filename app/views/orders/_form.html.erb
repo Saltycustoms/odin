@@ -1,0 +1,82 @@
+<%= form_for(order) do |f| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :uuid %>
+    <%= f.text_field :uuid %>
+  </div>
+
+  <div class="field">
+    <%= f.label :billing_address_id %>
+    <%= f.number_field :billing_address_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :shipping_address_id %>
+    <%= f.number_field :shipping_address_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.number_field :status %>
+  </div>
+
+  <div class="field">
+    <%= f.label :shipment_total_cents %>
+    <%= f.number_field :shipment_total_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :subtotal_cents %>
+    <%= f.number_field :subtotal_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :net_total_cents %>
+    <%= f.number_field :net_total_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tax_cents %>
+    <%= f.number_field :tax_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :grand_total_cents %>
+    <%= f.number_field :grand_total_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :coupon %>
+    <%= f.text_field :coupon %>
+  </div>
+
+  <div class="field">
+    <%= f.label :currency %>
+    <%= f.text_field :currency %>
+  </div>
+
+  <div class="field">
+    <%= f.label :customer_id %>
+    <%= f.number_field :customer_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :due_date %>
+    <%= f.datetime_select :due_date %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+class ShippingZoneLocation < ApplicationRecord
+end

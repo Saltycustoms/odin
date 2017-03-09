@@ -1,0 +1,42 @@
+<%= form_for(shipping_method) do |f| %>
+  <% if shipping_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(shipping_method.errors.count, "error") %> prohibited this shipping_method from being saved:</h2>
+
+      <ul>
+      <% shipping_method.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :type %>
+    <%= f.text_field :type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :shipping_zone_id %>
+    <%= f.number_field :shipping_zone_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :calculator_id %>
+    <%= f.number_field :calculator_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :properties %>
+    <%= f.text_field :properties %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

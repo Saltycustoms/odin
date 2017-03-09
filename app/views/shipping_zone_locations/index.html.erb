@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Shipping Zone Locations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Country code</th>
+      <th>State</th>
+      <th>Shipping zone</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shipping_zone_locations.each do |shipping_zone_location| %>
+      <tr>
+        <td><%= shipping_zone_location.country_code %></td>
+        <td><%= shipping_zone_location.state %></td>
+        <td><%= shipping_zone_location.shipping_zone_id %></td>
+        <td><%= link_to 'Show', shipping_zone_location %></td>
+        <td><%= link_to 'Edit', edit_shipping_zone_location_path(shipping_zone_location) %></td>
+        <td><%= link_to 'Destroy', shipping_zone_location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shipping Zone Location', new_shipping_zone_location_path %>

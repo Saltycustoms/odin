@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @shipping_method.type %>
+</p>
+
+<p>
+  <strong>Shipping zone:</strong>
+  <%= @shipping_method.shipping_zone_id %>
+</p>
+
+<p>
+  <strong>Calculator:</strong>
+  <%= @shipping_method.calculator_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @shipping_method.name %>
+</p>
+
+<p>
+  <strong>Properties:</strong>
+  <%= @shipping_method.properties %>
+</p>
+
+<%= link_to 'Edit', edit_shipping_method_path(@shipping_method) %> |
+<%= link_to 'Back', shipping_methods_path %>

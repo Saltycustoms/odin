@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Statements</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Uuid</th>
+      <th>Shipment total cents</th>
+      <th>Subtotal cents</th>
+      <th>Net total cents</th>
+      <th>Tax cents</th>
+      <th>Grand total cents</th>
+      <th>Type</th>
+      <th>Order</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @statements.each do |statement| %>
+      <tr>
+        <td><%= statement.uuid %></td>
+        <td><%= statement.shipment_total_cents %></td>
+        <td><%= statement.subtotal_cents %></td>
+        <td><%= statement.net_total_cents %></td>
+        <td><%= statement.tax_cents %></td>
+        <td><%= statement.grand_total_cents %></td>
+        <td><%= statement.type %></td>
+        <td><%= statement.order_id %></td>
+        <td><%= link_to 'Show', statement %></td>
+        <td><%= link_to 'Edit', edit_statement_path(statement) %></td>
+        <td><%= link_to 'Destroy', statement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Statement', new_statement_path %>

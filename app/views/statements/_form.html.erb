@@ -1,0 +1,57 @@
+<%= form_for(statement) do |f| %>
+  <% if statement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(statement.errors.count, "error") %> prohibited this statement from being saved:</h2>
+
+      <ul>
+      <% statement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :uuid %>
+    <%= f.text_field :uuid %>
+  </div>
+
+  <div class="field">
+    <%= f.label :shipment_total_cents %>
+    <%= f.number_field :shipment_total_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :subtotal_cents %>
+    <%= f.number_field :subtotal_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :net_total_cents %>
+    <%= f.number_field :net_total_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tax_cents %>
+    <%= f.number_field :tax_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :grand_total_cents %>
+    <%= f.number_field :grand_total_cents %>
+  </div>
+
+  <div class="field">
+    <%= f.label :type %>
+    <%= f.text_field :type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :order_id %>
+    <%= f.number_field :order_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

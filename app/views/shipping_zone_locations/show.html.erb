@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Country code:</strong>
+  <%= @shipping_zone_location.country_code %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @shipping_zone_location.state %>
+</p>
+
+<p>
+  <strong>Shipping zone:</strong>
+  <%= @shipping_zone_location.shipping_zone_id %>
+</p>
+
+<%= link_to 'Edit', edit_shipping_zone_location_path(@shipping_zone_location) %> |
+<%= link_to 'Back', shipping_zone_locations_path %>

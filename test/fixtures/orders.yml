@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uuid: MyString
+  billing_address_id: 1
+  shipping_address_id: 1
+  status: 1
+  shipment_total_cents: 1
+  subtotal_cents: 1
+  net_total_cents: 1
+  tax_cents: 1
+  grand_total_cents: 1
+  coupon: MyString
+  currency: MyString
+  customer_id: 1
+  due_date: 2017-03-09 12:01:12
+
+two:
+  uuid: MyString
+  billing_address_id: 1
+  shipping_address_id: 1
+  status: 1
+  shipment_total_cents: 1
+  subtotal_cents: 1
+  net_total_cents: 1
+  tax_cents: 1
+  grand_total_cents: 1
+  coupon: MyString
+  currency: MyString
+  customer_id: 1
+  due_date: 2017-03-09 12:01:12

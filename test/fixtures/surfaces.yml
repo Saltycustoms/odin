@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  image_data: MyText
+  blank_id: 1
+  side: 1
+  width: 1
+  height: 1
+  width_mm: 1
+  height_mm: 1
+  left: 1
+  top: 1
+
+two:
+  image_data: MyText
+  blank_id: 1
+  side: 1
+  width: 1
+  height: 1
+  width_mm: 1
+  height_mm: 1
+  left: 1
+  top: 1

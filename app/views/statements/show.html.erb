@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @statement.uuid %>
+</p>
+
+<p>
+  <strong>Shipment total cents:</strong>
+  <%= @statement.shipment_total_cents %>
+</p>
+
+<p>
+  <strong>Subtotal cents:</strong>
+  <%= @statement.subtotal_cents %>
+</p>
+
+<p>
+  <strong>Net total cents:</strong>
+  <%= @statement.net_total_cents %>
+</p>
+
+<p>
+  <strong>Tax cents:</strong>
+  <%= @statement.tax_cents %>
+</p>
+
+<p>
+  <strong>Grand total cents:</strong>
+  <%= @statement.grand_total_cents %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @statement.type %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @statement.order_id %>
+</p>
+
+<%= link_to 'Edit', edit_statement_path(@statement) %> |
+<%= link_to 'Back', statements_path %>

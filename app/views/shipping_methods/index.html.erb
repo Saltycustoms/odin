@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Shipping Methods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Shipping zone</th>
+      <th>Calculator</th>
+      <th>Name</th>
+      <th>Properties</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shipping_methods.each do |shipping_method| %>
+      <tr>
+        <td><%= shipping_method.type %></td>
+        <td><%= shipping_method.shipping_zone_id %></td>
+        <td><%= shipping_method.calculator_id %></td>
+        <td><%= shipping_method.name %></td>
+        <td><%= shipping_method.properties %></td>
+        <td><%= link_to 'Show', shipping_method %></td>
+        <td><%= link_to 'Edit', edit_shipping_method_path(shipping_method) %></td>
+        <td><%= link_to 'Destroy', shipping_method, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shipping Method', new_shipping_method_path %>

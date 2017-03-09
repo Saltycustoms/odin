@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @shipping_zone.name %>
+</p>
+
+<p>
+  <strong>Disabled:</strong>
+  <%= @shipping_zone.disabled %>
+</p>
+
+<%= link_to 'Edit', edit_shipping_zone_path(@shipping_zone) %> |
+<%= link_to 'Back', shipping_zones_path %>
