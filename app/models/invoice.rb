@@ -1,0 +1,3 @@
+class Invoice < Statement
+
+end

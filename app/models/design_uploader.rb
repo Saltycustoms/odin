@@ -1,0 +1,3 @@
+class DesignUploader < Shrine
+
+end
