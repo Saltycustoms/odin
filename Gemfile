@@ -51,6 +51,11 @@ gem 'paypal-sdk-rest'
 gem 'ransack'
 gem 'braintree'
 gem 'paper_trail'
+gem "image_processing"
+gem "mini_magick", ">= 4.3.5"
+gem "kaminari"
+gem "jbuilder-json_api"
+gem "jsonapi-resources"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

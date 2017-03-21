@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resource :braintree
+      resource :blank
+      resources :blanks
+      resources :orders do
+        collection do
+          patch 'bulk_update'
+        end
+      end
+      jsonapi_resources :orders
+    end
+  end
   resources :designs
   resources :blanks
   resources :addresses
