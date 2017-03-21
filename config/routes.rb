@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attachments
   namespace :api do
     namespace :v1 do
       resource :braintree
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
         end
       end
       jsonapi_resources :orders
+      jsonapi_resources :attachments
     end
   end
   resources :designs
