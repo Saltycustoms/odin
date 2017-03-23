@@ -11,7 +11,8 @@ Rails.application.routes.draw do
         end
       end
       jsonapi_resources :orders
-      jsonapi_resources :attachments
+      resources :attachments
+      # jsonapi_resources :attachments
     end
   end
   resources :designs

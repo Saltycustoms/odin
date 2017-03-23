@@ -1,3 +1,3 @@
 class Attachment < ApplicationRecord
-  include DesignUploader["file"]
+  include ImageUploader["file"]
 end
