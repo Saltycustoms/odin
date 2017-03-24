@@ -4,6 +4,7 @@ class Api::V1::AttachmentsController < ApiController
     hash = {}
     if @attachment
       hash[:id] = @attachment.id
+      hash[:preview] = @attachment.file[:original].url
       hash[:image] = {}
       hash[:image][:original_url] = @attachment.file[:original].url
       hash[:image][:small_url] = @attachment.file[:small].url
