@@ -1,1 +1,2 @@
-<%= link_to 'Click me to Login', "/auth/valkyrie" %>
+<%#= link_to 'Click me to Login', "/auth/valkyrie" %>
+<%= link_to "Sign me in Valkyrie", user_omniauth_authorize_path(state: session['omniauth.state']) %>
