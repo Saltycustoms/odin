@@ -36,6 +36,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'bunny'
 gem 'omniauth-oauth2'
+gem 'activeresource'
+gem 'simple_form'
+gem 'nested_form'
+gem "jsonb_accessor", "1.0.0.beta.6"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

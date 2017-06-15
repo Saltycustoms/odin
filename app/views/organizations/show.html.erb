@@ -15,5 +15,9 @@
   <%= @organization.industry %>
 </p>
 
+<%= render partial: 'departments/list', object: @organization.departments %>
+
+<%= link_to 'New Department', new_organization_department_path(@organization) %>
+
 <%= link_to 'Edit', edit_organization_path(@organization) %> |
 <%= link_to 'Back', organizations_path %>

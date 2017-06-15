@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Job request:</strong>
+  <%= @print_detail.job_request_id %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @print_detail.position %>
+</p>
+
+<p>
+  <strong>Block:</strong>
+  <%= @print_detail.block %>
+</p>
+
+<p>
+  <strong>Color count:</strong>
+  <%= @print_detail.color_count %>
+</p>
+
+<p>
+  <strong>Print method:</strong>
+  <%= @print_detail.print_method %>
+</p>
+
+<p>
+  <strong>Attachment data:</strong>
+  <%= @print_detail.attachment_data %>
+</p>
+
+<%= link_to 'Edit', edit_print_detail_path(@print_detail) %> |
+<%= link_to 'Back', print_details_path %>

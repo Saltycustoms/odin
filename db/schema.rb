@@ -10,12 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531084123) do
+ActiveRecord::Schema.define(version: 20170615042724) do
+
+  create_table "deals", force: :cascade do |t|
+    t.integer "department_id"
+    t.string "name"
+    t.integer "no_of_pcs"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.integer "organization_id"
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+# Could not dump table "job_requests" because of following StandardError
+#   Unknown type 'jsonb' for column 'metadata'
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "industry"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "print_details", force: :cascade do |t|
+    t.integer "job_request_id"
+    t.string "position"
+    t.string "block"
+    t.string "color_count"
+    t.string "print_method"
+    t.text "attachment_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

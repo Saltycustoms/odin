@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Deal:</strong>
+  <%= @job_request.deal_id %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @job_request.product_id %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @job_request.color_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @job_request.name %>
+</p>
+
+<p>
+  <strong>Sleeve:</strong>
+  <%= @job_request.sleeve %>
+</p>
+
+<p>
+  <strong>Relabeling:</strong>
+  <%= @job_request.relabeling %>
+</p>
+
+<p>
+  <strong>Woven tag:</strong>
+  <%= @job_request.woven_tag %>
+</p>
+
+<p>
+  <strong>Hang tag:</strong>
+  <%= @job_request.hang_tag %>
+</p>
+
+<p>
+  <strong>Pantone code:</strong>
+  <%= @job_request.pantone_code %>
+</p>
+
+<p>
+  <strong>Remark:</strong>
+  <%= @job_request.remark %>
+</p>
+
+<p>
+  <strong>Sample required:</strong>
+  <%= @job_request.sample_required %>
+</p>
+
+<p>
+  <strong>Budget:</strong>
+  <%= @job_request.budget %>
+</p>
+
+<p>
+  <strong>Client comment:</strong>
+  <%= @job_request.client_comment %>
+</p>
+
+<%= link_to 'Edit', edit_job_request_path(@job_request) %> |
+<%= link_to 'Back', job_requests_path %>

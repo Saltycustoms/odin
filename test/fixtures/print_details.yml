@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  job_request_id: 1
+  position: MyString
+  block: MyString
+  color_count: MyString
+  print_method: MyString
+  attachment_data: MyText
+
+two:
+  job_request_id: 1
+  position: MyString
+  block: MyString
+  color_count: MyString
+  print_method: MyString
+  attachment_data: MyText

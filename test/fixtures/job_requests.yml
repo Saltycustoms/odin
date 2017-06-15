@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  deal_id: 1
+  product_id: 1
+  color_id: 1
+  name: MyString
+  sleeve: MyString
+  relabeling: MyString
+  woven_tag: MyString
+  hang_tag: MyString
+  pantone_code: MyString
+  remark: MyText
+  sample_required: MyString
+  budget: 1
+  client_comment: MyText
+
+two:
+  deal_id: 1
+  product_id: 1
+  color_id: 1
+  name: MyString
+  sleeve: MyString
+  relabeling: MyString
+  woven_tag: MyString
+  hang_tag: MyString
+  pantone_code: MyString
+  remark: MyText
+  sample_required: MyString
+  budget: 1
+  client_comment: MyText

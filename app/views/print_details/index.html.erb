@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Print Details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Job request</th>
+      <th>Position</th>
+      <th>Block</th>
+      <th>Color count</th>
+      <th>Print method</th>
+      <th>Attachment data</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @print_details.each do |print_detail| %>
+      <tr>
+        <td><%= print_detail.job_request_id %></td>
+        <td><%= print_detail.position %></td>
+        <td><%= print_detail.block %></td>
+        <td><%= print_detail.color_count %></td>
+        <td><%= print_detail.print_method %></td>
+        <td><%= print_detail.attachment_data %></td>
+        <td><%= link_to 'Show', print_detail %></td>
+        <td><%= link_to 'Edit', edit_print_detail_path(print_detail) %></td>
+        <td><%= link_to 'Destroy', print_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Print Detail', new_print_detail_path %>
