@@ -40,6 +40,7 @@ gem 'activeresource'
 gem 'simple_form'
 gem 'nested_form'
 gem "jsonb_accessor", "1.0.0.beta.6"
+gem 'figaro'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
