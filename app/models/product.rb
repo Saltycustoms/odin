@@ -3,9 +3,27 @@ class Product < ActiveResource::Base
   class << self
     def all
       [
-        {id: 1, name: "Gildan T", colors: colors.drop(1), sizes: sizes.drop(2)},
-        {id: 2, name: "Polo T", colors: colors.drop(2), sizes: sizes.drop(1)},
-        {id: 3, name: "Adult Unisex", colors: colors.drop(3), sizes: sizes.drop(3)},
+        {
+          id: 1,
+          name: "Gildan T",
+          colors: colors.drop(1),
+          sizes: sizes.drop(2),
+          sides: sides
+        },
+        {
+          id: 2,
+          name: "Polo T",
+          colors: colors.drop(2),
+          sizes: sizes.drop(1),
+          sides: sides
+        },
+        {
+          id: 3,
+          name: "Adult Unisex",
+          colors: colors.drop(3),
+          sizes: sizes.drop(3),
+          sides: sides
+        },
       ]
     end
 
@@ -29,6 +47,13 @@ class Product < ActiveResource::Base
         {id: 4, name: "L"},
         {id: 5, name: "XL"},
         {id: 6, name: "2XL"},
+      ]
+    end
+
+    def sides
+      [
+        {id: 1, name: "Front", image_file: nil},
+        {id: 2, name: "Back", image_file: nil}
       ]
     end
   end
