@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170615042724) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "deals", force: :cascade do |t|
     t.integer "department_id"
     t.string "name"
@@ -28,8 +31,24 @@ ActiveRecord::Schema.define(version: 20170615042724) do
     t.datetime "updated_at", null: false
   end
 
-# Could not dump table "job_requests" because of following StandardError
-#   Unknown type 'jsonb' for column 'metadata'
+  create_table "job_requests", force: :cascade do |t|
+    t.integer "deal_id"
+    t.integer "product_id"
+    t.integer "color_id"
+    t.string "name"
+    t.string "sleeve"
+    t.string "relabeling"
+    t.string "woven_tag"
+    t.string "hang_tag"
+    t.string "pantone_code"
+    t.text "remark"
+    t.string "sample_required"
+    t.integer "budget"
+    t.text "client_comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "metadata"
+  end
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
