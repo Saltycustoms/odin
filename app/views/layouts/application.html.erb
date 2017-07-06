@@ -6,9 +6,19 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body>
+    <% unless notice.nil? %>
+      <div id="notice" class="callout" data-closable>
+        <%= notice %>
+        <%= button_tag data: { close: ""}, aria: { label: "Dismiss notice"}, class: "close-button" do %>
+          <span aria-hidden="true">&times;</span>
+        <% end %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

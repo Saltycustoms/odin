@@ -1,5 +1,9 @@
+<% content_for :content do %>
 <h1>New Deal</h1>
 
 <%= render 'form', deal: @deal %>
+<% end %>
 
+<div class="row column">
 <%= link_to 'Back', deals_path %>
+</div>
