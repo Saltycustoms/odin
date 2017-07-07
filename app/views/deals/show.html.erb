@@ -12,12 +12,7 @@
     </p>
     <hr>
 </div>
-
-
-<% content_for :content do %>
   
-  <%= link_to "Submit a Job Request", new_deal_job_request_path(@deal), class: "button" %>
-  <%= render partial: "job_requests/list", object: @deal.job_requests %>
-<% end %>
-
+<%= link_to "Submit a Job Request", new_deal_job_request_path(@deal), class: "button" %>
+<%= render partial: "job_requests/list", object: @deal.job_requests %>
 
