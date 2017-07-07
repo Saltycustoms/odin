@@ -10,15 +10,22 @@
   </head>
 
   <body>
-    <% flash.each do |name, msg| -%>
-      <div id="<%= name %>" class="callout" data-closable>
-        <%= msg %>
+    <% unless notice.nil? %>
+      <div id="notice" class="callout" data-closable>
+        <%= notice %>
         <%= button_tag data: { close: ""}, aria: { label: "Dismiss notice"}, class: "close-button" do %>
           <span aria-hidden="true">&times;</span>
         <% end %>
       </div>
-    <% end -%>
+    <% end %>
 
-    <%= yield %>
+    <div class="row">
+      <div class="columns medium-3">
+        <%= yield(:sidebar) %>
+      </div>
+      <div class="columns medium-9">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
