@@ -1,6 +1,7 @@
 class JobRequest < ApplicationRecord
   # has_many :design_requests
   # has_many :designs, through: :design_requests
+  belongs_to :deal
   has_many :print_details
   jsonb_accessor :metadata,
     sizes: [:string]
