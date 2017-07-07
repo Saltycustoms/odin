@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :deals do
     resources :job_requests
   end
-  resources :departments do
+  resources :departments, only: [:index] do
     resources :deals
   end
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks", :sessions=> 'users/sessions' }
