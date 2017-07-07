@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :departments do
     resources :deals
   end
+  resources :pics
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks", :sessions=> 'users/sessions' }
   resources :organizations do
     resources :departments

@@ -15,8 +15,7 @@
   <%= @organization.industry %>
 </p>
 
-<h1>Departments</h1>
-
+<h1>Departments</h1><button class="button" data-toggle="add-pic-modal">Add PIC</button>
 <table>
   <thead>
     <tr>
@@ -36,7 +35,6 @@
           </div>
         </div>
       </th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -60,6 +58,7 @@
             </div>
           <% end %>
         </td>
+        <td><%= link_to "Add PIC", nil %></td>
         <td><%= link_to 'Show', [@organization, department] %></td>
         <td><%= link_to 'Edit', [:edit, @organization, department] %></td>
         <td><%= link_to 'Destroy', [@organization, department], method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -67,6 +66,24 @@
     <% end %>
   </tbody>
 </table>
+
+<div class="reveal" id="add-pic-modal" data-reveal>
+  <h4>Add PIC</h4>
+  <%= simple_nested_form_for @organization.departments.take do |f| %>
+    <%= label_tag "department[pics_attributes][0][name]", "Name" %>
+    <%= text_field_tag "department[pics_attributes][0][name]" %>
+
+    <%= label_tag "department[pics_attributes][0][tel]", "Tel" %>
+    <%= text_field_tag "department[pics_attributes][0][tel]" %>
+
+    <%= label_tag "department[pics_attributes][0][title]", "Title" %>
+    <%= text_field_tag "department[pics_attributes][0][title]" %>
+    <%= f.button :submit, "Add" %>
+  <% end %>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 
 <%= link_to 'New Department', new_organization_department_path(@organization) %>
 
