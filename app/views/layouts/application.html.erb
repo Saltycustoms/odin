@@ -21,11 +21,12 @@
     <% end %>
 
     <div class="row">
-      <div class="columns medium-3 sidebar border-right">
+      <div class="sidebar border-right columns small-12 medium-3">
         <%= render "shared/menu" if user_signed_in? %>
         <%= yield(:sidebar) %>
       </div>
-      <div class="content columns medium-9">
+
+      <div class="content columns small-12 medium-9">
         <%= yield %>
       </div>
     </div>
