@@ -10,14 +10,14 @@
   </head>
 
   <body>
-    <% unless notice.nil? %>
-      <div id="notice" class="callout" data-closable>
-        <%= notice %>
+    <% flash.each do |name, msg| -%>
+      <div id="<%= name %>" class="callout" data-closable>
+        <%= msg %>
         <%= button_tag data: { close: ""}, aria: { label: "Dismiss notice"}, class: "close-button" do %>
           <span aria-hidden="true">&times;</span>
         <% end %>
       </div>
-    <% end %>
+    <% end -%>
 
     <%= yield %>
   </body>
