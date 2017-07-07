@@ -21,13 +21,20 @@
     <% end %>
 
     <div class="row">
-      <div class="columns medium-3">
+      <div class="sidebar border-right columns small-12 medium-3">
         <%= render "shared/menu" if user_signed_in? %>
         <%= yield(:sidebar) %>
       </div>
-      <div class="columns medium-9">
+
+      <div class="content columns small-12 medium-9">
         <%= yield %>
       </div>
     </div>
+
+    <footer class="footer text-center">
+      <div class="row column">
+        <p class="footer-text">&copy; <%= DateTime.now.strftime('%Y') %> Saltycustoms</p>
+      </div>
+    </footer>
   </body>
 </html>
