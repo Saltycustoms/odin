@@ -1,0 +1,20 @@
+<div class="top-bar">
+  <div class="row columns">
+    <div class="top-bar-left">
+      <ul class="menu">
+        <li>
+          <%= link_to Rails.application.class.parent_name, root_path %>
+        </li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <% if user_signed_in? %>
+        <ul class="menu">
+          <li>
+            <%= link_to "Log out", destroy_user_session_path, method: :delete, data: { confirm: "You will be logged out" } %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
