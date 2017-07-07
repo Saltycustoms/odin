@@ -1,33 +1,29 @@
+<%= link_to 'New Deal', new_deal_path, class: "button" %>
+<h1>Deals</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Department</th>
+      <th>Name</th>
+      <th>No of pcs</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 
-<% content_for :content do %>
-  <%= link_to 'New Deal', new_deal_path, class: "button" %>
-  <h1>Deals</h1>
-  <table>
-    <thead>
+  <tbody>
+    <% @deals.each do |deal| %>
       <tr>
-        <th>Department</th>
-        <th>Name</th>
-        <th>No of pcs</th>
-        <th>Actions</th>
+        <td><%= deal.department_id %></td>
+        <td><%= deal.name %></td>
+        <td><%= deal.no_of_pcs %></td>
+        <td>
+          <div class="button-group">
+            <%= link_to 'Show', deal, class: "button" %>
+            <%= link_to 'Edit', edit_deal_path(deal), class: "button" %>
+            <%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' }, class: "button alert" %>
+          </div>
+        </td>
       </tr>
-    </thead>
-
-    <tbody>
-      <% @deals.each do |deal| %>
-        <tr>
-          <td><%= deal.department_id %></td>
-          <td><%= deal.name %></td>
-          <td><%= deal.no_of_pcs %></td>
-          <td>
-            <div class="button-group">
-              <%= link_to 'Show', deal, class: "button" %>
-              <%= link_to 'Edit', edit_deal_path(deal), class: "button" %>
-              <%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' }, class: "button alert" %>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-<% end %>
+    <% end %>
+  </tbody>
+</table>
