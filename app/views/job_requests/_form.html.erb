@@ -11,85 +11,39 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :deal_id %>
-    <%= form.number_field :deal_id, id: :job_request_deal_id, value: params[:deal_id]  %>
+  <div class="row medium-unstack">
+    <div class="columns">
+      <%= form.association :deal  %>
+      <%= form.input :product_id, as: :select, collection: Product.all.collect { |p| [p[:name], p[:id]]}, include_blank: false %>
+      <%= form.input :color_id, collection: Product.all[1][:colors].collect {|c| [c[:name], c[:id]]}, include_blank: false %>
+
+      <%= form.input :sizes, collection: Product.all[1][:sizes].collect { |c| [c[:name], c[:id]] }, input_html: { multiple: true } %>
+      <%= form.input :name %>
+      <%= form.input :sleeve %>
+      <%= form.input :relabeling %>
+    </div>
+
+    <div class="columns">
+      <%= form.input :woven_tag %>
+      <%= form.input :hang_tag %>
+      <%= form.input :pantone_code %>
+      <%= form.input :remark %>
+      <%= form.input :sample_required %>
+      <%= form.input :budget %>
+      <%= form.input :client_comment %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.select :product_id, Product.all.collect { |p| [p[:name], p[:id]]}, id: :job_request_product_id %>
+  <div class="row columns">
+    <fieldset class="callout">
+      <%= form.simple_fields_for :print_details do |print_detail| %>
+        <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
+        <%= print_detail.link_to_remove "Remove This Print Detail" %>
+      <% end %>
+
+      <%= form.link_to_add "Add print detail", :print_details, class: "button" %>
+    </fieldset>
   </div>
 
-  <div class="field">
-    <%= form.select :color_id, Product.all[1][:colors].collect {|c| [c[:name], c[:id]]}, id: :job_request_color_id %>
-  </div>
-
-  <div class="field">
-    <%= form.select :sizes, Product.all[1][:sizes].collect { |c| [c[:name], c[:id]] },
-                    { prompt: "Please Select" }, { multiple: true, id: :job_request_sizes }
-                    %>
-  </div>
-
-  <div class="field">
-    <%= form.simple_fields_for :print_details do |print_detail| %>
-      <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
-
-      <%= print_detail.link_to_remove "Remove This Print Detail" %>
-    <% end %>
-  </div>
-  <p><%= form.link_to_add "Add print detail", :print_details %></p>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :job_request_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sleeve %>
-    <%= form.text_field :sleeve, id: :job_request_sleeve %>
-  </div>
-
-  <div class="field">
-    <%= form.label :relabeling %>
-    <%= form.text_field :relabeling, id: :job_request_relabeling %>
-  </div>
-
-  <div class="field">
-    <%= form.label :woven_tag %>
-    <%= form.text_field :woven_tag, id: :job_request_woven_tag %>
-  </div>
-
-  <div class="field">
-    <%= form.label :hang_tag %>
-    <%= form.text_field :hang_tag, id: :job_request_hang_tag %>
-  </div>
-
-  <div class="field">
-    <%= form.label :pantone_code %>
-    <%= form.text_field :pantone_code, id: :job_request_pantone_code %>
-  </div>
-
-  <div class="field">
-    <%= form.label :remark %>
-    <%= form.text_area :remark, id: :job_request_remark %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sample_required %>
-    <%= form.text_field :sample_required, id: :job_request_sample_required %>
-  </div>
-
-  <div class="field">
-    <%= form.label :budget %>
-    <%= form.number_field :budget, id: :job_request_budget %>
-  </div>
-
-  <div class="field">
-    <%= form.label :client_comment %>
-    <%= form.text_area :client_comment, id: :job_request_client_comment %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.button :submit %>
 <% end %>
