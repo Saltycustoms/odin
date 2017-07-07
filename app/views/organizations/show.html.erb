@@ -22,6 +22,20 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
+      <th>
+        <div class="row text-center">
+          <div class="small-12 column">PIC</div>
+          <div class="column">
+            Name
+          </div>
+          <div class="column">
+            Tel
+          </div>
+          <div class="column">
+            Title
+          </div>
+        </div>
+      </th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -31,6 +45,21 @@
       <tr>
         <td><%= department.name %></td>
         <td><%= department.description %></td>
+        <td>
+          <% department.pics.each do |pic| %>
+            <div class="row text-center">
+              <div class="column">
+                <%= pic.name %>
+              </div>
+              <div class=" column">
+                <%= pic.tel %>
+              </div>
+              <div class=" column">
+                <%= pic.title %>
+              </div>
+            </div>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', [@organization, department] %></td>
         <td><%= link_to 'Edit', [:edit, @organization, department] %></td>
         <td><%= link_to 'Destroy', [@organization, department], method: :delete, data: { confirm: 'Are you sure?' } %></td>
