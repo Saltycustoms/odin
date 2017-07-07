@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  before_action :set_organization, except: [:index]
   before_action :set_department, only: [:show, :edit, :update, :destroy]
 
   # GET /departments
@@ -23,12 +24,12 @@ class DepartmentsController < ApplicationController
 
   # POST /departments
   # POST /departments.json
-  def create    
-    @department = Department.new(department_params)
+  def create
+    @department = @organization.departments.new(department_params)
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to @department, notice: 'Department was successfully created.' }
+        format.html { redirect_to @organization, notice: 'Department was successfully created.' }
         format.json { render :show, status: :created, location: @department }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class DepartmentsController < ApplicationController
   def update
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to @department, notice: 'Department was successfully updated.' }
+        format.html { redirect_to @organization || @department, notice: 'Department was successfully updated.' }
         format.json { render :show, status: :ok, location: @department }
       else
         format.html { render :edit }
@@ -56,19 +57,23 @@ class DepartmentsController < ApplicationController
   def destroy
     @department.destroy
     respond_to do |format|
-      format.html { redirect_to departments_url, notice: 'Department was successfully destroyed.' }
+      format.html { redirect_to @organization || @department, notice: 'Department was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_organization
+      @organization = Organization.find(params[:organization_id]) if params[:organization_id]
+    end
+
     def set_department
       @department = Department.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:organization_id, :name, :description)
+      params.require(:department).permit(:organization_id, :name, :description, pics_attributes: [:id, :name, :tel, :title, :_destroy])
     end
 end

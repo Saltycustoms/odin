@@ -16,3 +16,11 @@
 //= require jquery_nested_form
 //= require_tree .
 //= require scripts/toolkit
+
+$(document).on('turbolinks:load', function() {
+  $(function() {
+    var sidebar = $('[data-sidebar]')
+    pathing = sidebar.data("controller") + '-' + sidebar.data("action")
+    $('[data-pathing=' + pathing + ']').addClass('active')
+  })
+});
