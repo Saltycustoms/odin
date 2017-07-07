@@ -47,9 +47,9 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
 	var _foundation = __webpack_require__(3);
-	
-	$(document).ready(function () {
-	  $(document).foundation();
+
+	$(document).on('turbolinks:load', function() {	  
+    $(document).foundation();
 	}); /**
 	     * Toolkit JavaScript
 	     */
