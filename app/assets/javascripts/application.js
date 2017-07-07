@@ -18,9 +18,8 @@
 //= require scripts/toolkit
 
 $(document).on('turbolinks:load', function() {
-  $(function() {
+  console.log('hi')
     var sidebar = $('[data-sidebar]')
     pathing = sidebar.data("controller") + '-' + sidebar.data("action")
     $('[data-pathing=' + pathing + ']').addClass('active')
-  })
 });
