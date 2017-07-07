@@ -35,15 +35,15 @@
   </div>
 
   <div class="row columns">
-    <%= form.simple_fields_for :print_details do |print_detail| %>
-      <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
+    <fieldset class="callout">
+      <%= form.simple_fields_for :print_details do |print_detail| %>
+        <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
+        <%= print_detail.link_to_remove "Remove This Print Detail" %>
+      <% end %>
 
-      <%= print_detail.link_to_remove "Remove This Print Detail" %>
-    <% end %>
-    <p><%= form.link_to_add "Add print detail", :print_details %></p>
+      <%= form.link_to_add "Add print detail", :print_details, class: "button" %>
+    </fieldset>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.button :submit %>
 <% end %>
