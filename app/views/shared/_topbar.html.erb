@@ -3,7 +3,9 @@
     <div class="top-bar-left">
       <ul class="menu">
         <li>
-          <%= link_to Rails.application.class.parent_name, root_path %>
+          <%= button_tag class: "button", data: {toggle: "offCanvas"} do %>
+            <span class="fa fa-bars"></span>
+          <% end %>
         </li>
       </ul>
     </div>
