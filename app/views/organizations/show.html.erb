@@ -19,12 +19,14 @@
 
 <% @organization.departments.each do |department| %>
   <div class="callout">
-
-    <h2><%= department.name %><%= link_to "Edit", edit_organization_department_path(@organization, department), class: "button" %></h2>
+    <div class="row column">
+      <h2 class="float-left"><%= link_to department.name, organization_department_path(@organization, department) %></h2>
+      <%= link_to "Edit", edit_organization_department_path(@organization, department), class: "button float-right warning" %>
+    </div>
 
     <div class="row column">
-      <h5 class="float-left">PIC</h5>
-      <p class="float-right"><button class="button add-pic-button" data-open="add-pic-modal" data-dept-url="<%= "/organizations/#{@organization.id}/departments/#{department.id}" %>" data-dept-name="<%= department.name %>">Add PIC</button></p>
+      <h4 class="float-left">PIC</h4>
+      <button class="button add-pic-button float-right" data-open="add-pic-modal" data-dept-url="<%= "/organizations/#{@organization.id}/departments/#{department.id}" %>" data-dept-name="<%= department.name %>">Add PIC</button>
     </div>
 
     <table>
