@@ -3,7 +3,9 @@
     <div class="top-bar-left">
       <ul class="menu">
         <li>
-          <%= button_tag "Menu", class: "button", data: {toggle: "offCanvas"} %>
+          <%= button_tag class: "button", data: {toggle: "offCanvas"} do %>
+            <span class="fa fa-bars"></span>
+          <% end %>
         </li>
       </ul>
     </div>
