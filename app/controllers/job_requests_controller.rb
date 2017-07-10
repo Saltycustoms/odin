@@ -1,5 +1,6 @@
 class JobRequestsController < ApplicationController
   before_action :set_job_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_deal
 
   # GET /job_requests
   # GET /job_requests.json
@@ -24,12 +25,12 @@ class JobRequestsController < ApplicationController
   # POST /job_requests
   # POST /job_requests.json
   def create
-    @job_request = JobRequest.new(job_request_params)
+    @job_request = @deal.job_requests.new(job_request_params)
 
     respond_to do |format|
       if @job_request.save
         # Publisher.publish("design", @job_request.attributes)
-        format.html { redirect_to @job_request, notice: 'Job request was successfully created.' }
+        format.html { redirect_to @deal, notice: 'Job request was successfully created.' }
         format.json { render :show, status: :created, location: @job_request }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class JobRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @job_request.update(job_request_params)
-        format.html { redirect_to @job_request, notice: 'Job request was successfully updated.' }
+        format.html { redirect_to @deal, notice: 'Job request was successfully updated.' }
         format.json { render :show, status: :ok, location: @job_request }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class JobRequestsController < ApplicationController
   def destroy
     @job_request.destroy
     respond_to do |format|
-      format.html { redirect_to job_requests_url, notice: 'Job request was successfully destroyed.' }
+      format.html { redirect_to @deal, notice: 'Job request was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,8 +69,13 @@ class JobRequestsController < ApplicationController
       @job_request = JobRequest.find(params[:id])
     end
 
+    def set_deal
+      @deal = Deal.find(params[:deal_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_request_params
-      params.require(:job_request).permit(:deal_id, :product_id, :color_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :pantone_code, :remark, :sample_required, :budget, :client_comment)
+      params.require(:job_request).permit(:deal_id, :product_id, :color_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :pantone_code, :remark, :sample_required, :budget, :client_comment,
+      print_details_attributes: [:id, :position, :print_method, :block, :color_count, :_destroy])
     end
 end

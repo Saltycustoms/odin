@@ -1,4 +1,8 @@
-<h1>New Deadline for <%= @deal.display_name %></h1>
+<% content_for :header_actions do %>
+  <%= link_to "Back", @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "New Deadline for #{@deal.display_name}"} %>
 
 <%= simple_form_for [@deal, @deadline] do |f| %>
   <%= f.input :deadline, html5: true %>
@@ -6,5 +10,3 @@
   <%= f.input :cause_by, collection: ["Factory", "Client"] %>
   <%= f.button :submit %>
 <% end %>
-
-<%= link_to "Back", @deal %>

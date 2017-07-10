@@ -3,15 +3,32 @@
   <%= link_to 'Back', deals_path %>
 <% end %>
 
-<%= render "shared/page_header", {title: @deal.name} %>
+<%= render "shared/page_header", {title: @deal.display_name} %>
 
-<div class="row columns">
-  <p>
-    <strong>No of pcs:</strong>
-    <%= @deal.no_of_pcs %>
-  </p>
+<div class="row medium-unstack">
+  <div class="columns">
+    <p>
+      <strong>No of pcs:</strong>
+      <%= @deal.no_of_pcs %>
+    </p>
+    <p>
+      <strong>PIC:</strong>
+      <%= @deal.pic.name %>
+    </p>
+  </div>
+  <div class="columns medium-text-right">
+    <p>
+      <strong>Client Deadline:</strong>
+      <%= @deal.client_deadline %>
+      <div class="button-group">
+        <%= link_to "Past deadlines", deal_deadlines_path(@deal), class: "button" %>
+        <%= link_to "New Deadline", new_deal_deadline_path(@deal), class: "button alert" if @deal.client_deadline %>
+      </div>
+    </p>
+  </div>
+
 </div>
-  
+
 <div class="callout">
   <%= render partial: "job_requests/list", object: @deal.job_requests %>
 </div>

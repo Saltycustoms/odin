@@ -1,6 +1,8 @@
-<h1>Editing Organization</h1>
+<% content_for :header_actions do %>
+  <%= link_to 'Show', @organization %> |
+  <%= link_to 'Back', organizations_path %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Editing Organization"} %>
 
 <%= render 'form', organization: @organization %>
-
-<%= link_to 'Show', @organization %> |
-<%= link_to 'Back', organizations_path %>
