@@ -17,7 +17,7 @@
 
 <%= render partial: 'deals/list', object: @department.deals %>
 
-<%= link_to 'New Deal', new_department_deal_path(@department) %>
+<%= link_to 'New Deal', new_department_deal_path(@department, organization_id: @organization) %>
 
-<%= link_to 'Edit', edit_department_path(@department) %> |
-<%= link_to 'Back', @organization ? @organization : departments_path %>
+<%= link_to 'Edit', [:edit, @organization, @department] %> |
+<%= link_to 'Back', @organization || @department %>
