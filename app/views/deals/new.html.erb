@@ -1,8 +1,8 @@
-<div class="row column">
-<%= link_to 'Back', deals_path %>
-</div>
+<% content_for :header_actions do %>
+  <%= link_to 'Back', deals_path %>
+<% end %>
 
-<h1>New Deal</h1>
+<%= render "shared/page_header", {title: "New deal"} %>
 
 <%= render 'form', deal: @deal %>
 

@@ -7,3 +7,19 @@
 .content {
   min-height: 100vh;
 }
+
+.page-header {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e6e6e6;
+
+  &-title {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  &-title,
+  .button {
+    margin-bottom: 0;
+  }
+}
