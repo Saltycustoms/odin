@@ -1,3 +1,5 @@
+$border-color: #e6e6e6;
+
 .sidebar, 
 .content {
   padding-top: 2rem;
@@ -8,10 +10,11 @@
   min-height: 100vh;
 }
 
+.callout-header,
 .page-header {
   padding-bottom: 1rem;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #e6e6e6;
+  border-bottom: 2px solid $border-color;
 
   &-title {
     font-weight: bold;
@@ -23,3 +26,8 @@
     margin-bottom: 0;
   }
 }
+
+.callout-header {
+  border-width: 1px;
+}
+
