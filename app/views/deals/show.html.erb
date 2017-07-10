@@ -1,18 +1,16 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Edit', edit_deal_path(@deal) %> |
+  <%= link_to 'Back', deals_path %>
+<% end %>
+
+<%= render "shared/page_header", {title: @deal.name} %>
+
 <div class="row columns">
-    <h2><%= @deal.name %></h2>
-    
-    <strong>Department:</strong> <%= @deal.department_id %>
-    <p>
-      <strong>No of pcs:</strong>
-      <%= @deal.no_of_pcs %>
-    </p>
-    <p>
-      <%= link_to 'Edit', edit_deal_path(@deal) %> |
-      <%= link_to 'Back', deals_path %>
-    </p>
-    <hr>
+  <p>
+    <strong>No of pcs:</strong>
+    <%= @deal.no_of_pcs %>
+  </p>
 </div>
   
-<%= link_to "Submit a Job Request", new_deal_job_request_path(@deal), class: "button" %>
 <%= render partial: "job_requests/list", object: @deal.job_requests %>
 
