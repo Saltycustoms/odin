@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'deadlines/index'
+
   namespace :api do
     namespace :v1 do
       resources :deals
@@ -9,11 +11,14 @@ Rails.application.routes.draw do
   resources :job_requests
   resources :deals do
     resources :job_requests
+    resources :deadlines
   end
   resources :departments do
     resources :deals
   end
-  resources :pics
+  resources :pics do
+    resources :deals
+  end
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks", :sessions=> 'users/sessions' }
   resources :organizations do
     resources :departments

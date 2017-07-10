@@ -1,0 +1,24 @@
+<h1>Past Deadlines for <%= @deal.display_name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Deadline</th>
+      <th>Reason</th>
+      <th>Cause By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @deal.deadlines.order(id: :asc).each do |deadline| %>
+      <tr>
+        <td><%= deadline.id %></td>
+        <td><%= deadline.deadline %></td>
+        <td><%= simple_format deadline.reason %></td>
+        <td><%= deadline.cause_by %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back", @deal %>

@@ -45,6 +45,7 @@
             <td><%= pic.name %></td>
             <td><%= pic.tel %></td>
             <td><%= pic.title %></td>
+            <td><%= link_to "Add Deal", new_pic_deal_path(pic) %></td>
           </tr>
         <% end %>
       </tbody>
@@ -59,16 +60,19 @@
         <tr>
           <th>No</th>
           <th>Name</th>
-          <th>Tel</th>
-          <th>Title</th>
+          <th>No Of Pieces</th>
+          <th>Client Deadline</th>
+          <th>PIC</th>
         </tr>
       </thead>
       <tbody>
         <% department.deals.each do |deal| %>
           <tr>
             <td><%= deal.id %></td>
+            <td><%= deal.name %></td>
             <td><%= deal.no_of_pcs %></td>
             <td><%= deal.client_deadline %></td>
+            <td><%= deal.pic.name %></td>
           </tr>
         <% end %>
       </tbody>

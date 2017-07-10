@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  deal: one
+  reason: MyText
+  cause_by: MyString
+
+two:
+  deal: two
+  reason: MyText
+  cause_by: MyString
