@@ -1,23 +1,21 @@
-<div class="row columns">
-    <h2><%= @deal.display_name %></h2>
-    <p>
-      <strong>No of pcs:</strong>
-      <%= @deal.no_of_pcs %>
-    </p>
-    <p>
-      <strong>Client Deadline:</strong>
-      <%= @deal.client_deadline %>
-      <div class="button-group">
-        <%= link_to "Past deadlines", deal_deadlines_path(@deal), class: "button" %>
-        <%= link_to "New Deadline", new_deal_deadline_path(@deal), class: "button alert" if @deal.client_deadline %>
-      </div>
-    </p>
-    <p>
-      <%= link_to 'Edit', edit_deal_path(@deal) %> |
-      <%= link_to 'Back', deals_path %>
-    </p>
-    <hr>
-</div>
+<% content_for :header_actions do %>
+  <%= link_to 'Edit', edit_deal_path(@deal) %> |
+  <%= link_to 'Back', deals_path %>
+<% end %>
 
-<%= link_to "Submit a Job Request", new_deal_job_request_path(@deal), class: "button" %>
+<%= render "shared/page_header", {title: @deal.name} %>
+
+<div class="row columns">
+  <p>
+    <strong>No of pcs:</strong>
+    <%= @deal.no_of_pcs %>
+  </p>
+</div>
+  
 <%= render partial: "job_requests/list", object: @deal.job_requests %>
+
+<hr>
+
+<div class="callout">
+  <%= render partial: "job_requests/list", object: @deal.job_requests %>
+</div>

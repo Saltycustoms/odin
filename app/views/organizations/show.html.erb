@@ -1,21 +1,26 @@
-<p id="notice"><%= notice %></p>
+<% content_for :header_actions do %>
+  <%= link_to 'Edit', edit_organization_path(@organization) %> |
+  <%= link_to 'Back', organizations_path %>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @organization.name %>
-</p>
+<%= render "shared/page_header", {title: @organization.name} %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @organization.description %>
-</p>
+<div class="row medium-unstack">
+  <div class="columns">
+    <p>
+      <strong>Description:</strong>
+      <%= @organization.description %>
+    </p>
+    <p>
+      <strong>Industry:</strong>
+      <%= @organization.industry %>
+    </p>
+  </div>
+  <div class="columns medium-text-right">
+    <%= link_to 'Add Department', new_organization_department_path(@organization), class: "button" %>
+  </div>
+</div>
 
-<p>
-  <strong>Industry:</strong>
-  <%= @organization.industry %>
-</p>
-
-<%= link_to 'Add Department', new_organization_department_path(@organization), class: "button" %>
 
 <% @organization.departments.each do |department| %>
   <div class="callout">
@@ -103,5 +108,3 @@
   </div>
 <% end %>
 
-<%= link_to 'Edit', edit_organization_path(@organization) %> |
-<%= link_to 'Back', organizations_path %>
