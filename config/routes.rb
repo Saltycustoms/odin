@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'deadlines/index'
+
   namespace :api do
     namespace :v1 do
       resources :deals
@@ -9,6 +11,7 @@ Rails.application.routes.draw do
   resources :job_requests
   resources :deals do
     resources :job_requests
+    resources :deadlines
   end
   resources :departments do
     resources :deals

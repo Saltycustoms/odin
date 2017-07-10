@@ -1,0 +1,10 @@
+<h1>New Deadline for <%= @deal.display_name %></h1>
+
+<%= simple_form_for [@deal, @deadline] do |f| %>
+  <%= f.input :deadline, html5: true %>
+  <%= f.input :reason, input_html: {rows: 10} %>
+  <%= f.input :cause_by, collection: ["Factory", "Client"] %>
+  <%= f.button :submit %>
+<% end %>
+
+<%= link_to "Back", @deal %>

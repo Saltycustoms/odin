@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707055047) do
+ActiveRecord::Schema.define(version: 20170710070131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "deadlines", force: :cascade do |t|
+    t.bigint "deal_id"
+    t.date "deadline"
+    t.text "reason"
+    t.string "cause_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deal_id"], name: "index_deadlines_on_deal_id"
+  end
 
   create_table "deals", force: :cascade do |t|
     t.integer "department_id"
@@ -21,7 +31,6 @@ ActiveRecord::Schema.define(version: 20170707055047) do
     t.integer "no_of_pcs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "client_deadline"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -101,4 +110,5 @@ ActiveRecord::Schema.define(version: 20170707055047) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "deadlines", "deals"
 end
