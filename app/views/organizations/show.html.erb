@@ -49,6 +49,31 @@
         <% end %>
       </tbody>
     </table>
+
+    <div class="row column">
+      <h4 class="float-left">Deals</h4>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Name</th>
+          <th>Tel</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% department.deals.each do |deal| %>
+          <tr>
+            <td><%= deal.id %></td>
+            <td><%= deal.no_of_pcs %></td>
+            <td><%= deal.client_deadline %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
   </div>
 <% end %>
 <% if @department %>

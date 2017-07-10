@@ -1,5 +1,6 @@
 class DealsController < ApplicationController
   before_action :set_deal, only: [:show, :edit, :update, :destroy]
+  before_action :set_department
   before_action :establish_connection, only: [:create, :update]
 
   # GET /deals
@@ -25,11 +26,13 @@ class DealsController < ApplicationController
   # POST /deals
   # POST /deals.json
   def create
-    @deal = Deal.new(deal_params)
+    byebug
+    @department ? @deal = @department.deals.new(deal_params) : @deal = Deal.new(deal_params)
+
 
     respond_to do |format|
-      if @deal.save        
-        format.html { redirect_to @deal, notice: 'Deal was successfully created.' }
+      if @deal.save
+        format.html { redirect_to @department || @deal, notice: 'Deal was successfully created.' }
         format.json { render :show, status: :created, location: @deal }
       else
         format.html { render :new }
@@ -43,7 +46,7 @@ class DealsController < ApplicationController
   def update
     respond_to do |format|
       if @deal.update(deal_params)
-        format.html { redirect_to @deal, notice: 'Deal was successfully updated.' }
+        format.html { redirect_to @department || @deal, notice: 'Deal was successfully updated.' }
         format.json { render :show, status: :ok, location: @deal }
       else
         format.html { render :edit }
@@ -73,8 +76,12 @@ class DealsController < ApplicationController
       @deal = Deal.find(params[:id])
     end
 
+    def set_department
+      @department = Department.find_by(id: params[:department_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def deal_params
-      params.require(:deal).permit(:department_id, :name, :no_of_pcs)
+      params.require(:deal).permit(:department_id, :name, :no_of_pcs, :client_deadline)
     end
 end

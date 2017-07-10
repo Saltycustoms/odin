@@ -1,7 +1,7 @@
-<%= simple_form_for deal do |f| %>
-  <%= f.association :department %>
+<%= simple_form_for [department, deal] do |f| %>
+  <%= f.input :department_id, collection: Department.all.collect { |d| ["#{d.organization.name}, #{d.name}", d.id] } unless @department %>
   <%= f.input :name %>
   <%= f.input :no_of_pcs %>
-  <%= f.input :client_deadline, html5: true %>
+  <%= f.input :client_deadline, html5: true if (deal.client_deadline.nil?) %>
   <%= f.button :submit %>
 <% end %>

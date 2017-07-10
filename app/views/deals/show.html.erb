@@ -1,10 +1,12 @@
 <div class="row columns">
-    <h2><%= @deal.name %></h2>
-    
-    <strong>Department:</strong> <%= @deal.department_id %>
+    <h2><%= "#{@deal.name} - #{@deal.department.organization.name}, #{@deal.department.name}" %></h2>
     <p>
       <strong>No of pcs:</strong>
       <%= @deal.no_of_pcs %>
+    </p>
+    <p>
+      <strong>Client Deadline:</strong>
+      <%= @deal.client_deadline %> <%= link_to "Change Deadline", nil, class: "button" if @deal.client_deadline %>
     </p>
     <p>
       <%= link_to 'Edit', edit_deal_path(@deal) %> |
@@ -12,7 +14,6 @@
     </p>
     <hr>
 </div>
-  
+
 <%= link_to "Submit a Job Request", new_deal_job_request_path(@deal), class: "button" %>
 <%= render partial: "job_requests/list", object: @deal.job_requests %>
-
