@@ -21,7 +21,15 @@
     <% end %>
 
     <div id="offCanvas" class="off-canvas position-left" data-transition="overlap" data-off-canvas>
+      <%= button_tag class: "button", data: {toggle: "offCanvas"} do %> 
+        <%= tag.span class: "fa fa-close" %>
+      <% end %>
+
+
       <div class="sidebar">
+        <%= link_to root_path, class: "logo text-center" do %>
+          <%= image_tag "logo.svg", style: "max-width: 3rem;" %>
+        <% end %>
         <%= render "shared/menu" if user_signed_in? %>
         <%= yield(:sidebar) %>
       </div>
