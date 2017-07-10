@@ -20,13 +20,15 @@
       </div>
     <% end %>
 
-    <div class="row">
-      <div class="sidebar border-right columns small-12 medium-3">
+    <div id="offCanvas" class="off-canvas position-left" data-transition="overlap" data-off-canvas>
+      <div class="sidebar">
         <%= render "shared/menu" if user_signed_in? %>
         <%= yield(:sidebar) %>
       </div>
+    </div>
 
-      <div class="content columns small-12 medium-9">
+    <div class="off-canvas-content" data-off-canvas-content>
+      <div class="content row column">
         <%= yield %>
       </div>
     </div>
