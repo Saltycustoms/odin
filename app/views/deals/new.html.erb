@@ -1,4 +1,8 @@
-<h1>New Deal <%= "for #{@department.organization.name} (#{@department.name})" if @department %></h1>
+<% content_for :header_actions do %>
+  <%= link_to 'Back', deals_path %>
+<% end %>
+
+<%= render "shared/page_header", {title: "New deal" + (@department ? " for #{@department.organization.name}, #{@department.name}" : "") } %>
 
 <%= render 'form', deal: @deal, department: @department %>
 

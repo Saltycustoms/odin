@@ -1,7 +1,8 @@
-<div class="row column">
-<%= link_to 'Show', @deal %> |
-<%= link_to 'Back', deals_path %>
-</div>
+<% content_for :header_actions do %>
+  <%= link_to 'Show', @deal %> |
+  <%= link_to 'Back', deals_path %>
+<% end %>
 
-<h1>Editing Deal</h1>
+<%= render "shared/page_header", {title: "Editing Deal"} %>
+
 <%= render 'form', deal: @deal, department: @department %>
