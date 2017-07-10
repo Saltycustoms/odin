@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Organization:</strong>
-  <%= @department.organization_id %>
+  <%= @department.organization.name %>
 </p>
 
 <p>
@@ -15,9 +13,60 @@
   <%= @department.description %>
 </p>
 
-<%= render partial: 'deals/list', object: @department.deals %>
+<h1>PIC</h1>
 
-<%= link_to 'New Deal', new_department_deal_path(@department, organization_id: @organization) %>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Tel</th>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @department.pics.each do |pic| %>
+      <tr>
+        <td><%= pic.id %></td>
+        <td><%= pic.name %></td>
+        <td><%= pic.tel %></td>
+        <td><%= pic.title %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Deal', new_department_deal_path(@department), class: "button" %>
+
+<h1>Deals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>No of pcs</th>
+      <th>Client Deadline</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @department.deals.each do |deal| %>
+      <tr>
+        <td><%= deal.id %></td>
+        <td><%= deal.name %></td>
+        <td><%= deal.no_of_pcs %></td>
+        <td><%= deal.client_deadline %></td>
+        <td><%= link_to 'Show', deal %></td>
+        <td><%= link_to 'Edit', edit_deal_path(deal) %></td>
+        <td><%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', [:edit, @organization, @department] %> |
 <%= link_to 'Back', @organization || @department %>

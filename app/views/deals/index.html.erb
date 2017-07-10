@@ -3,9 +3,10 @@
 <table>
   <thead>
     <tr>
-      <th>Department</th>
+      <th>Id</th>
       <th>Name</th>
       <th>No of pcs</th>
+      <th>Client Deadline</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -13,9 +14,10 @@
   <tbody>
     <% @deals.each do |deal| %>
       <tr>
-        <td><%= deal.department_id %></td>
-        <td><%= deal.name %></td>
+        <td><%= deal.id %></td>
+        <td><%= "#{deal.name} - #{deal.department.organization.name}, #{deal.department.name}" %></td>
         <td><%= deal.no_of_pcs %></td>
+        <td><%= deal.client_deadline %></td>
         <td>
           <div class="button-group">
             <%= link_to 'Show', deal, class: "button" %>

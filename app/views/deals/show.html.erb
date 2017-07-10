@@ -1,6 +1,6 @@
 <div class="row columns">
-    <h2><%= @deal.name %></h2>
-    
+    <h2><%= "#{@deal.name} - #{@deal.department.organization.name}, #{@deal.department.name}" %></h2>
+
     <strong>Department:</strong> <%= @deal.department_id %>
     <p>
       <strong>No of pcs:</strong>
@@ -12,7 +12,6 @@
     </p>
     <hr>
 </div>
-  
+
 <%= link_to "Submit a Job Request", new_deal_job_request_path(@deal), class: "button" %>
 <%= render partial: "job_requests/list", object: @deal.job_requests %>
-

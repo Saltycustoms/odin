@@ -1,8 +1,5 @@
-<div class="row column">
-<%= link_to 'Back', deals_path %>
-</div>
+<h1>New Deal <%= "for #{@department.organization.name} (#{@department.name})" if @department %></h1>
 
-<h1>New Deal</h1>
+<%= render 'form', deal: @deal, department: @department %>
 
-<%= render 'form', deal: @deal %>
-
+<%= link_to 'Back', @department || deals_path %>
