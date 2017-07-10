@@ -1,5 +1,8 @@
-<%= link_to 'Show', @job_request %> |
-<%= link_to 'Back', job_requests_path %>
-<h1>Editing Job Request</h1>
+<% content_for :header_actions do %>
+  <%= link_to 'Show', @job_request %> |
+  <%= link_to 'Back', @deal %>
+<% end %>
 
-<%= render 'form', job_request: @job_request %>
+<%= render "shared/page_header", {title: "Editing Job Request"} %>
+
+<%= render 'form', deal: @deal, job_request: @job_request %>

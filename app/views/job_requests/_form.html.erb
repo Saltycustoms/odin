@@ -1,19 +1,6 @@
-<%= simple_nested_form_for(job_request) do |form| %>
-  <% if job_request.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(job_request.errors.count, "error") %> prohibited this job_request from being saved:</h2>
-
-      <ul>
-      <% job_request.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= simple_nested_form_for [deal, job_request] do |form| %>
   <div class="row medium-unstack">
     <div class="columns">
-      <%= form.association :deal  %>
       <%= form.input :product_id, as: :select, collection: Product.all.collect { |p| [p[:name], p[:id]]}, include_blank: false %>
       <%= form.input :color_id, collection: Product.all[1][:colors].collect {|c| [c[:name], c[:id]]}, include_blank: false %>
 
@@ -36,12 +23,30 @@
 
   <div class="row columns">
     <fieldset class="callout">
+      <h5>Print Details</h5>
       <%= form.simple_fields_for :print_details do |print_detail| %>
-        <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
-        <%= print_detail.link_to_remove "Remove This Print Detail" %>
+        <div class="row align-bottom">
+          <div class="column">
+            <%= print_detail.input :position %>
+          </div>
+          <div class="column">
+            <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
+          </div>
+            <div class="column">
+            <%= print_detail.input :block %>
+          </div>
+          <div class="column">
+            <%= print_detail.input :color_count %>
+          </div>
+          <div class="small-1 column">
+            <%= print_detail.link_to_remove class: "button alert remove-button" do %>
+              <i class="fa fa-times" aria-hidden="true"></i>
+            <% end %>
+          </div>
+        </div>
       <% end %>
 
-      <%= form.link_to_add "Add print detail", :print_details, class: "button" %>
+      <%= form.link_to_add "Add print detail", :print_details, class: "button warning" %>
     </fieldset>
   </div>
 

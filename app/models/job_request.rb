@@ -2,11 +2,10 @@ class JobRequest < ApplicationRecord
   # has_many :design_requests
   # has_many :designs, through: :design_requests
   belongs_to :deal
-  has_many :print_details
+  has_many :print_details, dependent: :destroy
   jsonb_accessor :metadata,
     sizes: [:string]
-
-  accepts_nested_attributes_for :print_details
+  accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
 
   def designs
     @design_requests = DesignRequest.where(job_request_id: self.id)
