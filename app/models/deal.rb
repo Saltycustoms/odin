@@ -1,10 +1,17 @@
 class Deal < ApplicationRecord
   has_many :job_requests
-  has_many :deadlines
+  has_many :deadlines, dependent: :destroy
   accepts_nested_attributes_for :deadlines, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
-  belongs_to :department
+  belongs_to :department, optional: true
+  belongs_to :organization, optional: true
+  belongs_to :pic, optional: true
   validates :name, presence: true
-  validates :department_id, presence: true
+  before_save :update_dept_and_org
+
+  def update_dept_and_org
+    self.department_id = self.pic.belongable.id
+    self.organization_id = self.pic.belongable.organization.id
+  end
 
   def client_deadline
     last_deadline = deadlines.order(id: :desc).first

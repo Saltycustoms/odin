@@ -2,8 +2,8 @@
   <%= link_to 'Back', deals_path %>
 <% end %>
 
-<%= render "shared/page_header", {title: "New deal" + (@department ? " for #{@department.organization.name}, #{@department.name}" : "") } %>
+<%= render "shared/page_header", {title: "New deal for #{@pic.name} (#{@pic.belongable.organization.name} - #{@pic.belongable.name})"} %>
 
-<%= render 'form', deal: @deal, department: @department %>
+<%= render 'form', deal: @deal, pic: @pic %>
 
-<%= link_to 'Back', @department || deals_path %>
+<%= link_to 'Back', @pic.belongable.organization %>

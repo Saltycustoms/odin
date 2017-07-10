@@ -1,5 +1,4 @@
-<%= simple_form_for [department, deal] do |f| %>
-  <%= f.input :department_id, collection: Department.all.collect { |d| ["#{d.organization.name}, #{d.name}", d.id] } unless @department %>
+<%= simple_form_for [pic, deal] do |f| %>
   <%= f.input :name %>
   <%= f.input :no_of_pcs, label: "Num of Pieces" %>
   <% if deal.client_deadline.nil? %>
