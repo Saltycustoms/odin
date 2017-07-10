@@ -1,4 +1,8 @@
-<h1>Past Deadlines for <%= @deal.display_name %></h1>
+<% content_for :header_actions do %>
+  <%= link_to "Back", @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Past Deadlines for #{@deal.display_name}"} %>
 
 <table>
   <thead>
@@ -20,5 +24,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to "Back", @deal %>

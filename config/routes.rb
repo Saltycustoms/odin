@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     end
   end
   resources :print_details
-  resources :job_requests
   resources :deals do
     resources :job_requests
     resources :deadlines
