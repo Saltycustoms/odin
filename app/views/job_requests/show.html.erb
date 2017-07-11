@@ -75,7 +75,8 @@
   </div>
   <div class="medium-6 column">
     <% if @job_request.quotation %>
-      <%= link_to "Edit Quotation", edit_job_request_quotations_path(@job_request) %>
+      <%= link_to "Edit Quotation", edit_job_request_quotations_path(@job_request), class: "button" %>
+      <%= link_to "Show Quotation", job_request_quotations_path(@job_request), class: "button success" %>
     <% else %>
       <%= link_to "Add Quotation", new_job_request_quotations_path(@job_request) %>
     <% end %>

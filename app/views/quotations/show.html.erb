@@ -1,0 +1,35 @@
+<% content_for :header_actions do %>
+  <%= link_to "Edit", edit_job_request_quotations_path(@job_request) %> |
+  <%= link_to 'Back', deal_job_request_path(@job_request.deal, @job_request) %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Quotation Show"} %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Qty</th>
+      <th>Description</th>
+      <th>Unit Price</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @quotation.quotation_lines.each do |line| %>
+      <tr>
+        <td><%= line.quantity %></td>
+        <td><%= line.description %></td>
+        <td><%= line.price_per_unit_cents %></td>
+        <td><%= line.total_cents %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  Payment Link:
+</p>
+
+<p>
+  Gateway:
+</p>
