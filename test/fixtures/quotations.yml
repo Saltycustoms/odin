@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  deal: one
+  discount: one
+  job_request: one
+  payment_term: MyString
+  discount: 1
+  currency: MyString
+  shipping: 1
+  net_total_cents: 1
+  sub_total_cents: 1
+  tax_cents: 1
+
+two:
+  deal: two
+  discount: two
+  job_request: two
+  payment_term: MyString
+  discount: 1
+  currency: MyString
+  shipping: 1
+  net_total_cents: 1
+  sub_total_cents: 1
+  tax_cents: 1

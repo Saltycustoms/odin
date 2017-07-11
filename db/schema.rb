@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710080252) do
+ActiveRecord::Schema.define(version: 20170711025351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20170710080252) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.bigint "deal_id"
+    t.integer "value"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deal_id"], name: "index_discounts_on_deal_id"
   end
 
   create_table "job_requests", force: :cascade do |t|
@@ -92,6 +101,24 @@ ActiveRecord::Schema.define(version: 20170710080252) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "quotations", force: :cascade do |t|
+    t.bigint "deal_id"
+    t.bigint "discount_id"
+    t.bigint "job_request_id"
+    t.string "payment_term"
+    t.integer "discount"
+    t.string "currency"
+    t.integer "shipping"
+    t.integer "net_total_cents"
+    t.integer "sub_total_cents"
+    t.integer "tax_cents"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deal_id"], name: "index_quotations_on_deal_id"
+    t.index ["discount_id"], name: "index_quotations_on_discount_id"
+    t.index ["job_request_id"], name: "index_quotations_on_job_request_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -113,4 +140,8 @@ ActiveRecord::Schema.define(version: 20170710080252) do
   end
 
   add_foreign_key "deadlines", "deals"
+  add_foreign_key "discounts", "deals"
+  add_foreign_key "quotations", "deals"
+  add_foreign_key "quotations", "discounts"
+  add_foreign_key "quotations", "job_requests"
 end

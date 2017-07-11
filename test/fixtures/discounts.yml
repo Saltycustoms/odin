@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  deal: one
+  value: 1
+  type: 
+
+two:
+  deal: two
+  value: 1
+  type: 
