@@ -1,0 +1,7 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Back', deal_job_request_path(@job_request.deal, @job_request) %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Edit Quotation"} %>
+
+<%= render "form" %>

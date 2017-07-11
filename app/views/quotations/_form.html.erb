@@ -1,0 +1,11 @@
+<%= simple_form_for @quotation, url: @quotation.new_record? ? new_job_request_quotations_path(@job_request) : job_request_quotations_path(@job_request) do |f| %>
+  <%= f.input :deal_id, as: :hidden, input_html: {value: @job_request.deal.id} %>
+  <%= f.input :payment_term %>
+  <%= f.input :discount_value %>
+  <%= f.input :currency %>
+  <%= f.input :shipping %>
+  <%= f.input :net_total_cents %>
+  <%= f.input :sub_total_cents %>
+  <%= f.input :tax_cents %>
+  <%= f.button :submit %>
+<% end %>

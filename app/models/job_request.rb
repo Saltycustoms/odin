@@ -3,6 +3,7 @@ class JobRequest < ApplicationRecord
   # has_many :designs, through: :design_requests
   belongs_to :deal
   has_many :print_details, dependent: :destroy
+  has_one :quotation
   jsonb_accessor :metadata,
     sizes: [:string],
     colors: [:string]

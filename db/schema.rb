@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20170711025351) do
     t.bigint "discount_id"
     t.bigint "job_request_id"
     t.string "payment_term"
-    t.integer "discount"
+    t.integer "discount_value"
     t.string "currency"
     t.integer "shipping"
     t.integer "net_total_cents"
