@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711025351) do
+ActiveRecord::Schema.define(version: 20170711041307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,17 @@ ActiveRecord::Schema.define(version: 20170711025351) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "quotation_lines", force: :cascade do |t|
+    t.bigint "quotation_id"
+    t.string "description"
+    t.integer "price_per_unit_cents"
+    t.integer "quantity"
+    t.integer "total_cents"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quotation_id"], name: "index_quotation_lines_on_quotation_id"
+  end
+
   create_table "quotations", force: :cascade do |t|
     t.bigint "deal_id"
     t.bigint "discount_id"
@@ -141,6 +152,7 @@ ActiveRecord::Schema.define(version: 20170711025351) do
 
   add_foreign_key "deadlines", "deals"
   add_foreign_key "discounts", "deals"
+  add_foreign_key "quotation_lines", "quotations"
   add_foreign_key "quotations", "deals"
   add_foreign_key "quotations", "discounts"
   add_foreign_key "quotations", "job_requests"

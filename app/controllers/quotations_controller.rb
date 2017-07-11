@@ -42,6 +42,7 @@ class QuotationsController < ApplicationController
   end
 
   def quotation_params
-    params.require(:quotation).permit(:deal_id, :discount_id, :job_request_id, :payment_term, :discount_value, :currency, :shipping, :net_total_cents, :sub_total_cents, :tax_cents)
+    params.require(:quotation).permit(:deal_id, :discount_id, :job_request_id, :payment_term, :discount_value, :currency, :shipping, :net_total_cents, :sub_total_cents, :tax_cents,
+    quotation_lines_attributes: [:id, :price_per_unit_cents, :quantity, :description, :_destroy])
   end
 end

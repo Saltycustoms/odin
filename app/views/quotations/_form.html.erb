@@ -1,11 +1,41 @@
-<%= simple_form_for @quotation, url: @quotation.new_record? ? new_job_request_quotations_path(@job_request) : job_request_quotations_path(@job_request) do |f| %>
-  <%= f.input :deal_id, as: :hidden, input_html: {value: @job_request.deal.id} %>
-  <%= f.input :payment_term %>
-  <%= f.input :discount_value %>
-  <%= f.input :currency %>
-  <%= f.input :shipping %>
-  <%= f.input :net_total_cents %>
-  <%= f.input :sub_total_cents %>
-  <%= f.input :tax_cents %>
-  <%= f.button :submit %>
-<% end %>
+<%= simple_nested_form_for @quotation, url: @quotation.new_record? ? new_job_request_quotations_path(@job_request) : job_request_quotations_path(@job_request) do |f| %>
+  <div class="row medium-unstack">
+    <div class="columns">
+      <%= f.input :deal_id, as: :hidden, input_html: {value: @job_request.deal.id} %>
+      <%= f.input :payment_term %>
+      <%= f.input :discount_value %>
+      <%= f.input :currency %>
+      <%= f.input :shipping %>
+    </div>
+    <div class="columns">
+      <%= f.input :net_total_cents %>
+      <%= f.input :sub_total_cents %>
+      <%= f.input :tax_cents %>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Add Ons</h3>
+    <%= f.fields_for :quotation_lines do |l| %>
+      <div class="row align-bottom">
+        <div class="column">
+          <%= l.input :description %>
+        </div>
+        <div class="column">
+          <%= l.input :price_per_unit_cents %>
+        </div>
+        <div class="column">
+          <%= l.input :quantity %>
+        </div>
+        <div class="small-1 column">
+          <%= l.link_to_remove class: "button alert remove-button" do %>
+            <i class="fa fa-times" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <%= f.link_to_add "Add On", :quotation_lines, class: "button warning" %>
+  </div>
+  <div class="row columns">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
