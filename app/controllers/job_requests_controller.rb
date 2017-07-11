@@ -44,7 +44,7 @@ class JobRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @job_request.update(job_request_params)
-        format.html { redirect_to @deal, notice: 'Job request was successfully updated.' }
+        format.html { redirect_to [@deal, @job_request], notice: 'Job request was successfully updated.' }
         format.json { render :show, status: :ok, location: @job_request }
       else
         format.html { render :edit }
@@ -75,7 +75,7 @@ class JobRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_request_params
-      params.require(:job_request).permit(:deal_id, :product_id, :color_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :pantone_code, :remark, :sample_required, :budget, :client_comment,
+      params.require(:job_request).permit(:deal_id, :product_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :pantone_code, :remark, :sample_required, :budget, :client_comment, colors: [], sizes: [],
       print_details_attributes: [:id, :position, :print_method, :block, :color_count, :_destroy])
     end
 end

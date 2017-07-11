@@ -4,7 +4,8 @@ class JobRequest < ApplicationRecord
   belongs_to :deal
   has_many :print_details, dependent: :destroy
   jsonb_accessor :metadata,
-    sizes: [:string]
+    sizes: [:string],
+    colors: [:string]
   accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
 
   def designs

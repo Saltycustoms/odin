@@ -2,7 +2,7 @@
   <div class="row medium-unstack">
     <div class="columns">
       <%= form.input :product_id, as: :select, collection: Product.all.collect { |p| [p[:name], p[:id]]}, include_blank: false %>
-      <%= form.input :color_id, collection: Product.all[1][:colors].collect {|c| [c[:name], c[:id]]}, include_blank: false %>
+      <%= form.input :colors, collection: Product.all[1][:colors].collect {|c| [c[:name], c[:id]]}, include_blank: false, input_html: { multiple: true } %>
 
       <%= form.input :sizes, collection: Product.all[1][:sizes].collect { |c| [c[:name], c[:id]] }, input_html: { multiple: true } %>
       <%= form.input :name %>
