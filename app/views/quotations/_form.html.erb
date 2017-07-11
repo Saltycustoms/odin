@@ -1,4 +1,4 @@
-<%= simple_nested_form_for @quotation, url: @quotation.new_record? ? new_job_request_quotations_path(@job_request) : job_request_quotations_path(@job_request) do |f| %>
+<%= simple_nested_form_for @quotation, url: job_request_quotations_path(@job_request) do |f| %>
   <div class="row medium-unstack">
     <div class="columns">
       <%= f.input :deal_id, as: :hidden, input_html: {value: @job_request.deal.id} %>
@@ -12,6 +12,19 @@
       <%= f.input :sub_total_cents %>
       <%= f.input :tax_cents %>
     </div>
+  </div>
+  <div class="callout">
+    <h3>Discount</h3>
+    <%= f.fields_for :discount do |d| %>
+    <div class="row">
+      <div class="column">
+        <%= d.input :type, collection: ["Discount::FlatRate", "Discount::Percentage"] %>
+      </div>
+      <div class="column">
+        <%= d.input :value %>
+      </div>
+    </div>
+    <% end %>
   </div>
   <div class="callout">
     <h3>Add Ons</h3>
