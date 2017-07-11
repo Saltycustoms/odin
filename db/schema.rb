@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711041307) do
+ActiveRecord::Schema.define(version: 20170711064918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,13 @@ ActiveRecord::Schema.define(version: 20170711041307) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "metadata"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "deal_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deal_id"], name: "index_orders_on_deal_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -130,6 +137,20 @@ ActiveRecord::Schema.define(version: 20170711041307) do
     t.index ["job_request_id"], name: "index_quotations_on_job_request_id"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "order_id"
+    t.string "transaction_number"
+    t.string "currency"
+    t.integer "value_cents"
+    t.integer "gateway_id"
+    t.string "type"
+    t.text "raw"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_transactions_on_order_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -152,8 +173,10 @@ ActiveRecord::Schema.define(version: 20170711041307) do
 
   add_foreign_key "deadlines", "deals"
   add_foreign_key "discounts", "deals"
+  add_foreign_key "orders", "deals"
   add_foreign_key "quotation_lines", "quotations"
   add_foreign_key "quotations", "deals"
   add_foreign_key "quotations", "discounts"
   add_foreign_key "quotations", "job_requests"
+  add_foreign_key "transactions", "orders"
 end
