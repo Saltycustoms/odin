@@ -21,7 +21,7 @@
       <strong>Client Deadline:</strong>
       <%= @deal.client_deadline %>
       <div class="button-group">
-        <%= link_to "Past deadlines", deal_deadlines_path(@deal), class: "button" %>
+        <%= link_to "View deadlines", deal_deadlines_path(@deal), class: "button" %>
         <%= link_to "New Deadline", new_deal_deadline_path(@deal), class: "button alert" if @deal.client_deadline %>
       </div>
     </p>
