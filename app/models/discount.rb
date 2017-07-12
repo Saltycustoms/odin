@@ -4,6 +4,6 @@ class Discount < ApplicationRecord
   before_save :update_deal_id
 
   def update_deal_id
-    self.deal_id = self.quotation.job_request.deal_id
+    self.deal_id = self.quotation.deal_id
   end
 end

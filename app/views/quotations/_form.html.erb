@@ -1,16 +1,59 @@
 <%= simple_nested_form_for @quotation, url: deal_quotations_path(@deal) do |f| %>
-  <div class="row medium-unstack">
-    <div class="columns">
-      <%= f.input :payment_term %>
-      <%= f.input :currency %>
-      <%= f.input :shipping %>
+
+  <% @deal.job_requests.each do |job_request| %>
+    <div class="row">
+      <div class="small-6 column">
+      </div>
+      <div class="small-6 column text-right">
+      </div>
+      <div class="small-6 column">
+      </div>
+      <div class="small-6 column text-right">
+        <strong>Configurator Price Per Piece:</strong><br>
+        <span class="configurator-price" data-job-request-id="<%= job_request.id %>">
+          <% job_request_lines = 0 %>
+          <% configurator_price = 0 %>
+          <% @deal.quotation.quotation_lines.where.not(quantity: nil).each do |line| %>
+            <% if line.description.split("_").first == job_request.product.name %>
+              <% job_request_lines += line.quantity %>
+            <% end %>
+          <% end %>
+          <% job_request.product.price_ranges.each do |price_range| %>
+              <% if job_request_lines.between?(price_range.from_quantity, price_range.to_quantity) %>
+                <% configurator_price = price_range.price_cents %>
+              <% end %>
+          <% end %>
+          <%= configurator_price %>
+        </span>
+      </div>
     </div>
-    <div class="columns">
-      <%= f.input :net_total_cents %>
-      <%= f.input :sub_total_cents %>
-      <%= f.input :tax_cents %>
-    </div>
-  </div>
+    <h5><%= job_request.product.name %></h5>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <% job_request.selected_sizes.each do |size| %>
+            <th><%= size.name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% job_request.selected_colors.each do |color| %>
+          <tr>
+            <th><%= color.name %></th>
+            <% job_request.selected_sizes.each do |size| %>
+              <%= f.fields_for :quotation_lines, wrapper: false do |ql| %>
+                <% if ql.object.description == "#{job_request.product.name}_#{size.name}_#{color.name}" %>
+                  <td><%= ql.input :quantity, label: false, input_html: {class: "quantity-input", data: {"product-id": job_request.product_id, "job_request-id": job_request.id}} %></td>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
   <div class="callout">
     <h3>Discount</h3>
     <%= f.fields_for :discount do |d| %>
@@ -24,28 +67,44 @@
     </div>
     <% end %>
   </div>
+
   <div class="callout">
     <h3>Add Ons</h3>
     <%= f.fields_for :quotation_lines do |l| %>
-      <div class="row align-bottom">
-        <div class="column">
-          <%= l.input :description %>
+      <% next if l.object.persisted? %>
+        <div class="row align-bottom">
+          <div class="column">
+            <%= l.input :description %>
+          </div>
+          <div class="column">
+            <%= l.input :price_per_unit_cents %>
+          </div>
+          <div class="column">
+            <%= l.input :quantity %>
+          </div>
+          <div class="small-1 column">
+            <%= l.link_to_remove class: "button alert remove-button" do %>
+              <i class="fa fa-times" aria-hidden="true"></i>
+            <% end %>
+          </div>
         </div>
-        <div class="column">
-          <%= l.input :price_per_unit_cents %>
-        </div>
-        <div class="column">
-          <%= l.input :quantity %>
-        </div>
-        <div class="small-1 column">
-          <%= l.link_to_remove class: "button alert remove-button" do %>
-            <i class="fa fa-times" aria-hidden="true"></i>
-          <% end %>
-        </div>
-      </div>
     <% end %>
     <%= f.link_to_add "Add On", :quotation_lines, class: "button warning" %>
   </div>
+
+  <div class="row medium-unstack">
+    <div class="columns">
+      <%= f.input :payment_term %>
+      <%= f.input :currency %>
+      <%= f.input :shipping %>
+    </div>
+    <div class="columns">
+      <%= f.input :net_total_cents %>
+      <%= f.input :sub_total_cents %>
+      <%= f.input :tax_cents %>
+    </div>
+  </div>
+
   <div class="row columns">
     <%= f.button :submit %>
   </div>

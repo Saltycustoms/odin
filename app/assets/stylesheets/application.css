@@ -18,3 +18,7 @@
 .button.add-deal-button {
   margin: 0;
 }
+
+input[type="number"].quantity-input {
+  margin: 0;
+}
