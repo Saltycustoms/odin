@@ -7,14 +7,8 @@
 
 <div class="row medium-unstack">
   <div class="columns">
-    <p>
-      <strong>Description:</strong>
-      <%= @organization.description %>
-    </p>
-    <p>
-      <strong>Industry:</strong>
-      <%= @organization.industry %>
-    </p>
+    <%= simple_format(@organization.description) unless @organization.description.blank? %>
+    <%= simple_format(@organization.industry) %>
   </div>
   <div class="columns medium-text-right">
     <%= link_to 'Add Department', new_organization_department_path(@organization), class: "button" %>
@@ -24,64 +18,71 @@
 
 <% @organization.departments.each do |department| %>
   <div class="callout">
-    <div class="row column">
-      <h2 class="float-left"><%= link_to department.name, organization_department_path(@organization, department) %></h2>
-      <%= link_to "Edit", edit_organization_department_path(@organization, department), class: "button float-right warning" %>
+    <div class="callout-header row align-middle">
+      <div class="column">
+        <h4 class="callout-header-title">
+          <%= link_to department.name, organization_department_path(@organization, department) %>
+        </h4>
+      </div>
+      <div class="column medium-text-right">
+        <%= link_to "Edit", edit_organization_department_path(@organization, department), class: "button warning" %>
+      </div>
     </div>
 
-    <div class="row column">
-      <h4 class="float-left">PIC</h4>
-      <button class="button add-pic-button float-right" data-open="add-pic-modal" data-dept-url="<%= "/organizations/#{@organization.id}/departments/#{department.id}" %>" data-dept-name="<%= department.name %>">Add PIC</button>
-    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Name</th>
-          <th>Tel</th>
-          <th>Title</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% department.pics.each do |pic| %>
+    <% if department.pics.any? %>
+      <h5 class="subheader"><strong>Person(s) in charge</strong></h5>
+      <table>
+        <thead>
           <tr>
-            <td><%= pic.id %></td>
-            <td><%= pic.name %></td>
-            <td><%= pic.tel %></td>
-            <td><%= pic.title %></td>
-            <td><%= link_to "Add Deal", new_pic_deal_path(pic), class: "button success add-deal-button" %></td>
+            <th>Name</th>
+            <th>Tel</th>
+            <th>Title</th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% department.pics.each do |pic| %>
+            <tr>
+              <td><%= pic.name %></td>
+              <td><%= pic.tel %></td>
+              <td><%= pic.title %></td>
+              <td class="text-right"><%= link_to "Add Deal", new_pic_deal_path(pic), class: "button expanded add-deal-button" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <button class="button add-pic-button" data-open="add-pic-modal" data-dept-url="<%= "/organizations/#{@organization.id}/departments/#{department.id}" %>" data-dept-name="<%= department.name %>">Add PIC</button>
+    <% end %>
 
-    <div class="row column">
-      <h4 class="float-left">Deals</h4>
-    </div>
+    <% if department.deals.any? %>
+      <hr>
+      <div class="row column">
+        <h5 class="subheader"><strong>Deals</strong></h5>
+      </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Name</th>
-          <th>No Of Pieces</th>
-          <th>Client Deadline</th>
-          <th>PIC</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% department.deals.each do |deal| %>
+      <table>
+        <thead>
           <tr>
-            <td><%= deal.id %></td>
-            <td><%= deal.name %></td>
-            <td><%= deal.no_of_pcs %></td>
-            <td><%= deal.client_deadline %></td>
-            <td><%= deal.pic.name %></td>
+            <th>Name</th>
+            <th>No Of Pieces</th>
+            <th>Client Deadline</th>
+            <th>PIC</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% department.deals.each do |deal| %>
+            <tr>
+              <td><%= link_to deal.name, deal %></td>
+              <td><%= deal.no_of_pcs %></td>
+              <td><%= deal.client_deadline %></td>
+              <td><%= deal.pic.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
 
   </div>
 <% end %>
