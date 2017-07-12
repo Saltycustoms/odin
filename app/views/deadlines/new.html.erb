@@ -2,7 +2,7 @@
   <%= link_to "Back", @deal %>
 <% end %>
 
-<%= render "shared/page_header", {title: "New Deadline for #{@deal.display_name}"} %>
+<%= render "shared/page_header", {title: @deal.display_name} %>
 
 <%= simple_form_for [@deal, @deadline] do |f| %>
   <%= f.input :deadline, html5: true %>

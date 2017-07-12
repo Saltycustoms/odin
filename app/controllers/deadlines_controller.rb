@@ -2,6 +2,7 @@ class DeadlinesController < ApplicationController
   before_action :set_deal
 
   def index
+    @deadlines = @deal.deadlines.order(created_at: :desc) 
   end
 
   def new
