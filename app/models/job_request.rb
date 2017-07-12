@@ -8,7 +8,7 @@ class JobRequest < ApplicationRecord
     sizes: [:string],
     colors: [:string]
   accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
-
+  validates :product_id, :colors, :sizes, presence: true
   def designs
     @design_requests = DesignRequest.where(job_request_id: self.id)
     return [] if @design_requests.blank?
