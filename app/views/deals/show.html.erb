@@ -30,5 +30,9 @@
 </div>
 
 <div class="callout">
+  <%= link_to "Quotation", new_deal_quotations_path(@deal) %>
+</div>
+
+<div class="callout">
   <%= render partial: "job_requests/list", object: @deal.job_requests %>
 </div>
