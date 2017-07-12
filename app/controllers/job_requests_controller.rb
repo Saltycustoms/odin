@@ -16,10 +16,12 @@ class JobRequestsController < ApplicationController
   # GET /job_requests/new
   def new
     @job_request = JobRequest.new
+    @product = Product.first
   end
 
   # GET /job_requests/1/edit
   def edit
+    @job_request.product ? @product = @job_request.product : @product = Product.first
   end
 
   # POST /job_requests

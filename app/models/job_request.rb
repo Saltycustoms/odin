@@ -17,7 +17,7 @@ class JobRequest < ApplicationRecord
   end
 
   def product
-    Product.find(product_id)
+    Product.find(product_id) if product_id
   end
 
   def selected_sizes
@@ -34,5 +34,13 @@ class JobRequest < ApplicationRecord
     else
       []
     end
+  end
+
+  def selected_size_ids
+    selected_sizes.collect { |s| s.id }
+  end
+
+  def selected_color_ids
+    selected_colors.collect { |s| s.id }
   end
 end

@@ -2,8 +2,8 @@
   <div class="row medium-unstack">
     <div class="columns">
       <%= form.input :product_id, collection: Product.all.collect { |p| [p.name, p.id] }, input_html: {id: "product-select"} %>
-      <%= form.input :colors, collection: Product.first.colors.collect { |c| [c.name, c.id] }, input_html: { multiple: true, id: "colors-select" } %>
-      <%= form.input :sizes, collection: Product.first.sizes.collect { |s| [s.name, s.id] }, input_html: { multiple: true, id: "sizes-select" } %>
+      <%= form.input :colors, collection: @product.colors.collect { |c| [c.name, c.id] }, selected: @product.color_ids & @job_request.selected_color_ids, input_html: { multiple: true, id: "colors-select" } %>
+      <%= form.input :sizes, collection: @product.sizes.collect { |s| [s.name, s.id] }, selected: @product.size_ids & @job_request.selected_size_ids, input_html: { multiple: true, id: "sizes-select" } %>
       <%= form.input :name %>
       <%= form.input :sleeve %>
       <%= form.input :relabeling %>
