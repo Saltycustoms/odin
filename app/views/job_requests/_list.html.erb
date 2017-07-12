@@ -12,13 +12,6 @@
     <tr>
       <th>Deal</th>
       <th>Product</th>
-      <th>Color</th>
-      <th>Sleeve</th>
-      <th>Relabeling</th>
-      <th>Woven tag</th>
-      <th>Hang tag</th>
-      <th>Pantone code</th>
-      <th>Sample required</th>
       <th>Budget</th>
       <th></th>
     </tr>
@@ -27,18 +20,19 @@
   <tbody>
     <% list.each do |job_request| %>
       <tr>
-        <td><%= link_to job_request.name, deal_job_request_path(@deal, job_request) %></td>
+        <td>
+          <%= link_to job_request.name, deal_job_request_path(@deal, job_request) %>
+          <%= link_to edit_deal_job_request_path(@deal, job_request), class: "pull-right" do %>
+            <span title="Edit" class="fa fa-pencil"></span>
+          <% end %>
+        </td>
         <td><%= job_request.product_id %></td>
-        <td><%= job_request.color_id %></td>
-        <td><%= job_request.sleeve %></td>
-        <td><%= job_request.relabeling %></td>
-        <td><%= job_request.woven_tag %></td>
-        <td><%= job_request.hang_tag %></td>
-        <td><%= job_request.pantone_code %></td>
-        <td><%= job_request.sample_required %></td>
         <td><%= job_request.budget %></td>
-        <td><%= link_to 'Edit', edit_deal_job_request_path(@deal, job_request) %></td>
-        <td><%= link_to 'Destroy', deal_job_request_path(@deal, job_request), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="text-center">
+          <%= link_to deal_job_request_path(@deal, job_request), method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <span class="fa fa-trash" title="delete"></span>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
