@@ -5,27 +5,31 @@
 <table>
   <thead>
     <tr>
-      <th>Id</th>
       <th>Name</th>
-      <th>No of pcs</th>
+      <th class="text-center">Edit</th>
+      <th class="text-center">No of pcs</th>
       <th>Client Deadline</th>
-      <th>Actions</th>
+      <th class="text-center">Delete</th>
     </tr>
   </thead>
 
   <tbody>
     <% @deals.each do |deal| %>
       <tr>
-        <td><%= deal.id %></td>
-        <td><%= "#{deal.name} - #{deal.department.organization.name}, #{deal.department.name}" %></td>
-        <td><%= deal.no_of_pcs %></td>
-        <td><%= deal.client_deadline %></td>
         <td>
-          <div class="button-group">
-            <%= link_to 'Show', deal, class: "button" %>
-            <%= link_to 'Edit', edit_deal_path(deal), class: "button" %>
-            <%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' }, class: "button alert" %>
-          </div>
+          <%= link_to "#{deal.name} - #{deal.department.organization.name}, #{deal.department.name}", deal %>
+        </td>
+        <td class="text-center">
+          <%= link_to edit_deal_path(deal) do %>
+            <span class="fa fa-pencil"></span>
+          <% end %>
+        </td>
+        <td class="text-center"><%= deal.no_of_pcs %></td>
+        <td><%= deal.client_deadline %></td>
+        <td class="text-center">
+          <%= link_to deal, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <span class="fa fa-trash"></span>
+          <% end %>
         </td>
       </tr>
     <% end %>
