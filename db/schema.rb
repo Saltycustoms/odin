@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712030913) do
+ActiveRecord::Schema.define(version: 20170712045127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20170712030913) do
   create_table "job_requests", force: :cascade do |t|
     t.integer "deal_id"
     t.integer "product_id"
-    t.integer "color_id"
     t.string "name"
     t.string "sleeve"
     t.string "relabeling"
@@ -63,12 +62,12 @@ ActiveRecord::Schema.define(version: 20170712030913) do
     t.string "hang_tag"
     t.string "pantone_code"
     t.text "remark"
-    t.string "sample_required"
     t.integer "budget"
     t.text "client_comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "metadata"
+    t.boolean "sample_required", default: false
   end
 
   create_table "orders", force: :cascade do |t|

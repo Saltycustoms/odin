@@ -15,4 +15,24 @@ class JobRequest < ApplicationRecord
     @designs = Design.where(id: @design_requests.collect { |dr| dr.design_id })
     return @designs
   end
+
+  def product
+    Product.find(product_id)
+  end
+
+  def selected_sizes
+    if sizes && JSON.parse(sizes).reject { |s| s.empty? }.present?
+      Size.where(id: JSON.parse(sizes))
+    else
+      []
+    end
+  end
+
+  def selected_colors
+    if colors && JSON.parse(colors).reject { |c| c.empty? }.present?
+      Color.where(id: JSON.parse(colors))
+    else
+      []
+    end
+  end
 end

@@ -15,12 +15,25 @@
 
     <p>
       <strong>Product:</strong>
-      <%= @job_request.product_id %>
+      <%= @job_request.product.name %>
     </p>
 
     <p>
-      <strong>Color:</strong>
-      <%= @job_request.color_id %>
+      <strong>Colors:</strong>
+      <ul>
+        <% @job_request.selected_colors.each do |color| %>
+          <li><%= color.name %></li>
+        <% end %>
+      </ul>
+    </p>
+
+    <p>
+      <strong>Sizes:</strong>
+      <ul>
+        <% @job_request.selected_sizes.each do |size| %>
+          <li><%= size.name %></li>
+        <% end %>
+      </ul>
     </p>
 
     <p>
@@ -74,6 +87,6 @@
     </p>
   </div>
   <div class="medium-6 column">
-    
+
   </div>
 </div>
