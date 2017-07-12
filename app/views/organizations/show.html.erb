@@ -50,7 +50,7 @@
             <td><%= pic.name %></td>
             <td><%= pic.tel %></td>
             <td><%= pic.title %></td>
-            <td><%= link_to "Add Deal", new_pic_deal_path(pic) %></td>
+            <td><%= link_to "Add Deal", new_pic_deal_path(pic), class: "button success add-deal-button" %></td>
           </tr>
         <% end %>
       </tbody>
@@ -107,4 +107,3 @@
     </button>
   </div>
 <% end %>
-

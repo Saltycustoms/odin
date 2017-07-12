@@ -14,3 +14,7 @@
  *= require_self
  *= require styles/toolkit
  */
+
+.button.add-deal-button {
+  margin: 0;
+}

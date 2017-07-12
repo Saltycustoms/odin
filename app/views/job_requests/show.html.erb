@@ -15,12 +15,25 @@
 
     <p>
       <strong>Product:</strong>
-      <%= @job_request.product_id %>
+      <%= @job_request.product.name %>
     </p>
 
     <p>
-      <strong>Color:</strong>
-      <%= @job_request.color_id %>
+      <strong>Colors:</strong>
+      <ul>
+        <% @job_request.selected_colors.each do |color| %>
+          <li><%= color.name %></li>
+        <% end %>
+      </ul>
+    </p>
+
+    <p>
+      <strong>Sizes:</strong>
+      <ul>
+        <% @job_request.selected_sizes.each do |size| %>
+          <li><%= size.name %></li>
+        <% end %>
+      </ul>
     </p>
 
     <p>
@@ -74,48 +87,6 @@
     </p>
   </div>
   <div class="medium-6 column">
-    <% if @job_request.quotation %>
-      <%= link_to "Edit Quotation", edit_job_request_quotations_path(@job_request), class: "button" %>
-      <%= link_to "Show Quotation", job_request_quotations_path(@job_request), class: "button success" %>
-      <p>
-        <strong>Payment Term:</strong>
-        <%= @job_request.quotation.payment_term %>
-      </p>
 
-      <p>
-        <strong>Currency:</strong>
-        <%= @job_request.quotation.currency %>
-      </p>
-
-      <p>
-        <strong>Shipping:</strong>
-        <%= @job_request.quotation.shipping %>
-      </p>
-
-      <p>
-        <strong>Net Total Cents:</strong>
-        <%= @job_request.quotation.net_total_cents %>
-      </p>
-
-      <p>
-        <strong>Sub Total Cents:</strong>
-        <%= @job_request.quotation.sub_total_cents %>
-      </p>
-
-      <p>
-        <strong>Tax Cents:</strong>
-        <%= @job_request.quotation.tax_cents %>
-      </p>
-
-        <p>
-          <strong>Discount</strong>
-          <ul>
-            <li>Type: <%= @job_request.quotation.discount.type %></li>
-            <li>Value: <%= @job_request.quotation.discount.value %></li>
-          </ul>
-        </p>
-    <% else %>
-      <%= link_to "Add Quotation", new_job_request_quotations_path(@job_request) %>
-    <% end %>
   </div>
 </div>
