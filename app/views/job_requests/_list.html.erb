@@ -26,7 +26,7 @@
             <span title="Edit" class="fa fa-pencil"></span>
           <% end %>
         </td>
-        <td><%= job_request.product_id %></td>
+        <td><%= job_request.product.name %></td>
         <td><%= job_request.budget %></td>
         <td class="text-center">
           <%= link_to deal_job_request_path(@deal, job_request), method: :delete, data: { confirm: 'Are you sure?' } do %>

@@ -2,21 +2,19 @@
   <%= link_to "Back", @deal %>
 <% end %>
 
-<%= render "shared/page_header", {title: "Past Deadlines for #{@deal.display_name}"} %>
+<%= render "shared/page_header", {title: @deal.display_name} %>
 
 <table>
   <thead>
     <tr>
-      <th>Id</th>
-      <th>Deadline</th>
+      <th>Deadline date</th>
       <th>Reason</th>
       <th>Cause By</th>
     </tr>
   </thead>
   <tbody>
-    <% @deal.deadlines.order(id: :asc).each do |deadline| %>
+    <% @deadlines.each do |deadline| %>
       <tr>
-        <td><%= deadline.id %></td>
         <td><%= deadline.deadline %></td>
         <td><%= simple_format deadline.reason %></td>
         <td><%= deadline.cause_by %></td>

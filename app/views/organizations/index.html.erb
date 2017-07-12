@@ -7,27 +7,29 @@
 <table>
   <thead>
     <tr>
-      <th>Id</th>
       <th>Name</th>
       <th>Description</th>
       <th>Industry</th>
-      <th>Actions</th>
+      <th class="text-center">Delete</th>
     </tr>
   </thead>
 
   <tbody>
     <% @organizations.each do |organization| %>
       <tr>
-        <td><%= organization.id %></td>
-        <td><%= organization.name %></td>
-        <td><%= organization.description %></td>
-        <td><%= organization.industry %></td>
         <td>
-          <div class="button-group">
-            <%= link_to 'Show', organization, class: "button" %>
-            <%= link_to 'Edit', edit_organization_path(organization), class: "button" %>
-            <%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' }, class: "button alert" %>
-          </div>
+          <%= link_to organization.name, organization %>
+
+          <%= link_to edit_organization_path(organization), class: "pull-right" do %>
+            <span class="fa fa-pencil" title="Edit"></span>
+          <% end %>
+        </td>
+        <td><%= truncate(organization.description, length: 30) %></td>
+        <td><%= organization.industry %></td>
+        <td class="text-center">
+          <%= link_to organization, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <span class="fa fa-trash" title="Delete"></span>
+          <% end %>
         </td>
       </tr>
     <% end %>
