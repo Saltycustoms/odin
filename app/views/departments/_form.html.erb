@@ -2,19 +2,23 @@
   <%= f.input :name %>
   <%= f.input :description %>
   <div class="callout">
-    <h3>PIC</h3>
-    <%= f.fields_for :pics do |p| %>
-      <div class="row align-bottom">
-        <div class="column">
+    <div class="callout-header row">
+      <div class="column">
+        <h5 class="callout-header-title">Person(s) in charge</h5>
+      </div>
+    </div>
+    <%= f.fields_for :pics, wrapper: false do |p| %>
+      <div class="fields row">
+        <div class="columns">
           <%= p.input :name %>
         </div>
-        <div class="column">
+        <div class="columns">
           <%= p.input :tel %>
         </div>
-        <div class="column">
+        <div class="columns">
           <%= p.input :title %>
         </div>
-        <div class="small-1 column">
+        <div class="columns align-self-bottom">
           <%= p.link_to_remove class: "button alert remove-button" do %>
             <i class="fa fa-times" aria-hidden="true"></i>
           <% end %>
