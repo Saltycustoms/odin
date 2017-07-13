@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712045127) do
+ActiveRecord::Schema.define(version: 20170713063352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,10 +123,10 @@ ActiveRecord::Schema.define(version: 20170712045127) do
     t.bigint "discount_id"
     t.string "payment_term"
     t.string "currency"
-    t.integer "shipping"
-    t.integer "net_total_cents"
-    t.integer "sub_total_cents"
-    t.integer "tax_cents"
+    t.integer "shipping_cents", default: 0
+    t.integer "net_total_cents", default: 0
+    t.integer "sub_total_cents", default: 0
+    t.integer "tax_cents", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deal_id"], name: "index_quotations_on_deal_id"

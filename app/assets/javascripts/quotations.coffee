@@ -9,9 +9,10 @@ $(document).on "turbolinks:load", ->
     job_request_values = $(".quantity-input[data-job-request-id='" + job_request_id + "']")
     product_count = 0
     for value in job_request_values
-      product_count += parseInt($(value).val())
+      count = parseInt($(value).val())
+      if !isNaN(count)
+        product_count += count
 
-    $(".quantity-input")
     $.ajax
       url: '/products/' + product_id + '/price_ranges'
       type: 'get'

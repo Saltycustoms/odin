@@ -1,38 +1,33 @@
 <%= simple_nested_form_for @quotation, url: deal_quotations_path(@deal) do |f| %>
 
   <% @deal.job_requests.each do |job_request| %>
-    <div class="row">
+    <div class="row align-right">
       <div class="small-6 column">
+        Designs
       </div>
       <div class="small-6 column text-right">
-      </div>
-      <div class="small-6 column">
+        <strong>Price Per Piece:</strong><br>
+        <%= hidden_field_tag "job_request_price_per_piece[#{job_request.id}][id]", job_request.id %>
+        <%= number_field_tag "job_request_price_per_piece[#{job_request.id}][price_per_piece]", job_request.price_per_piece %>
       </div>
       <div class="small-6 column text-right">
         <strong>Configurator Price Per Piece:</strong><br>
         <span class="configurator-price" data-job-request-id="<%= job_request.id %>">
-          <% job_request_lines = 0 %>
-          <% configurator_price = 0 %>
-          <% @deal.quotation.quotation_lines.where.not(quantity: nil).each do |line| %>
-            <% if line.description.split("_").first == job_request.product.name %>
-              <% job_request_lines += line.quantity %>
-            <% end %>
-          <% end %>
           <% job_request.product.price_ranges.each do |price_range| %>
-              <% if job_request_lines.between?(price_range.from_quantity, price_range.to_quantity) %>
-                <% configurator_price = price_range.price_cents %>
+              <% if job_request.quotation_lines_quantity.between?(price_range.from_quantity, price_range.to_quantity) %>
+                <%= price_range.price_cents %>
               <% end %>
           <% end %>
-          <%= configurator_price %>
         </span>
       </div>
     </div>
-    <h5><%= job_request.product.name %></h5>
+    <h5>Product Breakdown</h5>
     <table>
       <thead>
         <tr>
-          <th></th>
-          <% job_request.selected_sizes.each do |size| %>
+          <th>Product Name</th>
+          <th>Color</th>
+          <% job_request.product.sizes.each do |size| %>
             <th><%= size.name %></th>
           <% end %>
         </tr>
@@ -40,12 +35,14 @@
       <tbody>
         <% job_request.selected_colors.each do |color| %>
           <tr>
+            <th><%= job_request.product.name %></th>
             <th><%= color.name %></th>
-            <% job_request.selected_sizes.each do |size| %>
-              <%= f.fields_for :quotation_lines, wrapper: false do |ql| %>
-                <% if ql.object.description == "#{job_request.product.name}_#{size.name}_#{color.name}" %>
-                  <td><%= ql.input :quantity, label: false, input_html: {class: "quantity-input", data: {"product-id": job_request.product_id, "job_request-id": job_request.id}} %></td>
-                <% end %>
+            <% job_request.quotation_lines.each do |line| %>
+              <% if line.description.split("_")[4] == color.name %>
+                <td>
+                  <%= hidden_field_tag "quotation[quotation_lines_attributes][#{line.id}][id]", line.id %>
+                  <%= number_field_tag "quotation[quotation_lines_attributes][#{line.id}][quantity]", line.quantity, class: "quantity-input", data: {"product-id": job_request.product_id, "job_request-id": job_request.id} %>
+                </td>
               <% end %>
             <% end %>
           </tr>
@@ -55,29 +52,15 @@
   <% end %>
 
   <div class="callout">
-    <h3>Discount</h3>
-    <%= f.fields_for :discount do |d| %>
-    <div class="row">
-      <div class="column">
-        <%= d.input :type, collection: ["Discount::FlatRate", "Discount::Percentage"] %>
-      </div>
-      <div class="column">
-        <%= d.input :value %>
-      </div>
-    </div>
-    <% end %>
-  </div>
-
-  <div class="callout">
     <h3>Add Ons</h3>
     <%= f.fields_for :quotation_lines do |l| %>
-      <% next if l.object.persisted? %>
+      <% next if l.object.persisted? && (l.object.description.split("_")[1] == "product") %>
         <div class="row align-bottom">
           <div class="column">
             <%= l.input :description %>
           </div>
           <div class="column">
-            <%= l.input :price_per_unit_cents %>
+            <%= l.input :price_per_unit %>
           </div>
           <div class="column">
             <%= l.input :quantity %>
@@ -95,14 +78,30 @@
   <div class="row medium-unstack">
     <div class="columns">
       <%= f.input :payment_term %>
-      <%= f.input :currency %>
+    </div>
+    <div class="columns">
+      <%= f.input :currency, collection: Money::Currency.all.map{|curr| ["#{curr.name} (#{curr.iso_code})", curr.iso_code]} %>
+    </div>
+    <div class="columns">
       <%= f.input :shipping %>
     </div>
     <div class="columns">
-      <%= f.input :net_total_cents %>
-      <%= f.input :sub_total_cents %>
-      <%= f.input :tax_cents %>
+      <%= f.input :tax %>
     </div>
+  </div>
+
+  <div class="callout">
+    <h3>Discount</h3>
+    <%= f.fields_for :discount do |d| %>
+    <div class="row">
+      <div class="column">
+        <%= d.input :type, collection: ["Discount::FlatRate", "Discount::Percentage"] %>
+      </div>
+      <div class="column">
+        <%= d.input :value %>
+      </div>
+    </div>
+    <% end %>
   </div>
 
   <div class="row columns">

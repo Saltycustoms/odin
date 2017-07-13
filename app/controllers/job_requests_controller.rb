@@ -35,6 +35,7 @@ class JobRequestsController < ApplicationController
         format.html { redirect_to @deal, notice: 'Job request was successfully created.' }
         format.json { render :show, status: :created, location: @job_request }
       else
+        @product = Product.first
         format.html { render :new }
         format.json { render json: @job_request.errors, status: :unprocessable_entity }
       end

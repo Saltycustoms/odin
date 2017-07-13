@@ -37,6 +37,23 @@ class JobRequest < ApplicationRecord
     end
   end
 
+  def price_per_piece
+    quotation_lines.first.display_price_per_unit
+  end
+
+  def quotation_lines
+    quotation = Quotation.find_by(deal_id: deal.id)
+    lines = quotation.quotation_lines.order(id: :asc).select {|l| l.description.split("_").first == "#{self.id}"}
+  end
+
+  def quotation_lines_quantity
+    sum = 0
+    quotation_lines.each do |line|
+      sum += line.quantity if line.quantity
+    end
+    return sum
+  end
+
   def selected_size_ids
     selected_sizes.collect { |s| s.id }
   end
@@ -48,14 +65,12 @@ class JobRequest < ApplicationRecord
   def update_quotation_and_lines
     quotation = Quotation.find_or_initialize_by(deal_id: deal.id)
     sizes = product.sizes
-    colors = product.colors
-
-    sizes.each do |size|
-      colors.each do |color|
-        quotation.quotation_lines.find_or_initialize_by(description: "#{product.name}_#{size.name}_#{color.name}")
+    colors = selected_colors
+    colors.each do |color|
+      sizes.each do |size|
+        quotation.quotation_lines.find_or_initialize_by(description: "#{self.id}_product_#{product.name}_#{size.name}_#{color.name}")
       end
     end
     quotation.save
-
   end
 end

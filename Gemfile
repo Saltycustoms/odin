@@ -42,6 +42,8 @@ gem 'nested_form'
 gem "jsonb_accessor", "1.0.0.beta.6"
 gem 'figaro'
 gem 'jquery-rails'
+gem 'money-rails'
+gem 'countries'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
