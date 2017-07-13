@@ -1,17 +1,16 @@
-<p>
-  <strong>Organization:</strong>
-  <%= @department.organization.name %>
-</p>
+<% content_for :header_actions do %>
+  <%= link_to 'Edit', [:edit, @organization, @department] %> |
+  <%= link_to 'Back', @organization || @department %>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
+<%= render "shared/page_header", {title: @department.name} %>
+
+<%= simple_format(@department.organization.name, wrapper: 'strong') %>
+
   <%= @department.name %>
-</p>
 
-<p>
   <strong>Description:</strong>
   <%= @department.description %>
-</p>
 
 <h1>PIC</h1>
 
@@ -68,5 +67,3 @@
   </tbody>
 </table>
 
-<%= link_to 'Edit', [:edit, @organization, @department] %> |
-<%= link_to 'Back', @organization || @department %>

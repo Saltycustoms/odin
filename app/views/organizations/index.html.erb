@@ -18,6 +18,7 @@
     <% @organizations.each do |organization| %>
       <tr>
         <td>
+          <span class="subheader">#<%= organization.id %></span>
           <%= link_to organization.name, organization %>
 
           <%= link_to edit_organization_path(organization), class: "pull-right" do %>
