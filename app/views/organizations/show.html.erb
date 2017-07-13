@@ -44,7 +44,10 @@
         <tbody>
           <% department.pics.each do |pic| %>
             <tr>
-              <td><%= pic.name %></td>
+              <td>
+                <span class="subheader">#<%= pic.id %></span>
+                <%= pic.name %>
+              </td>
               <td><%= pic.tel %></td>
               <td><%= pic.title %></td>
               <td class="text-right"><%= link_to "Add Deal", new_pic_deal_path(pic), class: "button expanded add-deal-button" %></td>
@@ -74,7 +77,10 @@
         <tbody>
           <% department.deals.each do |deal| %>
             <tr>
-              <td><%= link_to deal.name, deal %></td>
+              <td>
+                <span class="subheader">#<%= deal.id %></span>
+                <%= link_to deal.name, deal %>
+              </td>
               <td><%= deal.no_of_pcs %></td>
               <td><%= deal.client_deadline %></td>
               <td><%= deal.pic.name %></td>

@@ -16,6 +16,7 @@
     <% @deals.each do |deal| %>
       <tr>
         <td>
+          <span class="subheader">#<%= deal.id %></span>
           <%= link_to "#{deal.name} - #{deal.department.organization.name}, #{deal.department.name}", deal %>
           <%= link_to edit_deal_path(deal), class: "pull-right" do %>
             <span title="Edit" class="fa fa-pencil"></span>

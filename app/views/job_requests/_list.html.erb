@@ -21,6 +21,7 @@
     <% list.each do |job_request| %>
       <tr>
         <td>
+          <span class="subheader">#<%= job_request.id %></span>
           <%= link_to job_request.name, deal_job_request_path(@deal, job_request) %>
           <%= link_to edit_deal_job_request_path(@deal, job_request), class: "pull-right" do %>
             <span title="Edit" class="fa fa-pencil"></span>
