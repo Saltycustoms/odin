@@ -28,13 +28,13 @@ class QuotationsController < ApplicationController
   end
 
   def update
-    if @quotation.update(quotation_params)
-      params[:job_request_price_per_piece].each_pair do |key, param|
-        job_request = JobRequest.find(param[:id])
-        job_request.quotation_lines.each do |line|
-          line.update(price_per_unit: param[:price_per_piece])
-        end
+    params[:job_request_price_per_piece].each_pair do |key, param|
+      job_request = JobRequest.find(param[:id])
+      job_request.quotation_lines.each do |line|
+        line.update(price_per_unit: param[:price_per_piece])
       end
+    end
+    if @quotation.update(quotation_params)
       redirect_to deal_quotations_path(@deal), notice: "Quotation was successfully created."
     else
       render :edit

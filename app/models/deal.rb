@@ -8,7 +8,6 @@ class Deal < ApplicationRecord
   belongs_to :pic, optional: true
   validates :name, presence: true
   before_save :update_dept_and_org
-  after_create :create_quotation
 
   def update_dept_and_org
     self.department_id = self.pic.belongable.id
@@ -26,8 +25,8 @@ class Deal < ApplicationRecord
     "#{name} - #{department.organization.name}, #{department.name}"
   end
 
-  def create_quotation
-    quotation = Quotation.find_or_initialize_by(deal_id: self.id)
-    quotation.save
-  end
+  # def create_quotation
+  #   quotation = Quotation.find_or_initialize_by(deal_id: self.id)
+  #   quotation.save
+  # end
 end

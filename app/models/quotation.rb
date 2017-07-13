@@ -13,8 +13,8 @@ class Quotation < ApplicationRecord
 
   def calculate_total
     sub_total = 0
-    self.quotation_lines.where.not(quantity: nil).each do |line|
-      sub_total += line.total_cents
+    self.quotation_lines.each do |line|
+      sub_total += line.total_cents if line.total
     end
     self.sub_total_cents = sub_total
     self.net_total_cents = self.sub_total_cents + self.shipping_cents + self.tax_cents
