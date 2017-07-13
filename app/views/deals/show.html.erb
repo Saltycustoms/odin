@@ -30,7 +30,7 @@
 </div>
 
 <div class="callout">
-  <%= link_to "Quotation", edit_deal_quotations_path(@deal) %>
+  <%= link_to "Quotation", edit_deal_quotations_path(@deal) if @deal.job_requests.present? %>
 </div>
 
 <div class="callout">
