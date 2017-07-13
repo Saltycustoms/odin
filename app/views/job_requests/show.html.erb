@@ -6,87 +6,88 @@
 
 <%= render "shared/page_header", {title: "Job Request"} %>
 
-<div class="row">
-  <div class="medium-6 column">
-    <p>
-      <strong>Deal:</strong>
-      <%= @job_request.deal.display_name %>
-    </p>
+<div class="row medium-unstack">
+  <div class="column">
+    <strong>Deal</strong>
+    <p><%= @job_request.deal.display_name %></p>
 
+    <strong>Product</strong>
     <p>
-      <strong>Product:</strong>
       <%= @job_request.product.name %>
     </p>
 
+    <strong>Budget</strong>
     <p>
-      <strong>Colors:</strong>
-      <ul>
-        <% @job_request.selected_colors.each do |color| %>
-          <li><%= color.name %></li>
-        <% end %>
-      </ul>
+      <%= @job_request.budget %>
     </p>
+  </div>
 
-    <p>
-      <strong>Sizes:</strong>
-      <ul>
-        <% @job_request.selected_sizes.each do |size| %>
-          <li><%= size.name %></li>
-        <% end %>
-      </ul>
-    </p>
 
+  <div class="column">
+    <strong>Colors</strong>
+    <ul>
+      <% @job_request.selected_colors.each do |color| %>
+        <li><%= color.name %></li>
+      <% end %>
+    </ul>
+
+    <strong>Sizes</strong>
+    <ul>
+      <% @job_request.selected_sizes.each do |size| %>
+        <li><%= size.name %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="column">
+    <strong>Name</strong>
     <p>
-      <strong>Name:</strong>
       <%= @job_request.name %>
     </p>
 
+    <strong>Sleeve</strong>
     <p>
-      <strong>Sleeve:</strong>
       <%= @job_request.sleeve %>
     </p>
 
+    <strong>Relabeling</strong>
     <p>
-      <strong>Relabeling:</strong>
       <%= @job_request.relabeling %>
     </p>
 
+    <strong>Woven tag</strong>
     <p>
-      <strong>Woven tag:</strong>
       <%= @job_request.woven_tag %>
     </p>
 
+    <strong>Hang tag</strong>
     <p>
-      <strong>Hang tag:</strong>
       <%= @job_request.hang_tag %>
     </p>
 
+    <strong>Pantone code</strong>
     <p>
-      <strong>Pantone code:</strong>
       <%= @job_request.pantone_code %>
     </p>
+  </div>
 
+</div>
+
+<div class="row column">
+  <div class="callout">
+    <strong>Remarks</strong>
     <p>
-      <strong>Remark:</strong>
       <%= @job_request.remark %>
     </p>
 
+    <strong>Sample required</strong>
     <p>
-      <strong>Sample required:</strong>
       <%= @job_request.sample_required %>
     </p>
 
+    <strong>Client comment</strong>
     <p>
-      <strong>Budget:</strong>
-      <%= @job_request.budget %>
-    </p>
-
-    <p>
-      <strong>Client comment:</strong>
       <%= @job_request.client_comment %>
     </p>
-  </div>
-  <div class="medium-6 column">
-
   </div>
 </div>
