@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712045127) do
+ActiveRecord::Schema.define(version: 20170713063355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,9 +110,9 @@ ActiveRecord::Schema.define(version: 20170712045127) do
   create_table "quotation_lines", force: :cascade do |t|
     t.bigint "quotation_id"
     t.string "description"
-    t.integer "price_per_unit_cents"
+    t.integer "price_per_unit_cents", default: 0
     t.integer "quantity"
-    t.integer "total_cents"
+    t.integer "total_cents", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["quotation_id"], name: "index_quotation_lines_on_quotation_id"
@@ -123,10 +123,10 @@ ActiveRecord::Schema.define(version: 20170712045127) do
     t.bigint "discount_id"
     t.string "payment_term"
     t.string "currency"
-    t.integer "shipping"
-    t.integer "net_total_cents"
-    t.integer "sub_total_cents"
-    t.integer "tax_cents"
+    t.integer "shipping_cents", default: 0
+    t.integer "net_total_cents", default: 0
+    t.integer "sub_total_cents", default: 0
+    t.integer "tax_cents", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deal_id"], name: "index_quotations_on_deal_id"

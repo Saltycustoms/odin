@@ -1,6 +1,6 @@
 <% content_for :header_actions do %>
-  <%= link_to "Edit", edit_job_request_quotations_path(@job_request) %> |
-  <%= link_to 'Back', deal_job_request_path(@job_request.deal, @job_request) %>
+  <%= link_to "Edit", edit_deal_quotations_path(@deal) %> |
+  <%= link_to 'Back', @deal %>
 <% end %>
 
 <%= render "shared/page_header", {title: "Quotation Show"} %>
@@ -15,15 +15,33 @@
     </tr>
   </thead>
   <tbody>
-    <% @quotation.quotation_lines.each do |line| %>
+    <% @quotation.quotation_lines.where.not(quantity: nil).order(id: :asc).each do |line| %>
       <tr>
         <td><%= line.quantity %></td>
-        <td><%= line.description %></td>
-        <td><%= line.price_per_unit_cents %></td>
-        <td><%= line.total_cents %></td>
+        <td><%= line.display_name %></td>
+        <td><%= humanized_money_with_symbol line.display_price_per_unit %></td>
+        <td><%= humanized_money_with_symbol line.display_total %></td>
       </tr>
     <% end %>
   </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">Sub Total</td>
+      <td><%= humanized_money_with_symbol @quotation.sub_total %></td>
+    </tr>
+    <tr>
+      <td colspan="3">Shipping</td>
+      <td><%= humanized_money_with_symbol @quotation.shipping %></td>
+    </tr>
+    <tr>
+      <td colspan="3">Tax</td>
+      <td><%= humanized_money_with_symbol @quotation.tax %></td>
+    </tr>
+    <tr>
+      <td colspan="3">Net Total</td>
+      <td><%= humanized_money_with_symbol @quotation.net_total %></td>
+    </tr>
+  </tfoot>
 </table>
 
 <p>

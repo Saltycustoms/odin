@@ -28,8 +28,14 @@ class QuotationsController < ApplicationController
   end
 
   def update
+    params[:job_request_price_per_piece].each_pair do |key, param|
+      job_request = JobRequest.find(param[:id])
+      job_request.quotation_lines.each do |line|
+        line.update(price_per_unit: param[:price_per_piece])
+      end
+    end
     if @quotation.update(quotation_params)
-      redirect_to @deal, notice: "Quotation was successfully created."
+      redirect_to deal_quotations_path(@deal), notice: "Quotation was successfully created."
     else
       render :edit
     end
@@ -45,7 +51,7 @@ class QuotationsController < ApplicationController
   end
 
   def quotation_params
-    params.require(:quotation).permit(:discount_id, :payment_term, :currency, :shipping, :net_total_cents, :sub_total_cents, :tax_cents,
-    quotation_lines_attributes: [:id, :price_per_unit_cents, :quantity, :description, :_destroy], discount_attributes: [:id, :type, :value])
+    params.require(:quotation).permit(:discount_id, :payment_term, :currency, :shipping, :tax,
+    quotation_lines_attributes: [:id, :price_per_unit, :quantity, :description, :_destroy], discount_attributes: [:id, :type, :value])
   end
 end
