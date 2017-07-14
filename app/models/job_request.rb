@@ -10,6 +10,12 @@ class JobRequest < ApplicationRecord
   validates :product_id, :colors, :sizes, presence: true
   after_save :update_quotation_and_lines
 
+  def as_json(*)
+    previous = super
+    previous[:selected_colors] = selected_colors
+    previous
+  end
+
   def designs
     @design_requests = DesignRequest.where(job_request_id: self.id)
     return [] if @design_requests.blank?
