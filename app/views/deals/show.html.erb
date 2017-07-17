@@ -29,9 +29,11 @@
 
 </div>
 
+<% if @deal.job_requests.present? %>
 <div class="callout">
-  <%= link_to "Quotation", edit_deal_quotations_path(@deal) if @deal.job_requests.present? %>
+  <%= link_to "Quotation", edit_deal_quotations_path(@deal) %>
 </div>
+<% end %>
 
 <div class="callout">
   <%= render partial: "job_requests/list", object: @deal.job_requests %>
