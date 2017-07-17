@@ -6,7 +6,7 @@ module OmniAuth
       DEFAULT_SCOPE = 'global'
       option :name, 'valkyrie'
       option :client_options, {
-        site:          'http://localhost:3000',
+        site:          "#{Figaro.env.locate_employee_app}",
         authorize_url: '/oauth/authorize'
       }
       # option :provider_ignores_state, true
@@ -25,7 +25,7 @@ module OmniAuth
         { raw_info: raw_info }
       end
 
-      def raw_info        
+      def raw_info
         @raw_info ||= access_token.get('/me').parsed
       end
 
