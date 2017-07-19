@@ -39,3 +39,7 @@
 <div class="callout">
   <%= render partial: "job_requests/list", object: @deal.job_requests %>
 </div>
+
+<div class="callout">
+  <%= render partial: "approvals/list", object: @deal.approvals, locals: { deal: @deal } %>
+</div>

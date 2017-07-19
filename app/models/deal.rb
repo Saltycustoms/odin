@@ -2,12 +2,17 @@ class Deal < ApplicationRecord
   has_one :quotation
   has_many :job_requests
   has_many :deadlines, dependent: :destroy
+  # has_many :approvals
   accepts_nested_attributes_for :deadlines, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   belongs_to :department, optional: true
   belongs_to :organization, optional: true
   belongs_to :pic, optional: true
   validates :name, presence: true
   before_save :update_dept_and_org
+
+  def approvals
+    Approval.where(deal_id: self.id)
+  end
 
   def update_dept_and_org
     self.department_id = self.pic.belongable.id
