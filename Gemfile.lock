@@ -47,6 +47,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (4.0.0)
+      activerecord (>= 4.0)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     amq-protocol (2.2.0)
@@ -252,6 +254,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeresource
+  acts-as-taggable-on (~> 4.0)
   bunny
   byebug
   capybara (~> 2.13)
