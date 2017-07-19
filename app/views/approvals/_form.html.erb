@@ -1,0 +1,13 @@
+<%= simple_form_for [@deal, form] do |f| %>
+  <%= f.input :description, as: :text %>
+  <%= f.hidden_field :deal_id, value: @deal.id %>
+  <%= f.label :approvers %>
+  <%= f.select :approver_ids, options_for_select(@employees.collect { |employee|
+        [employee.email, employee.id]
+    }, @approvers.collect{ |approver| approver.employee_id }), {}, multiple: true %>
+  <%= f.label :acknowledgers %>
+  <%= f.select :acknowledger_ids, options_for_select(@employees.collect { |employee|
+        [employee.email, employee.id]
+    }, @acknowledgers.collect{ |acknowledger| acknowledger.employee_id }), {}, multiple: true %>
+  <%= f.submit "Submit" %>
+<% end %>
