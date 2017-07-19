@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :deals
       resources :job_requests
+      resources :print_details
     end
   end
   resources :print_details
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
     resource :quotations
     resources :job_requests
     resources :deadlines
+    resources :approvals
   end
   resources :departments do
     resources :deals

@@ -44,6 +44,7 @@ gem 'figaro'
 gem 'jquery-rails'
 gem 'money-rails'
 gem 'countries'
+gem 'shrine'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

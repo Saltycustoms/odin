@@ -1,6 +1,15 @@
 class PrintDetail < ApplicationRecord
   belongs_to :job_request
-  
+  include AttachmentUploader::Attachment.new(:attachment)
+
+  def as_json(*)
+    previous = super
+    # previous[:cached_attachment_data] = cached_attachment_data
+    previous[:attachment] = attachment
+    previous[:attachment_url] = attachment_url
+    previous
+  end
+
   def self.print_methods
     ['Silkscreen',
       'Heat Transfer',

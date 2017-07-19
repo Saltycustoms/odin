@@ -13,6 +13,7 @@ class JobRequest < ApplicationRecord
   def as_json(*)
     previous = super
     previous[:selected_colors] = selected_colors
+    previous[:selected_sizes] = selected_sizes
     previous
   end
 
