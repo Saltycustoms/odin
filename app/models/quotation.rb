@@ -3,12 +3,16 @@ class Quotation < ApplicationRecord
   belongs_to :discount, optional: true
   belongs_to :job_request, optional: true
   has_many :quotation_lines, dependent: :destroy
+  has_many :add_ons, dependent: :destroy
+  has_many :job_requests, through: :quotation_lines
+  accepts_nested_attributes_for :add_ons, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
+  accepts_nested_attributes_for :job_requests, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   accepts_nested_attributes_for :quotation_lines, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   accepts_nested_attributes_for :discount
-  monetize :shipping_cents, with_model_currency: :currency, :allow_nil => true
-  monetize :net_total_cents, with_model_currency: :currency, :allow_nil => true
-  monetize :sub_total_cents, with_model_currency: :currency, :allow_nil => true
-  monetize :tax_cents, with_model_currency: :currency, :allow_nil => true
+  monetize :shipping_cents, with_model_currency: :currency
+  monetize :net_total_cents, with_model_currency: :currency
+  monetize :sub_total_cents, with_model_currency: :currency
+  monetize :tax_cents, with_model_currency: :currency
   before_save :calculate_total
 
   def calculate_total

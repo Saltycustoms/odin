@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  price_per_unit_cents: 1
+  quantity: 1
+  total_cents: 1
+  job_request: one
+  quotation: one
+
+two:
+  description: MyString
+  price_per_unit_cents: 1
+  quantity: 1
+  total_cents: 1
+  job_request: two
+  quotation: two

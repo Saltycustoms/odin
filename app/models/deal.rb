@@ -29,9 +29,4 @@ class Deal < ApplicationRecord
   def display_name
     "#{name} - #{department.organization.name}, #{department.name}"
   end
-
-  # def create_quotation
-  #   quotation = Quotation.find_or_initialize_by(deal_id: self.id)
-  #   quotation.save
-  # end
 end

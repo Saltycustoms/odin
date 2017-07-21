@@ -19,8 +19,17 @@
       <tr>
         <td><%= line.quantity %></td>
         <td><%= line.display_name %></td>
-        <td><%= humanized_money_with_symbol line.display_price_per_unit %></td>
-        <td><%= humanized_money_with_symbol line.display_total %></td>
+        <td><%= humanized_money_with_symbol line.price_per_unit %></td>
+        <td><%= humanized_money_with_symbol line.total %></td>
+      </tr>
+    <% end %>
+
+    <% @quotation.add_ons.each do |add_on| %>
+      <tr>
+        <td><%= add_on.quantity %></td>
+        <td><%= add_on.description %></td>
+        <td><%= humanized_money_with_symbol add_on.price_per_unit %></td>
+        <td><%= humanized_money_with_symbol add_on.total %></td>
       </tr>
     <% end %>
   </tbody>

@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719073263) do
+ActiveRecord::Schema.define(version: 20170721094735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "add_ons", force: :cascade do |t|
+    t.string "description"
+    t.integer "price_per_unit_cents", default: 0
+    t.integer "quantity"
+    t.integer "total_cents", default: 0
+    t.bigint "job_request_id"
+    t.bigint "quotation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "currency"
+    t.index ["job_request_id"], name: "index_add_ons_on_job_request_id"
+    t.index ["quotation_id"], name: "index_add_ons_on_quotation_id"
+  end
 
   create_table "deadlines", force: :cascade do |t|
     t.bigint "deal_id"
@@ -111,10 +125,15 @@ ActiveRecord::Schema.define(version: 20170719073263) do
     t.bigint "quotation_id"
     t.string "description"
     t.integer "price_per_unit_cents", default: 0
-    t.integer "quantity"
+    t.integer "quantity", default: 0
     t.integer "total_cents", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "job_request_id"
+    t.string "currency"
+    t.integer "size_id"
+    t.integer "color_id"
+    t.index ["job_request_id"], name: "index_quotation_lines_on_job_request_id"
     t.index ["quotation_id"], name: "index_quotation_lines_on_quotation_id"
   end
 
@@ -194,9 +213,12 @@ ActiveRecord::Schema.define(version: 20170719073263) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "add_ons", "job_requests"
+  add_foreign_key "add_ons", "quotations"
   add_foreign_key "deadlines", "deals"
   add_foreign_key "discounts", "deals"
   add_foreign_key "orders", "deals"
+  add_foreign_key "quotation_lines", "job_requests"
   add_foreign_key "quotation_lines", "quotations"
   add_foreign_key "quotations", "deals"
   add_foreign_key "quotations", "discounts"
