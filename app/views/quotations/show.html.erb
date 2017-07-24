@@ -39,16 +39,28 @@
       <td><%= humanized_money_with_symbol @quotation.sub_total %></td>
     </tr>
     <tr>
-      <td colspan="3">Shipping</td>
+      <td colspan="3">- Discount <%= @quotation.discount.info %></td>
+      <td><%= humanized_money_with_symbol @quotation.discount_amount %></td>
+    </tr>
+    <tr>
+      <td class="subtotal" colspan="3">Total After Discount</td>
+      <td class="subtotal"><%= humanized_money_with_symbol @quotation.sub_total - @quotation.discount_amount %></td>
+    </tr>
+    <tr>
+      <td colspan="3">+ Shipping</td>
       <td><%= humanized_money_with_symbol @quotation.shipping %></td>
     </tr>
     <tr>
-      <td colspan="3">Tax</td>
+      <td class="subtotal" colspan="3">Taxable Total</td>
+      <td class="subtotal"><%= humanized_money_with_symbol @quotation.sub_total - @quotation.discount_amount + @quotation.shipping %></td>
+    </tr>
+    <tr>
+      <td colspan="3">+ Tax @ <%= @quotation.tax_info %></td>
       <td><%= humanized_money_with_symbol @quotation.tax %></td>
     </tr>
     <tr>
-      <td colspan="3">Net Total</td>
-      <td><%= humanized_money_with_symbol @quotation.net_total %></td>
+      <td class="total" colspan="3">Net Total</td>
+      <td class="total"><%= humanized_money_with_symbol @quotation.net_total %></td>
     </tr>
   </tfoot>
 </table>

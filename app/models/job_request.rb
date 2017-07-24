@@ -19,6 +19,17 @@ class JobRequest < ApplicationRecord
     previous
   end
 
+  def configurator_price_per_piece
+    price_cents = 0
+    product.price_ranges.each do |price_range|
+      if quotation_lines.sum(:quantity).between?(price_range.from_quantity, price_range.to_quantity)
+        price_cents = price_range.price_cents
+      end
+    end
+
+    "#{product.currency} #{Money.new(price_cents, product.currency).to_i}"
+  end
+
   def designs
     @design_requests = DesignRequest.where(job_request_id: self.id)
     return [] if @design_requests.blank?

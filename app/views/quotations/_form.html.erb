@@ -13,13 +13,7 @@
       <div class="small-6 small-offset-6 column">
         <strong>Configurator Price Per Piece:</strong><br>
         <p class="configurator-price" data-job-request-id="<%= job_request.id %>">
-          <% price = 0%>
-          <% job_request.product.price_ranges.each do |price_range| %>
-            <% if job_request.quotation_lines.sum(:quantity).between?(price_range.from_quantity, price_range.to_quantity) %>
-              <% price = price_range.price_cents %>
-            <% end %>
-          <% end %>
-          <%= price %>
+          <%= job_request.configurator_price_per_piece %>
         </p>
       </div>
     </div>
