@@ -2,7 +2,7 @@ class QuotationLine < ApplicationRecord
   belongs_to :quotation
   belongs_to :job_request
   before_save :calculate_total
-  before_save :update_currency
+  before_update :calculate_total
   monetize :price_per_unit_cents, with_model_currency: :currency
   monetize :total_cents, with_model_currency: :currency
 
@@ -24,13 +24,25 @@ class QuotationLine < ApplicationRecord
     end
   end
 
-  def update_currency
-    if self.quotation.currency
-      self.currency = self.quotation.currency
+  def display_name
+    "#{product.name} #{color.name} #{size.name}"
+  end
+
+  def display_price_per_unit
+    currency = self.quotation.currency
+    if currency
+      Money.new(price_per_unit_cents, currency)
+    else
+      price_per_unit
     end
   end
 
-  def display_name
-    "#{product.name} #{color.name} #{size.name}"
+  def display_total
+    currency = self.quotation.currency
+    if currency
+      Money.new(total_cents, currency)
+    else
+      total
+    end
   end
 end

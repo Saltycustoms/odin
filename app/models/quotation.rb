@@ -13,14 +13,17 @@ class Quotation < ApplicationRecord
   monetize :net_total_cents, with_model_currency: :currency
   monetize :sub_total_cents, with_model_currency: :currency
   monetize :tax_cents, with_model_currency: :currency
-  before_save :calculate_total
+  after_save :calculate_total
 
   def calculate_total
-    sub_total = 0
+    sub_total_cents = 0
     self.quotation_lines.each do |line|
-      sub_total += line.total_cents if line.total
+      sub_total_cents += line.total_cents if line.total
     end
-    self.sub_total_cents = sub_total
-    self.net_total_cents = self.sub_total_cents + self.shipping_cents + self.tax_cents
+    self.add_ons.each do |add_on|
+      sub_total_cents += add_on.total_cents if add_on.total
+    end
+    net_total_cents = sub_total_cents + self.shipping_cents + self.tax_cents
+    self.update_columns(sub_total_cents: sub_total_cents, net_total_cents: net_total_cents, updated_at: DateTime.now)
   end
 end

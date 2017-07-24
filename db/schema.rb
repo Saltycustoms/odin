@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721094735) do
+ActiveRecord::Schema.define(version: 20170724013110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20170721094735) do
     t.bigint "quotation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "currency"
     t.index ["job_request_id"], name: "index_add_ons_on_job_request_id"
     t.index ["quotation_id"], name: "index_add_ons_on_quotation_id"
   end
@@ -130,7 +129,6 @@ ActiveRecord::Schema.define(version: 20170721094735) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "job_request_id"
-    t.string "currency"
     t.integer "size_id"
     t.integer "color_id"
     t.index ["job_request_id"], name: "index_quotation_lines_on_job_request_id"
