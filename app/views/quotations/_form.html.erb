@@ -3,7 +3,8 @@
   <% @deal.job_requests.each do |job_request| %>
     <div class="row">
       <div class="small-6 column">
-        Designs here
+        <strong>Design</strong><br>
+        <%= job_request.design_name %>
       </div>
       <div class="small-6 column">
         <strong>Price Per Piece:</strong><br>

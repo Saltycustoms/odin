@@ -19,6 +19,13 @@ class JobRequest < ApplicationRecord
     previous
   end
 
+  def design_name
+    design_request = DesignRequest.where(job_request_id: self.id).first
+    if design_request
+      design_request.design.name
+    end
+  end
+
   def configurator_price_per_piece
     price_cents = 0
     product.price_ranges.each do |price_range|
