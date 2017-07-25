@@ -14,7 +14,11 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_nested_form
-//= require_tree .
+//= require fcm_client_setup.js
+//= require cable.js
+//= require departments
+//= require job_requests
+//= require quotations
 //= require scripts/toolkit
 
 $(document).on('turbolinks:load', function() {
@@ -22,3 +26,4 @@ $(document).on('turbolinks:load', function() {
     pathing = sidebar.data("controller") + '-' + sidebar.data("action")
     $('[data-pathing=' + pathing + ']').addClass('active')
 });
+//= require serviceworker-companion
