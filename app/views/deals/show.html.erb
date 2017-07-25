@@ -43,3 +43,20 @@
 <div class="callout">
   <%= render partial: "approvals/list", object: @deal.approvals, locals: { deal: @deal } %>
 </div>
+
+<div class="callout">
+  <h5 class="callout-header-title">Designs</h5>
+  <ul class="accordion" data-accordion data-allow-all-closed="true">
+    <% @deal.designs_with_version_for_production.each do |design| %>
+      <li class="accordion-item" data-accordion-item>
+        <!-- Accordion tab title -->
+        <a href="#" class="accordion-title"><%= design.name %></a>
+
+        <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
+        <div class="accordion-content" data-tab-content>
+          <%= image_tag design.version_for_production_image_url %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

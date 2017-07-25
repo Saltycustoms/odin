@@ -1,31 +1,16 @@
-class QuotationLine < ApplicationRecord
-  belongs_to :quotation
+class AddOn < ApplicationRecord
   belongs_to :job_request
-  before_save :calculate_total
-  before_update :calculate_total
+  belongs_to :quotation
   monetize :price_per_unit_cents, with_model_currency: :currency
   monetize :total_cents, with_model_currency: :currency
-
-  def product
-    Product.find(self.job_request.product_id)
-  end
-
-  def size
-    Size.find(size_id)
-  end
-
-  def color
-    Color.find(color_id)
-  end
+  validates :description, :quantity, presence: true
+  before_save :calculate_total
+  before_update :calculate_total
 
   def calculate_total
     if self.price_per_unit_cents && self.quantity
       self.total_cents = self.price_per_unit_cents * self.quantity
     end
-  end
-
-  def display_name
-    "#{product.name} #{color.name} #{size.name}"
   end
 
   def display_price_per_unit

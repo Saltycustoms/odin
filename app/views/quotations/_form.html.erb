@@ -1,26 +1,24 @@
 <%= simple_nested_form_for @quotation, url: deal_quotations_path(@deal) do |f| %>
 
   <% @deal.job_requests.each do |job_request| %>
-    <div class="row align-right">
+    <div class="row">
       <div class="small-6 column">
-        Designs
+        <strong>Design</strong><br>
+        <%= job_request.design_name %>
       </div>
-      <div class="small-6 column text-right">
+      <div class="small-6 column">
         <strong>Price Per Piece:</strong><br>
         <%= hidden_field_tag "job_request_price_per_piece[#{job_request.id}][id]", job_request.id %>
-        <%= number_field_tag "job_request_price_per_piece[#{job_request.id}][price_per_piece]", job_request.price_per_piece %>
+        <%= number_field_tag "job_request_price_per_piece[#{job_request.id}][price_per_piece]", job_request.quotation_lines.first.price_per_unit %>
       </div>
-      <div class="small-6 column text-right">
+      <div class="small-6 small-offset-6 column">
         <strong>Configurator Price Per Piece:</strong><br>
-        <span class="configurator-price" data-job-request-id="<%= job_request.id %>">
-          <% job_request.product.price_ranges.each do |price_range| %>
-              <% if job_request.quotation_lines_quantity.between?(price_range.from_quantity, price_range.to_quantity) %>
-                <%= price_range.price_cents %>
-              <% end %>
-          <% end %>
-        </span>
+        <p class="configurator-price" data-job-request-id="<%= job_request.id %>">
+          <%= job_request.configurator_price_per_piece %>
+        </p>
       </div>
     </div>
+
     <h5>Product Breakdown</h5>
     <table>
       <thead>
@@ -37,43 +35,40 @@
           <tr>
             <th><%= job_request.product.name %></th>
             <th><%= color.name %></th>
-            <% job_request.quotation_lines.each do |line| %>
-              <% if line.description.split("_")[4] == color.name %>
-                <td>
-                  <%= hidden_field_tag "quotation[quotation_lines_attributes][#{line.id}][id]", line.id %>
-                  <%= number_field_tag "quotation[quotation_lines_attributes][#{line.id}][quantity]", line.quantity, class: "quantity-input", data: {"product-id": job_request.product_id, "job_request-id": job_request.id} %>
-                </td>
-              <% end %>
+            <%= f.fields_for :quotation_lines, @quotation.quotation_lines.where(job_request_id: job_request.id, color_id: color.id).order(size_id: :asc) do |q| %>
+              <td><%= q.input :quantity, label: false, input_html: {class: "quantity-input", data: {"product-id": job_request.product_id, "job_request-id": job_request.id}} %></td>
             <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
-  <% end %>
+    <br>
 
-  <div class="callout">
-    <h3>Add Ons</h3>
-    <%= f.fields_for :quotation_lines do |l| %>
-      <% next if l.object.persisted? && (l.object.description.split("_")[1] == "product") %>
+    <div class="add-ons-form" data-job-request-id="<%= job_request.id %>">
+      <%= f.fields_for :add_ons, @quotation.add_ons.where(job_request_id: job_request.id) do |a| %>
         <div class="row align-bottom">
           <div class="column">
-            <%= l.input :description %>
+            <%= a.input :job_request_id, as: :hidden, input_html: {class: "job_request_input"} %>
+            <%= a.input :description %>
+            <% puts "job_request #{job_request.id}" %>
           </div>
           <div class="column">
-            <%= l.input :price_per_unit %>
+            <%= a.input :quantity %>
           </div>
           <div class="column">
-            <%= l.input :quantity %>
+            <%= a.input :price_per_unit %>
           </div>
           <div class="small-1 column">
-            <%= l.link_to_remove class: "button alert remove-button" do %>
+            <%= a.link_to_remove class: "button alert remove-button" do %>
               <i class="fa fa-times" aria-hidden="true"></i>
             <% end %>
           </div>
         </div>
-    <% end %>
-    <%= f.link_to_add "Add On", :quotation_lines, class: "button warning" %>
-  </div>
+      <% end %>
+      <%= f.link_to_add "Add On", :add_ons, data: {"job-request-id": job_request.id}, class: "button warning" %>
+    </div>
+
+  <% end %>
 
   <div class="row medium-unstack">
     <div class="columns">

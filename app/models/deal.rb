@@ -30,8 +30,15 @@ class Deal < ApplicationRecord
     "#{name} - #{department.organization.name}, #{department.name}"
   end
 
-  # def create_quotation
-  #   quotation = Quotation.find_or_initialize_by(deal_id: self.id)
-  #   quotation.save
-  # end
+  def designs
+    Design.where(deal_id: self.id)
+  end
+
+  def has_designs_with_version_for_production?
+    designs.any? { |d| d.version_for_production }
+  end
+
+  def designs_with_version_for_production
+    designs.select { |d| d.version_for_production }
+  end
 end
