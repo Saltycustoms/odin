@@ -21,4 +21,8 @@ class Discount < ApplicationRecord
       errors.add(:type, "must exist")
     end
   end
+
+  def info
+    ""
+  end
 end

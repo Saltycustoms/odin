@@ -28,7 +28,7 @@ class Quotation < ApplicationRecord
       sub_total_cents += add_on.total_cents if add_on.total
     end
 
-    if self.discount.type.present?
+    if self.discount && self.discount.type.present?
       discount_amount_cents = self.discount.type.constantize.new(value: self.discount.value).calculate(sub_total_cents)
     end
 
