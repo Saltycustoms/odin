@@ -41,4 +41,8 @@ class Deal < ApplicationRecord
   def designs_with_version_for_production
     designs.select { |d| d.version_for_production }
   end
+
+  def job_requests_with_designs
+    job_requests.select {|j| j.designs.present?}
+  end
 end

@@ -1,0 +1,7 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Back', @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "New Packing List"} %>
+
+<%= render 'form', deal: @deal, packing_list: @packing_list %>
