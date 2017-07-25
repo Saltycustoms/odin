@@ -20,9 +20,11 @@ class JobRequest < ApplicationRecord
   end
 
   def design_name
-    design_request = DesignRequest.where(job_request_id: self.id).first
-    if design_request
-      design_request.design.name
+    job_request_designs = designs
+    if job_request_designs.present?
+      job_request_designs.first.name
+    else
+      ""
     end
   end
 

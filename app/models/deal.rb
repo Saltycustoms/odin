@@ -29,4 +29,16 @@ class Deal < ApplicationRecord
   def display_name
     "#{name} - #{department.organization.name}, #{department.name}"
   end
+
+  def designs
+    Design.where(deal_id: self.id)
+  end
+
+  def has_designs_with_version_for_production?
+    designs.any? { |d| d.version_for_production }
+  end
+
+  def designs_with_version_for_production
+    designs.select { |d| d.version_for_production }
+  end
 end
