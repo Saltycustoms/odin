@@ -1,2 +1,72 @@
-<h1>PackingList#index</h1>
-<p>Find me in app/views/packing_list/index.html.erb</p>
+<% content_for :header_actions do %>
+  <%= link_to 'Back', @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Packing Details"} %>
+<%= link_to "Add location", new_deal_packing_list_path(@deal), class: "button" %>
+<h4>
+  Total <%= @deal.packing_list_items.sum(:quantity) %> pcs
+</h4>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Address</th>
+    <th>PIC</th>
+    <th>Details</th>
+    <th>Method</th>
+    <th></th>
+  </tr>
+  <% @deal.packing_lists.each do |packing_list| %>
+    <tr>
+      <td><%= packing_list.id %></td>
+      <td>
+        <%= link_to edit_deal_packing_list_path(@deal, packing_list), class: "pull-right" do %>
+          <span title="Edit" class="fa fa-pencil"></span>
+        <% end %>
+        <%= packing_list.address.to_html %>
+      </td>
+      <td>
+        <% packing_list.pics.each do |pic| %>
+          <p><%= pic.name %>, <%= pic.tel %>, <%= pic.title%></p>
+        <% end %>
+      </td>
+      <td>
+        <% packing_list.packing_list_items.pluck(:job_request_id).uniq.each do |job_request_id| %>
+          <% job_request = JobRequest.find(job_request_id) %>
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Color</th>
+                <% job_request.selected_sizes.each do |size| %>
+                  <th><%= size.name %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% job_request.selected_colors.each do |color| %>
+                <tr>
+                  <th><%= job_request.product.name %></th>
+                  <th><%= color.name %></th>
+                  <% packing_list.packing_list_items.where(job_request_id: job_request_id, color_id: color.id).order(size_id: :asc).each do |item| %>
+                    <td>
+                      <%= item.quantity %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+              <tr></tr>
+            </tbody>
+          </table>
+        <% end %>
+      </td>
+      <td><%= packing_list.shipping_method %></td>
+      <td>
+        <%= link_to deal_packing_list_path(@deal, packing_list), method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <span class="fa fa-trash" title="delete"></span>
+        <% end %>
+      </td>
+
+    </tr>
+  <% end %>
+</table>

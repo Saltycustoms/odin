@@ -1,6 +1,8 @@
 class Deal < ApplicationRecord
   has_one :quotation
   has_many :job_requests
+  has_many :packing_lists
+  has_many :packing_list_items, through: :packing_lists
   has_many :deadlines, dependent: :destroy
   # has_many :approvals
   accepts_nested_attributes_for :deadlines, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
