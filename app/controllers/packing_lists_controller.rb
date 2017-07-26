@@ -22,7 +22,7 @@ class PackingListsController < ApplicationController
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id.to_i} : []
     @packing_list = @deal.packing_lists.new(new_params)
-    
+
     if @packing_list.valid?
       if params[:select_job_request].present?
         new_params[:packing_list_items_attributes].each do |key, value|
@@ -53,7 +53,7 @@ class PackingListsController < ApplicationController
   def update
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id.to_i} : []
-    @packing_list.assign_attributes new_params.except(:pics_attributes)
+    @packing_list.assign_attributes new_params
 
     if @packing_list.valid?
       if params[:select_job_request].present?
@@ -63,7 +63,7 @@ class PackingListsController < ApplicationController
           end
         end
       end
-      @packing_list.update(new_params)
+      @packing_list.save
       redirect_to @deal, notice: "Packing list was successfully updated."
     else
       render :edit
