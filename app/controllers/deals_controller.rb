@@ -88,6 +88,8 @@ class DealsController < ApplicationController
     def send_notification
       message = @deal.label_with_model_name
       message["notification.key"] = "#{@deal.model_name.singular}.#{self.action_name}"
+      message["notifier.name"] = "Employee"
+      message["notifier.id"] = current_user.id
       NotificationService.notify(message)
     end
 end
