@@ -1,6 +1,8 @@
 class JobRequest < ApplicationRecord
   # has_many :design_requests
   # has_many :designs, through: :design_requests
+  has_many :quotation_lines
+  has_many :add_ons
   belongs_to :deal
   has_many :print_details, dependent: :destroy
   jsonb_accessor :metadata,
@@ -8,13 +10,33 @@ class JobRequest < ApplicationRecord
     colors: [:string]
   accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   validates :product_id, :colors, :sizes, presence: true
-  after_save :update_quotation_and_lines
+  after_save :find_or_initialize_quotation_and_lines
 
   def as_json(*)
     previous = super
     previous[:selected_colors] = selected_colors
     previous[:selected_sizes] = selected_sizes
     previous
+  end
+
+  def design_name
+    job_request_designs = designs
+    if job_request_designs.present?
+      job_request_designs.first.name
+    else
+      ""
+    end
+  end
+
+  def configurator_price_per_piece
+    price_cents = 0
+    product.price_ranges.each do |price_range|
+      if quotation_lines.sum(:quantity).between?(price_range.from_quantity, price_range.to_quantity)
+        price_cents = price_range.price_cents
+      end
+    end
+
+    "#{product.currency} #{Money.new(price_cents, product.currency).to_i}"
   end
 
   def designs
@@ -44,23 +66,6 @@ class JobRequest < ApplicationRecord
     end
   end
 
-  def price_per_piece
-    quotation_lines.first.display_price_per_unit
-  end
-
-  def quotation_lines
-    quotation = Quotation.find_by(deal_id: deal.id)
-    lines = quotation.quotation_lines.order(id: :asc).select {|l| l.description.split("_").first == "#{self.id}"}
-  end
-
-  def quotation_lines_quantity
-    sum = 0
-    quotation_lines.each do |line|
-      sum += line.quantity if line.quantity
-    end
-    return sum
-  end
-
   def selected_size_ids
     selected_sizes.collect { |s| s.id }
   end
@@ -69,15 +74,24 @@ class JobRequest < ApplicationRecord
     selected_colors.collect { |s| s.id }
   end
 
-  def update_quotation_and_lines
-    quotation = Quotation.find_or_initialize_by(deal_id: deal.id)
-    sizes = product.sizes
+  def find_or_initialize_quotation_and_lines
     colors = selected_colors
+    sizes = product.sizes
+    quotation = Quotation.find_or_initialize_by(deal_id: deal.id)
+
     colors.each do |color|
       sizes.each do |size|
-        quotation.quotation_lines.find_or_initialize_by(description: "#{self.id}_product_#{product.name}_#{size.name}_#{color.name}")
+        quotation.quotation_lines.find_or_initialize_by(color_id: color.id, size_id: size.id, quotation: quotation, job_request_id: self.id)
       end
     end
+
     quotation.save
+
+    color_ids = colors.collect { |c| c.id }
+    quotation_color_ids = self.quotation_lines.pluck(:color_id).uniq
+
+    (quotation_color_ids - color_ids).each do |unselected_color_id|
+      self.quotation_lines.where(color_id: unselected_color_id).delete_all
+    end
   end
 end

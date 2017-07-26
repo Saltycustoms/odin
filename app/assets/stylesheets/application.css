@@ -22,3 +22,12 @@
 input[type="number"].quantity-input {
   margin: 0;
 }
+
+.subtotal {
+  border-top: 1px dashed black;
+}
+
+.total {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}

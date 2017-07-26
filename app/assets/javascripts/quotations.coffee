@@ -3,6 +3,13 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on "turbolinks:load", ->
+
+  $(document).on("nested:fieldAdded:add_ons", ->
+    job_request_id = $(event.target).data('job-request-id')
+    add_ons_form = $(".add-ons-form[data-job-request-id='" + job_request_id + "']")
+    add_ons_form.find(".job_request_input").val(job_request_id)
+  )
+
   $(".quantity-input").change ->
     product_id = $(this).data("product-id")
     job_request_id = $(this).data("job-request-id")
@@ -18,4 +25,4 @@ $(document).on "turbolinks:load", ->
       type: 'get'
       data: {product_count: product_count}
       success: (data, status, XHR) ->
-        $("span[data-job-request-id='" + job_request_id + "']").html(data.configurator_price)
+        $("p[data-job-request-id='" + job_request_id + "']").html(data.configurator_price)
