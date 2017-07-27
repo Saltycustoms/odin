@@ -1,5 +1,4 @@
-class Deal < ApplicationRecord
-  include NotificationHandler
+class Deal < ApplicationRecord  
   has_one :quotation
   has_many :job_requests
   has_many :deadlines, dependent: :destroy

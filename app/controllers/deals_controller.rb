@@ -29,7 +29,7 @@ class DealsController < ApplicationController
     @deal = @pic.deals.new(deal_params)
     respond_to do |format|
       if @deal.save
-        send_notification
+        send_notification(@deal, self)
         format.html { redirect_to @pic.belongable.organization, notice: 'Deal was successfully created.' }
         format.json { render :show, status: :created, location: @deal }
       else
@@ -44,7 +44,7 @@ class DealsController < ApplicationController
   def update
     respond_to do |format|
       if @deal.update(deal_params)
-        send_notification
+        send_notification(@deal, self)
         format.html { redirect_to @pic ? @pic.belongable.organization : @deal, notice: 'Deal was successfully updated.' }
         format.json { render :show, status: :ok, location: @deal }
       else
@@ -58,7 +58,7 @@ class DealsController < ApplicationController
   # DELETE /deals/1.json
   def destroy
     @deal.destroy
-    send_notification
+    send_notification(@deal, self)
     respond_to do |format|
       format.html { redirect_to deals_url, notice: 'Deal was successfully destroyed.' }
       format.json { head :no_content }
@@ -83,13 +83,5 @@ class DealsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def deal_params
       params.require(:deal).permit(:pic_id, :name, :no_of_pcs, deadlines_attributes: [:id, :deadline, :reason, :cause_by, :_destroy])
-    end
-
-    def send_notification
-      message = @deal.label_with_model_name
-      message["notification.key"] = "#{@deal.model_name.singular}.#{self.action_name}"
-      message["notifier.name"] = "Employee"
-      message["notifier.id"] = current_user.id
-      NotificationService.notify(message)
     end
 end
