@@ -22,6 +22,41 @@
 
   <div class="row columns">
     <fieldset class="callout">
+      <h5>Pantone For Custom Dye</h5>
+      <div id="pantone-colors-form">
+        <% if params[:pantone_colors] %>
+          <% params[:pantone_colors].each_pair do |key, pantone_color| %>
+            <div class="row align-bottom">
+              <div class="column">
+                <%= label_tag "pantone_colors[#{key}][name]", "Name" %>
+                <%= text_field_tag "pantone_colors[#{key}][name]", pantone_color[:name] %>
+              </div>
+              <div class="column">
+                <%= label_tag "pantone_colors[#{key}][hex]", "Hex" %>
+                <%= text_field_tag "pantone_colors[#{key}][hex]", pantone_color[:hex] %>
+              </div>
+              <div class="column">
+                <%= label_tag "pantone_colors[#{key}][pantone_code]", "Pantone Code" %>
+                <%= text_field_tag "pantone_colors[#{key}][pantone_code]", pantone_color[:pantone_code] %>
+              </div>
+              <div class="small-1 column">
+                <%= link_to "javascript:void(0)", class: "button alert remove-pantone-color", onclick: "removePantoneForm(this)" do %>
+                  <i class='fa fa-times' aria-hidden='true'></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <a href="javascript:void(0)" id="add-pantone-button" class="button warning">
+        Add Pantone
+      </a>
+    </fieldset>
+  </div>
+
+
+  <div class="row columns">
+    <fieldset class="callout">
       <h5>Print Details</h5>
       <%= form.simple_fields_for :print_details do |print_detail| %>
         <div class="row align-bottom">
