@@ -1,0 +1,36 @@
+<%= simple_form_for [@deal, @transaction] do |f| %>
+  <div class="row align-center">
+    <div class="column small-6">
+      <p><strong>Remainder:</strong> <%= humanized_money_with_symbol @deal.remaining_amount %></p>
+      <p><strong>Paid:</strong> <%= humanized_money_with_symbol @deal.paid_amount %></p>
+      <%= f.input :transaction_number %>
+      <%= f.input :gateway_id, collection: Gateway.all.collect { |gateway| [gateway.name, gateway.id] } %>
+      <%= f.input :value, as: :integer, input_html: {min: 1} %>
+      <%= f.button :submit, "Save" %>
+    </div>
+  </div>
+<% end %>
+
+<h5>Past Collections</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Amount</th>
+      <th>Gateway</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @deal.transactions.each do |transaction| %>
+      <% next if transaction.new_record? %>
+      <tr>
+        <td><%= transaction.id %></td>
+        <td><%= humanized_money_with_symbol transaction.amount %></td>
+        <td><%= transaction.gateway.name %></td>
+        <td><%= transaction.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
