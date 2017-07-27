@@ -22,4 +22,8 @@ class User < ApplicationRecord
      end
      user
    end
+
+   def notifications
+     Notification.where(target_id: self.id, target_type: self.model_name.name)
+   end
 end
