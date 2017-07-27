@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :approvals
     resources :packing_lists
     resources :transactions
+    resources :conditions
   end
   resources :departments do
     resources :deals

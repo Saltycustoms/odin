@@ -1,0 +1,4 @@
+<% callout_options =  message.send("#{condition}?") ? "alert" : "success" %>
+<div class="callout <%= callout_options %>">
+  <%= I18n.t "condition.#{condition}.#{message.send("#{condition}?")}" %>
+</div>
