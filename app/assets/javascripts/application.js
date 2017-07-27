@@ -14,6 +14,7 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_nested_form
+//= require best_in_place
 //= require fcm_client_setup.js
 //= require cable.js
 //= require departments
@@ -21,6 +22,10 @@
 //= require quotations
 //= require packing_lists
 //= require scripts/toolkit
+
+$(document).ready(function() {
+  jQuery(".best_in_place").best_in_place();
+});
 
 $(document).on('turbolinks:load', function() {
     var sidebar = $('[data-sidebar]')

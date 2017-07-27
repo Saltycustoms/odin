@@ -1,0 +1,41 @@
+<h1>Sample Tracking</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Project</th>
+      <th>ETA PPS</th>
+      <th>Received PPS</th>
+      <th>Images</th>
+      <th>AC Comments</th>
+      <th>Creative Comments</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @samples.each do |sample| %>
+      <tr>
+        <td><%= sample.id %></td>
+        <td nowrap><%= sample.project.name %></td>
+        <td nowrap><%= to_dd_mm_yyyy(sample.eta_pps) %></td>
+        <td nowrap><%= to_dd_mm_yyyy(sample.received_pps) %></td>
+        <td nowrap>
+            <% sample.attachments.each do |attachment| %>
+                <%= image_tag attachment.attachment[:original].url, class: "sample-image" %>
+            <% end %>
+        </td>
+        <td><%= simple_format sample.ac_comments %></td>
+        <td><%= simple_format sample.creative_comments %></td>
+        <td><%= status_to_icon sample.status %></td>
+        <td>
+          <% if (sample.received_pps != nil && sample.status == "pending") %>
+            <%= link_to "Approval", samples_approval_path(sample) %>
+          <% end %>
+        </td>
+        <td><%= link_to "Edit", edit_project_sample_path(sample.project, sample) %></td>
+        <td><%= link_to "Destroy", project_sample_path(sample.project, sample), method: :delete, data: {confirm: "Are you sure?"} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

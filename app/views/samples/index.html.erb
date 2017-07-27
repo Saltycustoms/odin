@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Design</th>
+      <th>AC Comments</th>
+      <th>Creative Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @samples.each do |sample| %>
+      <tr>
+        <td><%= sample.id %></td>
+        <td><%= sample.project.design.name %></td>
+        <td><%= best_in_place sample, :ac_comments, as: :textarea %></td>
+        <td><%= simple_format sample.creative_comments %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,28 @@
+<h1>Sample Approval for <%= @sample.project.name %></h1>
+<dl>
+  <dt>ETA PPS</dt>
+  <dd><%= @sample.eta_pps %></dd>
+
+  <dt>Received PPS</dt>
+  <dd><%= @sample.received_pps %></dd>
+
+  <dt>AC Comments</dt>
+  <dd><%= simple_format @sample.ac_comments %></dd>
+
+  <dt>Creative Comments</dt>
+  <dd><%= simple_format @sample.creative_comments %></dd>
+</dl>
+
+<div class="row">
+  <div class="small-4 column">
+    <%= button_to "Approve", samples_approval_path(@sample), data: {confirm: "Are you sure?"}, params: {"sample[status]": "approved"}, class: 'button success expanded' %>
+  </div>
+  <div class="small-4 column text-center">
+    <h3>OR</h3>
+  </div>
+  <div class="small-4 column">
+    <%= button_to "Reject", samples_approval_path(@sample), data: {confirm: "Are you sure?"}, params: {"sample[status]": "rejected"}, class: 'button alert expanded' %>
+  </div>
+</div>
+
+<%= link_to "Back", root_path %>

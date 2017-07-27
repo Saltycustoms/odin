@@ -54,6 +54,9 @@ GEM
     amq-protocol (2.2.0)
     arel (8.0.0)
     bcrypt (3.1.11)
+    best_in_place (3.0.3)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
     bindex (0.5.0)
     builder (3.2.3)
     bunny (2.7.0)
@@ -257,6 +260,7 @@ PLATFORMS
 DEPENDENCIES
   activeresource
   acts-as-taggable-on (~> 4.0)
+  best_in_place (~> 3.0.1)
   bunny
   byebug
   capybara (~> 2.13)
