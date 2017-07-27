@@ -1,0 +1,7 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Back', gateways_path %>
+<% end %>
+
+<%= render "shared/page_header", {title: "New Gateway"} %>
+
+<%= render 'form', gateway: @gateway %>

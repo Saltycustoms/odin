@@ -1,0 +1,59 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Back', @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Deal Collections"} %>
+
+<h4>
+  <strong>Name:</strong>
+  <%= @deal.name %>
+</h4>
+<h4>
+  <strong>No Of Pcs:</strong>
+  <%= @deal.quotation_lines.sum(:quantity) %>
+</h4>
+<h4>
+  <strong>No Of Add Ons:</strong>
+  <%= @deal.add_ons.sum(:quantity) %>
+</h4>
+<h4>
+  <strong>Total:</strong>
+  <%= humanized_money_with_symbol @deal.quotation.net_total %>
+</h4>
+<h4>
+  <strong>Paid:</strong>
+  <%= humanized_money_with_symbol @deal.paid_amount %>
+</h4>
+<h4>
+  <strong>Remainder:</strong>
+  <%= humanized_money_with_symbol @deal.remaining_amount %>
+</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Amount</th>
+      <th>Gateway</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.id %></td>
+        <td><%= humanized_money_with_symbol transaction.amount %></td>
+        <td><%= transaction.gateway.name %></td>
+        <td><%= transaction.created_at %></td>
+        <td>
+          <%= link_to edit_deal_transaction_path(@deal, transaction) do %>
+            <span title="Edit" class="fa fa-pencil"></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Collect Payment", new_deal_transaction_path(@deal), class: "button" %>
