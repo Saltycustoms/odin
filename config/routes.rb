@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-  get 'transactions/index'
-
-  get 'transactions/new'
-
-  get 'transactions/edit'
-
-  get 'transactions/_form'
-
   resources :products, only: [:show]
   get "/products/:id/price_ranges", to: "products#price_ranges"
   namespace :api do
@@ -36,6 +28,7 @@ Rails.application.routes.draw do
   resources :organizations do
     resources :departments
   end
+  resources :gateways
   resources :welcome
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'

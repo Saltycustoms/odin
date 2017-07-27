@@ -1,14 +1,14 @@
 class Transaction < ApplicationRecord
   belongs_to :deal
   monetize :value_cents
-  validates :value, presence: true
-  monetize :amount_cents
-
-  def amount_cents
+  validates :value, :gateway_id, presence: true
+  belongs_to :gateway
+  
+  def amount
     if deal && deal.quotation && deal.quotation.currency.present?
-      return Money.new(value_cents, deal.quotation.currency)
+      Money.new(value_cents, deal.quotation.currency)
     else
-      return value_cents
+      value_cents
     end
   end
 end

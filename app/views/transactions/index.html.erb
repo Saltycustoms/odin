@@ -44,7 +44,7 @@
       <tr>
         <td><%= transaction.id %></td>
         <td><%= humanized_money_with_symbol transaction.amount %></td>
-        <td><%= transaction.gateway_id %></td>
+        <td><%= transaction.gateway.name %></td>
         <td><%= transaction.created_at %></td>
         <td>
           <%= link_to edit_deal_transaction_path(@deal, transaction) do %>
