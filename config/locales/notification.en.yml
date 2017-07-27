@@ -1,0 +1,12 @@
+en:
+  notification:
+    title:
+      deal:
+        create: 'Deal has been created'
+        update: 'Someone has edited the deal'
+        destroy: "Someone removed a deal"
+    body:
+      deal:
+        create: 'Deal %{id}#%{name} has been created'
+        update: 'Someone has edited the deal %{id}#%{name}'
+        destroy: "Someone removed a deal %{id}#%{name}"
