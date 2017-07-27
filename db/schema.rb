@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725091506) do
+ActiveRecord::Schema.define(version: 20170726095935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,7 +216,6 @@ ActiveRecord::Schema.define(version: 20170725091506) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.bigint "order_id"
     t.string "transaction_number"
     t.string "currency"
     t.integer "value_cents"
@@ -226,7 +225,8 @@ ActiveRecord::Schema.define(version: 20170725091506) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_transactions_on_order_id"
+    t.bigint "deal_id"
+    t.index ["deal_id"], name: "index_transactions_on_deal_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -260,5 +260,5 @@ ActiveRecord::Schema.define(version: 20170725091506) do
   add_foreign_key "quotation_lines", "quotations"
   add_foreign_key "quotations", "deals"
   add_foreign_key "quotations", "discounts"
-  add_foreign_key "transactions", "orders"
+  add_foreign_key "transactions", "deals"
 end

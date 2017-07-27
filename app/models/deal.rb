@@ -4,6 +4,9 @@ class Deal < ApplicationRecord
   has_many :packing_lists
   has_many :packing_list_items, through: :packing_lists
   has_many :deadlines, dependent: :destroy
+  has_many :transactions
+  has_many :add_ons, through: :job_requests
+  has_many :quotation_lines, through: :job_requests
   # has_many :approvals
   accepts_nested_attributes_for :deadlines, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   belongs_to :department, optional: true
@@ -46,5 +49,21 @@ class Deal < ApplicationRecord
 
   def job_requests_with_designs
     job_requests.select {|j| j.designs.present?}
+  end
+
+  def remaining_amount
+    if quotation && quotation.currency.present?
+      quotation.net_total - paid_amount
+    else
+      0
+    end
+  end
+
+  def paid_amount
+    if quotation && quotation.currency.present?
+      Money.new(transactions.sum(:value_cents), quotation.currency)
+    else
+      transactions.sum(:value_cents)
+    end
   end
 end

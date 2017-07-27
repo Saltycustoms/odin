@@ -1,0 +1,7 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Back', @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Edit Collection ##{@transaction.id}"} %>
+
+<%= render 'form', deal: @deal %>
