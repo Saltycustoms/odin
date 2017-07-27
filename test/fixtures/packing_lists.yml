@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  deal: one
+  address: one
+  department: MyString
+  method: 1
+
+two:
+  deal: two
+  address: two
+  department: MyString
+  method: 1

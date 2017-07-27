@@ -2,6 +2,8 @@ class Deal < ApplicationRecord
   include NotificationHandler
   has_one :quotation
   has_many :job_requests
+  has_many :packing_lists
+  has_many :packing_list_items, through: :packing_lists
   has_many :deadlines, dependent: :destroy
   # has_many :approvals
   accepts_nested_attributes_for :deadlines, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
@@ -41,5 +43,9 @@ class Deal < ApplicationRecord
 
   def designs_with_version_for_production
     designs.select { |d| d.version_for_production }
+  end
+
+  def job_requests_with_designs
+    job_requests.select {|j| j.designs.present?}
   end
 end

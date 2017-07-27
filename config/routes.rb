@@ -8,12 +8,14 @@ Rails.application.routes.draw do
       resources :print_details
     end
   end
+  get "/states", to: "packing_lists#states"
   resources :print_details
   resources :deals do
     resource :quotations
     resources :job_requests
     resources :deadlines
     resources :approvals
+    resources :packing_lists
   end
   resources :departments do
     resources :deals
