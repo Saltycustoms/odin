@@ -19,6 +19,7 @@
 //= require departments
 //= require job_requests
 //= require quotations
+//= require packing_lists
 //= require scripts/toolkit
 
 $(document).on('turbolinks:load', function() {
