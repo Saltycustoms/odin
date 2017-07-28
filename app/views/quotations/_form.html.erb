@@ -8,8 +8,8 @@
       </div>
       <div class="small-6 column">
         <strong>Price Per Piece:</strong><br>
-        <%= hidden_field_tag "job_request_price_per_piece[#{job_request.id}][id]", job_request.id %>
-        <%= number_field_tag "job_request_price_per_piece[#{job_request.id}][price_per_piece]", job_request.quotation_lines.first.price_per_unit %>
+        <%= hidden_field_tag "job_request_price_per_unit[#{job_request.id}][id]", job_request.id %>
+        <%= number_field_tag "job_request_price_per_unit[#{job_request.id}][price_per_unit]", @job_request_price_per_unit["#{job_request.id}"] %>
       </div>
       <div class="small-6 small-offset-6 column">
         <strong>Configurator Price Per Piece:</strong><br>
@@ -25,8 +25,8 @@
         <tr>
           <th>Product Name</th>
           <th>Color</th>
-          <% job_request.product.sizes.each do |size| %>
-            <th><%= size.name %></th>
+          <% job_request.selected_sizes.each do |size| %>
+            <th><%= "#{size.name} #{size.id}" %></th>
           <% end %>
         </tr>
       </thead>
@@ -34,9 +34,14 @@
         <% job_request.selected_colors.each do |color| %>
           <tr>
             <th><%= job_request.product.name %></th>
-            <th><%= color.name %></th>
-            <%= f.fields_for :quotation_lines, @quotation.quotation_lines.where(job_request_id: job_request.id, color_id: color.id).order(size_id: :asc) do |q| %>
-              <td><%= q.input :quantity, label: false, input_html: {class: "quantity-input", data: {"product-id": job_request.product_id, "job_request-id": job_request.id}} %></td>
+            <th><%= "#{color.display_name} #{color.id}" %></th>
+            <%= f.fields_for :quotation_lines, @quotation.quotation_lines.select { |line| (line.job_request_id == job_request.id && line.color_id == color.id) } do |q| %>
+              <td>
+                <%= q.input :job_request_id, as: :hidden, input_html: {value: q.object.job_request_id} %>
+                <%= q.input :color_id, as: :hidden, input_html: {value: q.object.color_id} %>
+                <%= q.input :size_id, as: :hidden, input_html: {value: q.object.size_id} %>
+                <%= q.input :quantity, label: false, input_html: {class: "quantity-input", min: 0, data: {"product-id": job_request.product_id, "job_request-id": job_request.id}} %>
+              </td>
             <% end %>
           </tr>
         <% end %>
@@ -45,20 +50,19 @@
     <br>
 
     <div class="add-ons-form" data-job-request-id="<%= job_request.id %>">
-      <%= f.fields_for :add_ons, @quotation.add_ons.where(job_request_id: job_request.id) do |a| %>
-        <div class="row align-bottom">
+      <%= f.fields_for :add_ons, @quotation.add_ons.select { |add_on| add_on.job_request_id == job_request.id } do |a| %>
+        <div class="row">
           <div class="column">
             <%= a.input :job_request_id, as: :hidden, input_html: {class: "job_request_input"} %>
             <%= a.input :description %>
-            <% puts "job_request #{job_request.id}" %>
           </div>
           <div class="column">
-            <%= a.input :quantity %>
+            <%= a.input :quantity, input_html: {min: 0} %>
           </div>
           <div class="column">
-            <%= a.input :price_per_unit %>
+            <%= a.input :price_per_unit, as: :integer, input_html: {min: 0} %>
           </div>
-          <div class="small-1 column">
+          <div class="small-1 column align-self-bottom">
             <%= a.link_to_remove class: "button alert remove-button" do %>
               <i class="fa fa-times" aria-hidden="true"></i>
             <% end %>
@@ -78,10 +82,7 @@
       <%= f.input :currency, collection: Money::Currency.all.map{|curr| ["#{curr.name} (#{curr.iso_code})", curr.iso_code]} %>
     </div>
     <div class="columns">
-      <%= f.input :shipping %>
-    </div>
-    <div class="columns">
-      <%= f.input :tax %>
+      <%= f.input :shipping, as: :integer, input_html: {min: 0} %>
     </div>
   </div>
 

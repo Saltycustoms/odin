@@ -3,7 +3,9 @@ class AddOn < ApplicationRecord
   belongs_to :quotation
   monetize :price_per_unit_cents, with_model_currency: :currency
   monetize :total_cents, with_model_currency: :currency
-  validates :description, :quantity, presence: true
+  validates :description, presence: true
+  validates :quantity, numericality: {greater_than_or_equal_to: 0}
+
   before_save :calculate_total
   before_update :calculate_total
 

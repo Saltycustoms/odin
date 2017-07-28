@@ -32,7 +32,11 @@
 <% if @deal.job_requests.present? %>
   <div class="callout">
     <div class="button-group">
-      <%= link_to "Quotation", edit_deal_quotations_path(@deal), class: "button" %>
+      <% if @deal.quotation %>
+        <%= link_to "Edit Quotation", edit_deal_quotations_path(@deal), class: "button" %>
+      <% else %>
+        <%= link_to "New Quotation", new_deal_quotations_path(@deal), class: "button" %>
+      <% end %>
       <%= link_to "Get Approval", new_deal_approval_path(@deal), class: "button secondary" %>
       <%= link_to "Approvals", deal_approvals_path(@deal), class: "button secondary" %>
       <%= link_to "New Packing List", new_deal_packing_list_path(@deal), class: "button success" %>
