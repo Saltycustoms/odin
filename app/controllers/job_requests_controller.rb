@@ -16,12 +16,12 @@ class JobRequestsController < ApplicationController
   # GET /job_requests/new
   def new
     @job_request = JobRequest.new
-    @product = Product.first
+    @product = Product.find(params[:product_id]) if params[:product_id]
   end
 
   # GET /job_requests/1/edit
   def edit
-    @job_request.product ? @product = @job_request.product : @product = Product.first
+    @product = @job_request.product
   end
 
   # POST /job_requests

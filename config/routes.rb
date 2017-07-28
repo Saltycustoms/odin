@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     resources :transactions
     resources :conditions
   end
+  get '/products/:product_id/colors/new', to: "products#new_color", as: "new_color"
+  post '/products/:product_id/colors', to: "products#create_color", as: "colors"
+
   resources :departments do
     resources :deals
   end

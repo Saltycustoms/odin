@@ -21,6 +21,7 @@
 //= require job_requests
 //= require quotations
 //= require packing_lists
+//= require products
 //= require scripts/toolkit
 
 $(document).ready(function() {

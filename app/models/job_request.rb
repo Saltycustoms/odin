@@ -10,7 +10,7 @@ class JobRequest < ApplicationRecord
     colors: [:string]
   accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   validates :product_id, :colors, :sizes, presence: true
-  after_save :find_or_initialize_quotation_and_lines
+  # after_save :find_or_initialize_quotation_and_lines
 
   def as_json(*)
     previous = super
