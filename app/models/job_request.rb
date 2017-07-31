@@ -100,18 +100,27 @@ class JobRequest < ApplicationRecord
       quotation_color_ids = quotation_lines.pluck(:color_id).uniq
       quotation_size_ids = quotation_lines.pluck(:size_id).uniq
 
+      quotation = quotation_lines.take.quotation
+
       job_request_color_ids = selected_color_ids
       job_request_size_ids = selected_size_ids
+      
+      #create new quotation line if job request select new color or size when update job request
+      job_request_color_ids.each do |color_id|
+        job_request_size_ids.each do |size_id|
+          quotation.quotation_lines.find_or_initialize_by(color_id: color_id, size_id: size_id, job_request_id: self.id)
+        end
+      end
 
       unselected_color_ids = quotation_color_ids - job_request_color_ids
       unselected_size_ids = quotation_size_ids - job_request_size_ids
 
-      unselected_color_ids.each do |color_id|
-        unselected_size_ids.each do |size_id|
-          quotation_lines.where(color_id: color_id, size_id: size_id).delete_all
-        end
-      end
-      
+      #delete previous quotation lines
+      quotation_lines.where(color_id: unselected_color_ids).delete_all
+      quotation_lines.where(size_id: unselected_size_ids).delete_all
+
+      quotation.calculate_total
+      quotation.save
     end
   end
 end

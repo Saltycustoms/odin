@@ -50,8 +50,6 @@ class Quotation < ApplicationRecord
     self.sub_total_cents = sub_total_cents
     self.discount_amount_cents = discount_amount_cents
     self.net_total_cents = self.sub_total_cents + self.shipping_cents + self.tax_cents - self.discount_amount_cents
-
-    # self.update_columns(sub_total_cents: sub_total_cents, net_total_cents: net_total_cents, discount_amount_cents: discount_amount_cents, tax_cents: tax_cents, updated_at: DateTime.now)
   end
 
   def tax_info

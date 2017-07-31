@@ -32,7 +32,7 @@ class QuotationLine < ApplicationRecord
   end
 
   def display_name
-    "#{product.name} #{color.name} #{size.name}"
+    "#{product.name} #{color.display_name} #{size.name}"
   end
 
   def display_price_per_unit

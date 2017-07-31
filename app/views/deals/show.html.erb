@@ -34,6 +34,7 @@
     <div class="button-group">
       <% if @deal.quotation %>
         <%= link_to "Edit Quotation", edit_deal_quotations_path(@deal), class: "button" %>
+        <%= link_to "View Quotation", deal_quotations_path(@deal), class: "button" %>
       <% else %>
         <%= link_to "New Quotation", new_deal_quotations_path(@deal), class: "button" %>
       <% end %>

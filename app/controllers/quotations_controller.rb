@@ -15,9 +15,23 @@ class QuotationsController < ApplicationController
         end
       end
     end
+    @job_request_price_per_unit = {}
+    @deal.job_requests.each do |job_request|
+      @job_request_price_per_unit["#{job_request.id}"] = 0
+    end
   end
 
   def create
+    @job_request_price_per_unit = {}
+    if params[:job_request_price_per_unit]
+      params[:job_request_price_per_unit].each_pair do |key, value|
+        @job_request_price_per_unit[key] = value["price_per_unit"]
+      end
+    else
+      @quotation.deal.job_requests.each do |job_request|
+        @job_request_price_per_unit["#{job_request.id}"] = job_request.quotation_lines.first.price_per_unit
+      end
+    end
     new_params = quotation_params.deep_dup
     params[:job_request_price_per_unit].each_pair do |key, param|
       job_request_id = param[:id]
