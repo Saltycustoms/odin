@@ -20,7 +20,8 @@ class Notification < ActiveResource::Base
   def generate_link
     begin
       "#{Figaro.env.send("locate_"+ self.parameters.send("notification.application_name") +"_app")}/" +
-      "#{self.parameters.send("notification.model_plural")}/#{self.notify_id}"
+      "#{self.parameters.send("notification.model_plural")}/#{self.notify_id}" +
+      "?opened=1"
     rescue => err
       Rails.logger.info(err)
       false

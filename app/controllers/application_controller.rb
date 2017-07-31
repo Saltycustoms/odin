@@ -13,13 +13,15 @@ class ApplicationController < ActionController::Base
   end
 
   def open_notification(model, controller, user)
-    notifications = Notification.where(
-                      target_id: user.id,
-                      target_type: "Employee",
-                      notify_type: model.model_name.name,
-                      notify_id: model.id,
-                      opened_at: nil
-                    )
+    notifications = Notification.all(params: {
+                      q:{
+                        target_id_eq: user.id,
+                        target_type_eq: "Employee",
+                        notify_type_eq: model.model_name.name,
+                        notify_id_eq: model.id,
+                        opened_at_null: true
+                      }
+                    })
     notifications.each do |notification|
       notification.opened_at = Time.now
       notification.save
