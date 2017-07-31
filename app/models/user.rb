@@ -23,7 +23,11 @@ class User < ApplicationRecord
      user
    end
 
-   def notifications
-     Notification.where(target_id: self.id, target_type: self.model_name.name)
+   def notifications(params=nil)
+     if params
+       Notification.all(params: params)
+     else
+       Notification.where(target_id: self.id, target_type: self.model_name.name)
+     end
    end
 end

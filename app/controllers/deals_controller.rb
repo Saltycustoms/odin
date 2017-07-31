@@ -12,6 +12,7 @@ class DealsController < ApplicationController
   # GET /deals/1
   # GET /deals/1.json
   def show
+    open_notification(@deal, self, current_user) if params[:opened]
   end
 
   # GET /deals/new

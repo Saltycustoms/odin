@@ -11,5 +11,21 @@ class ApplicationController < ActionController::Base
     message["notifier.id"] = current_user.id
     NotificationService.notify(message)
   end
+
+  def open_notification(model, controller, user)
+    notifications = Notification.where(
+                      target_id: user.id,
+                      target_type: "Employee",
+                      notify_type: model.model_name.name,
+                      notify_id: model.id,
+                      opened_at: nil
+                    )
+    notifications.each do |notification|
+      notification.opened_at = Time.now
+      notification.save
+    end
+  end
+
   helper_method :send_notification
+  helper_method :open_notification
 end

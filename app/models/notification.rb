@@ -16,4 +16,14 @@ class Notification < ActiveResource::Base
   def notifier
     self.notifier_type.constantize.find(self.notifier_id)
   end
+
+  def generate_link
+    begin
+      "#{Figaro.env.send("locate_"+ self.parameters.send("notification.application_name") +"_app")}/" +
+      "#{self.parameters.send("notification.model_plural")}/#{self.notify_id}"
+    rescue => err
+      Rails.logger.info(err)
+      false
+    end
+  end
 end

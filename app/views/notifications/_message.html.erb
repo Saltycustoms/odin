@@ -1,10 +1,14 @@
-<div class="time">
-  <%= distance_of_time_in_words Time.now, message.created_at %>
-</div>
-<div class="post">
-  <strong><%= message.notifier.name %></strong>
-  <%= I18n.t("notification.title.#{message.key}") %>
-</div>
-<div class="description">
-  <%= I18n.t("notification.body.#{message.key}", message.parameters_to_hash.symbolize_keys) %>
+<div class="notifications <%= message.opened_at.present? ? "opened" : "" %>" data-id=<%= message.id %>>
+  <div class="time">
+    <%= distance_of_time_in_words Time.now, message.created_at %>
+  </div>
+  <div class="post">
+    <strong><%= message.notifier.name %></strong>
+    <%= I18n.t("notification.title.#{message.key}") %>
+  </div>
+  <div class="description">
+    <%= I18n.t("notification.body.#{message.key}", message.parameters_to_hash.symbolize_keys) %>
+    <br/>
+    <%= link_to "View", message.generate_link if  message.generate_link %>
+  </div>
 </div>
