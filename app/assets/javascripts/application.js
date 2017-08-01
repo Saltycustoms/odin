@@ -21,8 +21,10 @@
 //= require job_requests
 //= require quotations
 //= require packing_lists
+//= require notifications
 //= require products
 //= require scripts/toolkit
+//= require serviceworker-companion
 
 $(document).ready(function() {
   jQuery(".best_in_place").best_in_place();
@@ -33,4 +35,3 @@ $(document).on('turbolinks:load', function() {
     pathing = sidebar.data("controller") + '-' + sidebar.data("action")
     $('[data-pathing=' + pathing + ']').addClass('active')
 });
-//= require serviceworker-companion
