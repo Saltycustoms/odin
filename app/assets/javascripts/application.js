@@ -22,6 +22,7 @@
 //= require quotations
 //= require packing_lists
 //= require notifications
+//= require products
 //= require scripts/toolkit
 //= require serviceworker-companion
 

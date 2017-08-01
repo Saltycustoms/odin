@@ -10,7 +10,7 @@ class JobRequest < ApplicationRecord
     colors: [:string]
   accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   validates :product_id, :colors, :sizes, presence: true
-  after_save :find_or_initialize_quotation_and_lines
+  before_save :update_quotation_and_lines
 
   def as_json(*)
     previous = super
@@ -92,6 +92,35 @@ class JobRequest < ApplicationRecord
 
     (quotation_color_ids - color_ids).each do |unselected_color_id|
       self.quotation_lines.where(color_id: unselected_color_id).delete_all
+    end
+  end
+
+  def update_quotation_and_lines
+    if quotation_lines.present?
+      quotation_color_ids = quotation_lines.pluck(:color_id).uniq
+      quotation_size_ids = quotation_lines.pluck(:size_id).uniq
+
+      quotation = quotation_lines.take.quotation
+
+      job_request_color_ids = selected_color_ids
+      job_request_size_ids = selected_size_ids
+      
+      #create new quotation line if job request select new color or size when update job request
+      job_request_color_ids.each do |color_id|
+        job_request_size_ids.each do |size_id|
+          quotation.quotation_lines.find_or_initialize_by(color_id: color_id, size_id: size_id, job_request_id: self.id)
+        end
+      end
+
+      unselected_color_ids = quotation_color_ids - job_request_color_ids
+      unselected_size_ids = quotation_size_ids - job_request_size_ids
+
+      #delete previous quotation lines
+      quotation_lines.where(color_id: unselected_color_ids).delete_all
+      quotation_lines.where(size_id: unselected_size_ids).delete_all
+
+      quotation.calculate_total
+      quotation.save
     end
   end
 end

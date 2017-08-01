@@ -5,6 +5,13 @@ class QuotationLine < ApplicationRecord
   before_update :calculate_total
   monetize :price_per_unit_cents, with_model_currency: :currency
   monetize :total_cents, with_model_currency: :currency
+  validates :quantity, numericality: {greater_than_or_equal_to: 0}
+
+  def currency
+    if quotation
+      quotation.currency
+    end
+  end
 
   def product
     Product.find(self.job_request.product_id)
@@ -25,7 +32,7 @@ class QuotationLine < ApplicationRecord
   end
 
   def display_name
-    "#{product.name} #{color.name} #{size.name}"
+    "#{product.name} #{color.display_name} #{size.name}"
   end
 
   def display_price_per_unit

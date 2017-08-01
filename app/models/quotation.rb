@@ -2,6 +2,7 @@ class Quotation < ApplicationRecord
   belongs_to :deal, optional: true
   belongs_to :discount, optional: true
   belongs_to :job_request, optional: true
+  validates :currency, presence: true
   has_many :quotation_lines, dependent: :destroy
   has_many :add_ons, dependent: :destroy
   has_many :job_requests, through: :quotation_lines
@@ -14,7 +15,8 @@ class Quotation < ApplicationRecord
   monetize :net_total_cents, with_model_currency: :currency
   monetize :sub_total_cents, with_model_currency: :currency
   monetize :tax_cents, with_model_currency: :currency
-  after_save :calculate_total
+  # after_save :calculate_total
+  before_save :calculate_total
 
   def calculate_total
     sub_total_cents = 0
@@ -22,16 +24,16 @@ class Quotation < ApplicationRecord
     tax_cents = 0
 
     self.quotation_lines.each do |line|
-      sub_total_cents += line.total_cents if line.total
+      sub_total_cents += (line.quantity * line.price_per_unit_cents)
     end
     self.add_ons.each do |add_on|
-      sub_total_cents += add_on.total_cents if add_on.total
+      next if add_on.marked_for_destruction?
+      sub_total_cents += (add_on.quantity * add_on.price_per_unit_cents)
     end
 
     if self.discount && self.discount.type.present?
       discount_amount_cents = self.discount.type.constantize.new(value: self.discount.value).calculate(sub_total_cents)
     end
-
     taxable_cents = (sub_total_cents - discount_amount_cents) + self.shipping_cents
 
     if self.currency.present?
@@ -44,10 +46,10 @@ class Quotation < ApplicationRecord
         tax_cents = 0
       end
     end
-
-    net_total_cents = sub_total_cents + self.shipping_cents + tax_cents - discount_amount_cents
-
-    self.update_columns(sub_total_cents: sub_total_cents, net_total_cents: net_total_cents, discount_amount_cents: discount_amount_cents, tax_cents: tax_cents, updated_at: DateTime.now)
+    self.tax_cents = tax_cents
+    self.sub_total_cents = sub_total_cents
+    self.discount_amount_cents = discount_amount_cents
+    self.net_total_cents = self.sub_total_cents + self.shipping_cents + self.tax_cents - self.discount_amount_cents
   end
 
   def tax_info

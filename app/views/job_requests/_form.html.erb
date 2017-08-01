@@ -1,9 +1,14 @@
 <%= simple_nested_form_for [deal, job_request] do |form| %>
   <div class="row medium-unstack">
     <div class="columns">
-      <%= form.input :product_id, collection: Product.all.collect { |p| [p.name, p.id] }, input_html: {id: "product-select"} %>
-      <%= form.input :colors, collection: @product.colors.collect { |c| [c.name, c.id] }, selected: @product.color_ids & @job_request.selected_color_ids, input_html: { multiple: true, id: "colors-select" } %>
-      <%= form.input :sizes, collection: @product.sizes.collect { |s| [s.name, s.id] }, selected: @product.size_ids & @job_request.selected_size_ids, input_html: { multiple: true, id: "sizes-select" } %>
+      <%= form.input :product_id, collection: Product.all.collect { |p| [p.name, p.id] }, input_html: {id: "product-select"}, selected: @product ? @product.id : nil, include_blank: true %>
+      <%= label_tag "job_requests[colors][]" do %>
+        <abbr title="required">*</abbr>
+        Colors
+        <%= link_to "Add Pantone Color", @product ? new_color_path(@product, deal_id: @deal.id) : "javascript:void(0)", class: "pull-right", id: "add-pantone-color-link", style: (@product && @product.custom_dye) ? "display: block" : "display: none", data: {"deal_id": @deal.id} %>
+      <% end %>
+      <%= form.input :colors, label: false, collection: @product ? @product.colors.collect { |c| [c.display_name, c.id] } : [], selected: @product ? (@product.color_ids & @job_request.selected_color_ids) : [], input_html: { multiple: true, id: "colors-select" } %>
+      <%= form.input :sizes, collection: @product ? @product.sizes.collect { |s| [s.name, s.id] } : [], selected: @product ? (@product.size_ids & @job_request.selected_size_ids) : [], input_html: { multiple: true, id: "sizes-select" } %>
       <%= form.input :name %>
       <%= form.input :sleeve %>
       <%= form.input :relabeling %>

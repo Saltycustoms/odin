@@ -1,0 +1,43 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Back', new_deal_job_request_path(@deal) %>
+<% end %>
+
+<%= render "shared/page_header", {title: "New Pantone Color for #{@product.name}"} %>
+
+<div class="row columns">
+  <%= form_tag colors_path(@product, deal_id: @deal) do %>
+    <div id="pantone-colors-form">
+      <% if @pantone_colors %>
+        <% @pantone_colors.each do |pantone_color| %>
+          <div class="row">
+            <div class="column">
+              <%= label_tag "pantone_colors[#{pantone_color.key}][name]", "Name" %>
+              <%= text_field_tag "pantone_colors[#{pantone_color.key}][name]", pantone_color.name %>
+              <small class="error"><%= pantone_color.errors[:name].join(", ") if pantone_color.errors[:name] %></small>
+          </div>
+            <div class="column">
+              <%= label_tag "pantone_colors[#{pantone_color.key}][hex]", "Hex" %>
+              <%= text_field_tag "pantone_colors[#{pantone_color.key}][hex]", pantone_color.hex %>
+              <small class="error"><%= pantone_color.errors[:hex].join(", ") if pantone_color.errors[:hex] %></small>
+            </div>
+            <div class="column">
+              <%= label_tag "pantone_colors[#{pantone_color.key}][pantone_code]" do %>
+                <abbr title="required">*</abbr>
+                Pantone Code
+              <% end %>
+              <%= text_field_tag "pantone_colors[#{pantone_color.key}][pantone_code]", pantone_color.pantone_code %>
+              <small class="error"><%= pantone_color.errors[:pantone_code].join(", ") if pantone_color.errors[:pantone_code]%></small>
+            </div>
+            <div class="small-1 column align-self-middle">
+              <%= link_to "javascript:void(0)", class: "button alert remove-pantone-color", onclick: "removePantoneForm(this)" do %>
+                <i class='fa fa-times' aria-hidden='true'></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <p><a href="javascript:void(0)" id="add-pantone-button" class="button warning">Add Pantone</a></p>
+    <%= submit_tag "Save", class: "button" %>
+  <% end %>
+</div>

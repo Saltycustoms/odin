@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @quotation.quotation_lines.where.not(quantity: 0).order(id: :asc).each do |line| %>
+    <% @quotation.quotation_lines.where.not(quantity: 0).order(:job_request_id, id: :asc).each do |line| %>
       <tr>
         <td><%= line.quantity %></td>
         <td><%= line.display_name %></td>
@@ -67,8 +67,4 @@
 
 <p>
   Payment Link:
-</p>
-
-<p>
-  Gateway:
 </p>
