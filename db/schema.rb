@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170803093031) do
+ActiveRecord::Schema.define(version: 20170803093901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,6 +164,15 @@ ActiveRecord::Schema.define(version: 20170803093031) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "properties", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+    t.bigint "job_request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_request_id"], name: "index_properties_on_job_request_id"
+  end
+
   create_table "quotation_lines", force: :cascade do |t|
     t.bigint "quotation_id"
     t.string "description"
@@ -263,6 +272,7 @@ ActiveRecord::Schema.define(version: 20170803093031) do
   add_foreign_key "orders", "deals"
   add_foreign_key "packing_list_items", "packing_lists"
   add_foreign_key "packing_lists", "deals"
+  add_foreign_key "properties", "job_requests"
   add_foreign_key "quotation_lines", "job_requests"
   add_foreign_key "quotation_lines", "quotations"
   add_foreign_key "quotations", "deals"

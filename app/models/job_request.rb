@@ -5,10 +5,12 @@ class JobRequest < ApplicationRecord
   has_many :add_ons
   belongs_to :deal
   has_many :print_details, dependent: :destroy
+  has_many :properties, dependent: :destroy
   jsonb_accessor :metadata,
     sizes: [:string],
     colors: [:string]
   accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
+  accepts_nested_attributes_for :properties, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   validates :product_id, :colors, :sizes, presence: true
   before_save :update_quotation_and_lines
 
@@ -104,7 +106,7 @@ class JobRequest < ApplicationRecord
 
       job_request_color_ids = selected_color_ids
       job_request_size_ids = selected_size_ids
-      
+
       #create new quotation line if job request select new color or size when update job request
       job_request_color_ids.each do |color_id|
         job_request_size_ids.each do |size_id|

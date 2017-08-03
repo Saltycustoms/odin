@@ -17,6 +17,9 @@ class JobRequestsController < ApplicationController
   def new
     @job_request = JobRequest.new
     @product = Product.find(params[:product_id]) if params[:product_id]
+    @deal.properties_type.each do |property_name|
+      @job_request.properties.build(name: property_name)
+    end
   end
 
   # GET /job_requests/1/edit

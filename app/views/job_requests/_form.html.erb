@@ -48,6 +48,26 @@
     <%= form.input :sample_required, wrapper_html: {class: "column"} %>
   </div>
 
+  <div class="row columns">
+    <h5>Properties</h5>
+    <%= form.simple_fields_for :properties do |property| %>
+      <div class="row align-bottom">
+        <div class="column">
+          <%= property.input :name, collection: @deal.properties_type %>
+        </div>
+        <div class="column">
+          <%= property.input :value %>
+        </div>
+        <div class="small-1 column">
+          <%= property.link_to_remove class: "button alert remove-button" do %>
+            <i class="fa fa-times" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <%= form.link_to_add "Add property", :properties, class: "button warning" %>
+  </div>
+
   <div class="row medium-unstack">
     <div class="columns">
       <%= form.input :remark, input_html: { rows: "5" } %>
