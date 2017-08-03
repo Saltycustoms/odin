@@ -48,6 +48,7 @@ gem 'shrine'
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'serviceworker-rails'
 gem 'best_in_place', '~> 3.0.1'
+gem 'role_model'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

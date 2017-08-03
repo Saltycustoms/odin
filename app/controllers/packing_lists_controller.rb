@@ -93,7 +93,7 @@ class PackingListsController < ApplicationController
   def packing_list_params
     params.require(:packing_list).permit(:shipping_method, :department,
       address_attributes: [:name, :address1, :address2, :city, :postal_code, :country_code, :state, :_destroy, :id],
-      pics_attributes: [:id, :name, :tel, :title, :_destroy],
+      pics_attributes: [:id, :name, :tel, :title, :email, :_destroy],
       packing_list_items_attributes: [:id, :design_id, :job_request_id, :quantity, :product_id, :size_id, :color_id])
   end
 end

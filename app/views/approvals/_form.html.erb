@@ -9,5 +9,5 @@
   <%= f.select :acknowledger_ids, options_for_select(@employees.collect { |employee|
         [employee.email, employee.id]
     }, @acknowledgers.collect{ |acknowledger| acknowledger.employee_id }), {}, multiple: true %>
-  <%= f.submit "Submit" %>
+  <%= f.button :submit %>
 <% end %>

@@ -1,6 +1,7 @@
 <%= simple_form_for [pic, deal] do |f| %>
   <%= f.input :name %>
   <%= f.input :no_of_pcs, label: "Num of Pieces" %>
+  <%= f.input :employee_id, collection: Employee.all.select{ |e| e.is_apparel_consultant? }.collect{ |e| [e.email, e.id] } %>
   <% if deal.client_deadline.nil? %>
     <%= label_tag "deal[deadlines_attributes][0][deadline]", "Client Deadline" %>
     <%= date_field_tag "deal[deadlines_attributes][0][deadline]" %>

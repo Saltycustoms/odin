@@ -12,11 +12,15 @@ class Deal < ApplicationRecord
   belongs_to :department, optional: true
   belongs_to :organization, optional: true
   belongs_to :pic, optional: true
-  validates :name, presence: true
+  validates :name, :employee_id, presence: true
   before_save :update_dept_and_org
 
   def approvals
     Approval.where(deal_id: self.id)
+  end
+
+  def employee
+    Employee.find(employee_id)
   end
 
   def update_dept_and_org

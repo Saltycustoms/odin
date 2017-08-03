@@ -36,6 +36,7 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Email</th>
             <th>Tel</th>
             <th>Title</th>
             <th></th>
@@ -48,6 +49,7 @@
                 <span class="subheader">#<%= pic.id %></span>
                 <%= pic.name %>
               </td>
+              <td><%= pic.email %></td>
               <td><%= pic.tel %></td>
               <td><%= pic.title %></td>
               <td class="text-right"><%= link_to "Add Deal", new_pic_deal_path(pic), class: "button expanded add-deal-button" %></td>
