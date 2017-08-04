@@ -19,7 +19,7 @@ class Deal < ApplicationRecord
   def properties_type
   case deal_type
   when "t_shirt"
-    ["Relabeling", "Woven Tag", "Hang Tag", "Sample Required"]
+    ["Relabeling", "Woven tag", "Hang tag", "Sample required"]
   when "others"
     []
   else

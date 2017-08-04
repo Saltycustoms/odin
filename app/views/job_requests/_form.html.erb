@@ -1,6 +1,6 @@
 <%= simple_nested_form_for [deal, job_request] do |form| %>
   <div class="row medium-unstack">
-    <div class="columns">
+    <div class="medium-4 columns">
       <%= form.input :name %>
       <%= form.input :budget %>
       <%= form.input :product_id, collection: Product.all.collect { |p| [p.name, p.id] }, input_html: {id: "product-select"}, selected: @product ? @product.id : nil, include_blank: true %>
@@ -13,7 +13,7 @@
       <%= form.input :sizes, collection: @product ? @product.sizes.collect { |s| [s.name, s.id] } : [], selected: @product ? (@product.size_ids & @job_request.selected_size_ids) : [], input_html: { multiple: true, id: "sizes-select", size: "10" } %>
     </div>
 
-    <div class="columns">
+    <div class="medium-8 columns">
       <h5>Print Details</h5>
       <%= form.simple_fields_for :print_details do |print_detail| %>
         <div class="row align-bottom">
@@ -51,14 +51,14 @@
   <div class="row columns">
     <h5>Properties</h5>
     <%= form.simple_fields_for :properties do |property| %>
-      <div class="row align-bottom">
+      <div class="row">
         <div class="column">
-          <%= property.input :name, collection: @deal.properties_type %>
+          <%= property.input :name %>
         </div>
         <div class="column">
           <%= property.input :value %>
         </div>
-        <div class="small-1 column">
+        <div class="small-1 column align-self-bottom">
           <%= property.link_to_remove class: "button alert remove-button" do %>
             <i class="fa fa-times" aria-hidden="true"></i>
           <% end %>
