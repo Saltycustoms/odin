@@ -4,12 +4,17 @@
 
 <% end %>
 
-<%= render "shared/page_header", {title: "Job Request"} %>
+<%= render "shared/page_header", {title: "Job Request #{@job_request&.name}"} %>
 
 <div class="row medium-unstack">
   <div class="column">
     <strong>Deal</strong>
     <p><%= @job_request.deal.display_name %></p>
+
+    <strong>Name</strong>
+    <p>
+      <%= @job_request.name %>
+    </p>
 
     <strong>Product</strong>
     <p>
@@ -21,7 +26,6 @@
       <%= @job_request.budget %>
     </p>
   </div>
-
 
   <div class="column">
     <strong>Colors</strong>
@@ -39,55 +43,61 @@
     </ul>
   </div>
 
-  <div class="column">
-    <strong>Name</strong>
-    <p>
-      <%= @job_request.name %>
-    </p>
-
-    <strong>Sleeve</strong>
-    <p>
-      <%= @job_request.sleeve %>
-    </p>
-
-    <strong>Relabeling</strong>
-    <p>
-      <%= @job_request.relabeling %>
-    </p>
-
-    <strong>Woven tag</strong>
-    <p>
-      <%= @job_request.woven_tag %>
-    </p>
-
-    <strong>Hang tag</strong>
-    <p>
-      <%= @job_request.hang_tag %>
-    </p>
-
-    <strong>Pantone code</strong>
-    <p>
-      <%= @job_request.pantone_code %>
-    </p>
-  </div>
-
 </div>
 
-<div class="row column">
-  <div class="callout">
-    <strong>Remarks</strong>
-    <p>
-      <%= @job_request.remark %>
-    </p>
+<div class="callout">
+  <h5>Print Details</h5>
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Print Method</th>
+        <th>Block</th>
+        <th>Color Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @job_request.print_details.each do |print_detail| %>
+        <tr>
+          <td><%= print_detail.position %></td>
+          <td><%= print_detail.print_method %></td>
+          <td><%= print_detail.block %></td>
+          <td><%= print_detail.color_count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-    <strong>Sample required</strong>
-    <p>
-      <%= @job_request.sample_required %>
-    </p>
+<div class="callout">
+  <h5>Properties</h5>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @job_request.properties.each do |property| %>
+        <tr>
+          <td><%= property.name %></td>
+          <td><%= property.value %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-    <strong>Client comment</strong>
-    <p>
-      <%= @job_request.client_comment %>
-    </p>
+<div class="callout">
+  <div class="row">
+    <div class="column">
+      <strong>Remarks</strong>
+      <%= simple_format @job_request.remark %>
+    </div>
+    <div class="column">
+      <strong>Client comment</strong>
+      <%= simple_format @job_request.client_comment %>
+    </div>
   </div>
 </div>

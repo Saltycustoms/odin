@@ -1,3 +1,9 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Back', @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Approvals"} %>
+
 <table>
   <tr>
     <th>Description</th>

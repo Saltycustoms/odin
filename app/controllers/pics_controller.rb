@@ -12,6 +12,6 @@ class PicsController < ApplicationController
   end
 
   def pic_params
-    params.require(:pic).permit(:belongable_id, :belongable_type, :name, :tel, :title)
+    params.require(:pic).permit(:belongable_id, :belongable_type, :name, :tel, :title, :email)
   end
 end

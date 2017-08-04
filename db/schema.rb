@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727033807) do
+ActiveRecord::Schema.define(version: 20170804055736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 20170727033807) do
     t.datetime "updated_at", null: false
     t.integer "pic_id"
     t.integer "organization_id"
+    t.integer "employee_id"
+    t.integer "deal_type", default: 0
   end
 
   create_table "departments", force: :cascade do |t|
@@ -90,18 +92,12 @@ ActiveRecord::Schema.define(version: 20170727033807) do
     t.integer "deal_id"
     t.integer "product_id"
     t.string "name"
-    t.string "sleeve"
-    t.string "relabeling"
-    t.string "woven_tag"
-    t.string "hang_tag"
-    t.string "pantone_code"
     t.text "remark"
     t.integer "budget"
     t.text "client_comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "metadata"
-    t.boolean "sample_required", default: false
   end
 
   create_table "orders", force: :cascade do |t|
@@ -149,6 +145,7 @@ ActiveRecord::Schema.define(version: 20170727033807) do
     t.bigint "belongable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
     t.index ["belongable_type", "belongable_id"], name: "index_pics_on_belongable_type_and_belongable_id"
   end
 
@@ -161,6 +158,16 @@ ActiveRecord::Schema.define(version: 20170727033807) do
     t.text "attachment_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+    t.bigint "job_request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_request_id", "name"], name: "index_properties_on_job_request_id_and_name", unique: true
+    t.index ["job_request_id"], name: "index_properties_on_job_request_id"
   end
 
   create_table "quotation_lines", force: :cascade do |t|
@@ -262,6 +269,7 @@ ActiveRecord::Schema.define(version: 20170727033807) do
   add_foreign_key "orders", "deals"
   add_foreign_key "packing_list_items", "packing_lists"
   add_foreign_key "packing_lists", "deals"
+  add_foreign_key "properties", "job_requests"
   add_foreign_key "quotation_lines", "job_requests"
   add_foreign_key "quotation_lines", "quotations"
   add_foreign_key "quotations", "deals"
