@@ -13,6 +13,23 @@
       <% if user_signed_in? %>
         <ul class="menu">
           <li>
+            <a data-toggle="notification-dropdown" class="notification-dropdown-link">
+              <i class="fa fa-bell" aria-hidden="true"></i>
+              <span class="badge alert"><%= current_user.notifications(q: { s: "id desc" }).count{ |n| n.opened_at } %></span>
+            </a>
+            <div class="dropdown-pane bottom" id="notification-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
+              <% @notifications = current_user.notifications(q: { s: "id desc" }).first(5).each do |notification| %>
+                <p class="notifications <%= notification.opened_at.present? ? "opened" : "" %>" data-id=<%= notification.id %>>
+                  <%= link_to notification.generate_link do %>
+                    <strong><%= notification.notifier.name %></strong> <%= I18n.t("notification.title.#{notification.key}") %><br>
+                    <%= "#{distance_of_time_in_words Time.now, notification.created_at} ago" %>
+                  <% end %>
+                </p>
+              <% end %>
+              <%= link_to "View All", notifications_path %>
+            </div>
+          </li>
+          <li>
             <%= link_to "Log out", destroy_user_session_path, method: :delete, data: { confirm: "You will be logged out" } %>
           </li>
         </ul>
