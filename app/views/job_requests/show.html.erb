@@ -11,6 +11,11 @@
     <strong>Deal</strong>
     <p><%= @job_request.deal.display_name %></p>
 
+    <strong>Name</strong>
+    <p>
+      <%= @job_request.name %>
+    </p>
+
     <strong>Product</strong>
     <p>
       <%= @job_request.product.name %>
@@ -21,7 +26,6 @@
       <%= @job_request.budget %>
     </p>
   </div>
-
 
   <div class="column">
     <strong>Colors</strong>
@@ -39,27 +43,6 @@
     </ul>
   </div>
 
-  <div class="column">
-    <strong>Name</strong>
-    <p>
-      <%= @job_request.name %>
-    </p>
-
-    <strong>Relabeling</strong>
-    <p>
-      <%= @job_request.relabeling %>
-    </p>
-
-    <strong>Woven tag</strong>
-    <p>
-      <%= @job_request.woven_tag %>
-    </p>
-
-    <strong>Hang tag</strong>
-    <p>
-      <%= @job_request.hang_tag %>
-    </p>
-  </div>
 </div>
 
 <div class="callout">

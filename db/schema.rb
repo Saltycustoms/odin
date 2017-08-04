@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804023709) do
+ActiveRecord::Schema.define(version: 20170804055736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,16 +92,12 @@ ActiveRecord::Schema.define(version: 20170804023709) do
     t.integer "deal_id"
     t.integer "product_id"
     t.string "name"
-    t.string "relabeling"
-    t.string "woven_tag"
-    t.string "hang_tag"
     t.text "remark"
     t.integer "budget"
     t.text "client_comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "metadata"
-    t.boolean "sample_required", default: false
   end
 
   create_table "orders", force: :cascade do |t|

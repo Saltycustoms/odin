@@ -41,13 +41,6 @@
     </div>
   </div>
 
-  <div class="row small-up-2 medium-up-3">
-    <%= form.input :relabeling, wrapper_html: {class: "column"} %>
-    <%= form.input :woven_tag, wrapper_html: {class: "column"} %>
-    <%= form.input :hang_tag, wrapper_html: {class: "column"} %>
-    <%= form.input :sample_required, wrapper_html: {class: "column"} %>
-  </div>
-
   <div class="row columns">
     <h5>Properties</h5>
     <%= form.simple_fields_for :properties do |property| %>

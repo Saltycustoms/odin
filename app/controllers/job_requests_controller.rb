@@ -31,8 +31,10 @@ class JobRequestsController < ApplicationController
   # POST /job_requests.json
   def create
     new_params = job_request_params.deep_dup
-    new_params[:properties_attributes].each_pair do |key, property_attribute|
-      property_attribute[:name] = property_attribute[:name].split(" ").join(" ").humanize
+    if new_params[:properties_attributes].present?
+      new_params[:properties_attributes].each_pair do |key, property_attribute|
+        property_attribute[:name] = property_attribute[:name].split(" ").join(" ").humanize
+      end
     end
     @job_request = @deal.job_requests.new(new_params)
     begin
@@ -58,8 +60,10 @@ class JobRequestsController < ApplicationController
   def update
     @product = @job_request.product
     new_params = job_request_params.deep_dup
-    new_params[:properties_attributes].each_pair do |key, property_attribute|
-      property_attribute[:name] = property_attribute[:name].split(" ").join(" ").humanize
+    if new_params[:properties_attributes].present?
+      new_params[:properties_attributes].each_pair do |key, property_attribute|
+        property_attribute[:name] = property_attribute[:name].split(" ").join(" ").humanize
+      end
     end
     respond_to do |format|
       if @job_request.update(new_params)
