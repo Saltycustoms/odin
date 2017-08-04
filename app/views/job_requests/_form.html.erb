@@ -46,7 +46,7 @@
     <%= form.simple_fields_for :properties do |property| %>
       <div class="row">
         <div class="column">
-          <%= property.input :name %>
+          <%= property.input :name, input_html: { list: "properties-type" } %>
         </div>
         <div class="column">
           <%= property.input :value %>
@@ -72,3 +72,9 @@
 
   <%= form.button :submit %>
 <% end %>
+
+<datalist id="properties-type">
+  <% @deal.properties_type.each do |property_name| %>
+    <option value="<%= property_name %>">
+  <% end %>
+</datalist>
