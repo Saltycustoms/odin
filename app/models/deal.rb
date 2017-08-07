@@ -17,14 +17,25 @@ class Deal < ApplicationRecord
   enum deal_type: {t_shirt: 0, others: 1}
 
   def properties_type
-  case deal_type
-  when "t_shirt"
-    ["Relabeling", "Woven tag", "Hang tag", "Sample required"]
-  when "others"
-    []
-  else
-    []
+    case deal_type
+    when "t_shirt"
+      ["Relabeling", "Woven tag", "Hang tag", "Sample required"]
+    when "others"
+      []
+    else
+      []
+    end
   end
+
+  def properties_placeholder
+    case deal_type
+    when "t_shirt"
+      {"Relabeling": "What is relabeling?", "Woven tag": "Yes/No" , "Hang tag": "Yes/No", "Sample required": "XS:2, S:1, M:1..."}
+    when "others"
+      {}
+    else
+      {}
+    end
   end
 
   def approvals

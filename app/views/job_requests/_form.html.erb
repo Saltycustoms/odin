@@ -46,10 +46,10 @@
     <%= form.simple_fields_for :properties do |property| %>
       <div class="row">
         <div class="column">
-          <%= property.input :name, input_html: { list: "properties-type" } %>
+          <%= property.input :name, input_html: { list: "properties-type", class: "properties-name" } %>
         </div>
         <div class="column">
-          <%= property.input :value %>
+          <%= property.input :value, input_html: { class: "properties-value" } %>
         </div>
         <div class="small-1 column align-self-bottom">
           <%= property.link_to_remove class: "button alert remove-button" do %>
@@ -78,3 +78,14 @@
     <option value="<%= property_name %>">
   <% end %>
 </datalist>
+
+<script>
+  var properties_placeholder = <%= raw @deal.properties_placeholder.to_json %>
+  var properties_name = $(".properties-name")
+  for (i = 0; i < properties_name.length; i ++) {
+    property_name = $(properties_name[i]).val()
+    parent = $(properties_name[i]).parent().parent().parent()
+    property_value = parent.find(".properties-value")
+    property_value.attr("placeholder", properties_placeholder[property_name])
+  }
+</script>
