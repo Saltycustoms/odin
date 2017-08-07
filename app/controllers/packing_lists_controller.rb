@@ -58,16 +58,16 @@ class PackingListsController < ApplicationController
   def update
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id.to_i} : []
+    if params[:select_job_request].present?
+      new_params[:packing_list_items_attributes].each do |key, value|
+        if !params[:select_job_request].include? value[:job_request_id]
+          value.merge!(_destroy: 1)
+        end
+      end
+    end
     @packing_list.assign_attributes new_params
 
     if @packing_list.valid?
-      if params[:select_job_request].present?
-        new_params[:packing_list_items_attributes].each do |key, value|
-          if !params[:select_job_request].include? value[:job_request_id]
-            value.merge!(_destroy: 1)
-          end
-        end
-      end
       @packing_list.save
       send_notification(@packing_list, self)
       redirect_to @deal, notice: "Packing list was successfully updated."
