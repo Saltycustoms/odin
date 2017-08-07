@@ -1,6 +1,6 @@
 class PackingListsController < ApplicationController
   before_action :set_packing_list, only: [:show, :edit, :update, :destroy]
-  before_action :set_deal, except: [:states]
+  before_action :set_deal, except: [:states, :show]
 
   def index
   end
@@ -31,11 +31,16 @@ class PackingListsController < ApplicationController
           end
         end
       end
-      @deal.packing_lists.create(new_params)
+      @packing_list = @deal.packing_lists.create(new_params)
+      send_notification(@packing_list, self)
       redirect_to @deal, notice: "Packing list was successfully created."
     else
       render :new
     end
+  end
+
+  def show
+    open_notification(@packing_list, self, current_user) if params[:opened]
   end
 
   def edit
@@ -64,6 +69,7 @@ class PackingListsController < ApplicationController
         end
       end
       @packing_list.save
+      send_notification(@packing_list, self)
       redirect_to @deal, notice: "Packing list was successfully updated."
     else
       render :edit

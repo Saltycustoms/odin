@@ -26,7 +26,7 @@
           <th>Product Name</th>
           <th>Color</th>
           <% job_request.selected_sizes.each do |size| %>
-            <th><%= "#{size.name} #{size.id}" %></th>
+            <th><%= size.name %></th>
           <% end %>
         </tr>
       </thead>
@@ -34,7 +34,7 @@
         <% job_request.selected_colors.each do |color| %>
           <tr>
             <th><%= job_request.product.name %></th>
-            <th><%= "#{color.display_name} #{color.id}" %></th>
+            <th><%= color.display_name %></th>
             <%= f.fields_for :quotation_lines, @quotation.quotation_lines.select { |line| (line.job_request_id == job_request.id && line.color_id == color.id) } do |q| %>
               <td>
                 <%= q.input :job_request_id, as: :hidden, input_html: {value: q.object.job_request_id} %>
@@ -71,9 +71,8 @@
       <% end %>
       <%= f.link_to_add "Add On", :add_ons, data: {"job-request-id": job_request.id}, class: "button warning" %>
     </div>
-
+    <hr>
   <% end %>
-
   <div class="row medium-unstack">
     <div class="columns">
       <%= f.input :payment_term %>

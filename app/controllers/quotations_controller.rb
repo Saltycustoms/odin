@@ -1,6 +1,6 @@
 class QuotationsController < ApplicationController
-  before_action :set_deal
-  before_action :set_quotation, only: [:show, :edit, :update, :destroy]
+  before_action :set_deal, except: [:show_quotation]
+  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :show_quotation]
 
   def index
   end
@@ -44,6 +44,7 @@ class QuotationsController < ApplicationController
     @quotation = @deal.build_quotation(new_params)
 
     if @quotation.save
+      send_notification(@quotation, self)
       redirect_to deal_quotations_path(@deal), notice: "Quotation was successfully created."
     else
       render :new
@@ -53,10 +54,19 @@ class QuotationsController < ApplicationController
   def show
   end
 
+  def show_quotation
+    open_notification(@quotation, self, current_user) if params[:opened]
+  end
+
   def edit
     @job_request_price_per_unit = {}
     @quotation.deal.job_requests.each do |job_request|
-      @job_request_price_per_unit["#{job_request.id}"] = job_request.quotation_lines.first.price_per_unit
+      @job_request_price_per_unit["#{job_request.id}"] = job_request.quotation_lines.first ? job_request.quotation_lines.first.price_per_unit : 0
+      job_request.selected_colors.each do |color|
+        job_request.selected_sizes.each do |size|
+          @quotation.quotation_lines.find_or_initialize_by(job_request_id: job_request.id, color_id: color.id, size_id: size.id)
+        end
+      end
     end
   end
 
@@ -82,7 +92,8 @@ class QuotationsController < ApplicationController
     end
 
     if @quotation.update(new_params)
-      redirect_to deal_quotations_path(@deal), notice: "Quotation was successfully created."
+      send_notification(@quotation, self)
+      redirect_to deal_quotations_path(@deal), notice: "Quotation was successfully updated."
     else
       render :edit
     end
@@ -94,7 +105,7 @@ class QuotationsController < ApplicationController
   end
 
   def set_quotation
-    @quotation = @deal.quotation
+    @quotation = params[:id].present? ? Quotation.find(params[:id]) : @deal.quotation
   end
 
   def quotation_params

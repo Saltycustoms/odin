@@ -1,0 +1,17 @@
+<% content_for :header_actions do %>
+  <%= link_to "Back", @deadline.deal %>
+<% end %>
+<%= render "shared/page_header", {title: "Deadline for #{@deadline.deal.name}"} %>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @deadline.deadline %>
+</p>
+<p>
+  <strong>Reason:</strong>
+  <%= simple_format @deadline.reason %>
+</p>
+<p>
+  <strong>Cause By:</strong>
+  <%= @deadline.cause_by %>
+</p>

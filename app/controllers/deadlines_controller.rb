@@ -1,8 +1,13 @@
 class DeadlinesController < ApplicationController
-  before_action :set_deal
+  before_action :set_deal, except: [:show]
 
   def index
-    @deadlines = @deal.deadlines.order(created_at: :desc) 
+    @deadlines = @deal.deadlines.order(created_at: :desc)
+  end
+
+  def show
+    @deadline = Deadline.find(params[:id])
+    open_notification(@deadline, self, current_user) if params[:opened]
   end
 
   def new
@@ -13,6 +18,7 @@ class DeadlinesController < ApplicationController
     @deadline = @deal.deadlines.new(deadline_params)
 
     if @deadline.save
+      send_notification(@deadline, self)
       redirect_to @deal, notice: "Deadline was successfully created."
     else
       render :new

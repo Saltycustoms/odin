@@ -1,1 +1,6 @@
+<% content_for :header_actions do %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Notifications"} %>
+
 <%= render partial: "notifications/list", object: @notifications %>

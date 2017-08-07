@@ -47,7 +47,7 @@
               <% job_request.selected_colors.each do |color| %>
                 <tr>
                   <th><%= job_request.product.name %></th>
-                  <th><%= color.name %></th>
+                  <th><%= color.display_name %></th>
                   <% packing_list.packing_list_items.where(job_request_id: job_request_id, color_id: color.id).order(size_id: :asc).each do |item| %>
                     <td>
                       <%= item.quantity %>

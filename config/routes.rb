@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   resources :organizations do
     resources :departments
   end
+  resources :deadlines, only: [:show]
+  resources :packing_lists, only: [:show]
+  get '/quotations/:id', to: "quotations#show_quotation"
   resources :gateways
   resources :welcome
   resources :notifications
