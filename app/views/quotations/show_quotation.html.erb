@@ -1,0 +1,70 @@
+<% content_for :header_actions do %>
+  <%= link_to "Edit", edit_deal_quotations_path(@quotation.deal) %> |
+  <%= link_to 'Back', @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Quotation Show"} %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Qty</th>
+      <th>Description</th>
+      <th>Unit Price</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @quotation.quotation_lines.where.not(quantity: 0).order(:job_request_id, id: :asc).each do |line| %>
+      <tr>
+        <td><%= line.quantity %></td>
+        <td><%= line.display_name %></td>
+        <td><%= humanized_money_with_symbol line.display_price_per_unit %></td>
+        <td><%= humanized_money_with_symbol line.display_total %></td>
+      </tr>
+    <% end %>
+
+    <% @quotation.add_ons.each do |add_on| %>
+      <tr>
+        <td><%= add_on.quantity %></td>
+        <td><%= add_on.description %></td>
+        <td><%= humanized_money_with_symbol add_on.display_price_per_unit %></td>
+        <td><%= humanized_money_with_symbol add_on.display_total %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">Sub Total</td>
+      <td><%= humanized_money_with_symbol @quotation.sub_total %></td>
+    </tr>
+    <tr>
+      <td colspan="3">- Discount <%= @quotation.discount.info %></td>
+      <td><%= humanized_money_with_symbol @quotation.discount_amount %></td>
+    </tr>
+    <tr>
+      <td class="subtotal" colspan="3">Total After Discount</td>
+      <td class="subtotal"><%= humanized_money_with_symbol @quotation.sub_total - @quotation.discount_amount %></td>
+    </tr>
+    <tr>
+      <td colspan="3">+ Shipping</td>
+      <td><%= humanized_money_with_symbol @quotation.shipping %></td>
+    </tr>
+    <tr>
+      <td class="subtotal" colspan="3">Taxable Total</td>
+      <td class="subtotal"><%= humanized_money_with_symbol @quotation.sub_total - @quotation.discount_amount + @quotation.shipping %></td>
+    </tr>
+    <tr>
+      <td colspan="3">+ Tax @ <%= @quotation.tax_info %></td>
+      <td><%= humanized_money_with_symbol @quotation.tax %></td>
+    </tr>
+    <tr>
+      <td class="total" colspan="3">Net Total</td>
+      <td class="total"><%= humanized_money_with_symbol @quotation.net_total %></td>
+    </tr>
+  </tfoot>
+</table>
+
+<p>
+  Payment Link:
+</p>

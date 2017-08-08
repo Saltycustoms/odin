@@ -76,27 +76,6 @@ class JobRequest < ApplicationRecord
     selected_colors.collect { |s| s.id }
   end
 
-  def find_or_initialize_quotation_and_lines
-    colors = selected_colors
-    sizes = product.sizes
-    quotation = Quotation.find_or_initialize_by(deal_id: deal.id)
-
-    colors.each do |color|
-      sizes.each do |size|
-        quotation.quotation_lines.find_or_initialize_by(color_id: color.id, size_id: size.id, quotation: quotation, job_request_id: self.id)
-      end
-    end
-
-    quotation.save
-
-    color_ids = colors.collect { |c| c.id }
-    quotation_color_ids = self.quotation_lines.pluck(:color_id).uniq
-
-    (quotation_color_ids - color_ids).each do |unselected_color_id|
-      self.quotation_lines.where(color_id: unselected_color_id).delete_all
-    end
-  end
-
   def update_quotation_and_lines
     if quotation_lines.present?
       quotation_color_ids = quotation_lines.pluck(:color_id).uniq

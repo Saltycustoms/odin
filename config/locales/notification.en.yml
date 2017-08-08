@@ -5,8 +5,80 @@ en:
         create: 'Deal has been created'
         update: 'Someone has edited the deal'
         destroy: "Someone removed a deal"
+      quotation:
+        create: 'Quotation has been created'
+        update: 'Someone has edited the quotation'
+        destroy: "Someone removed a quotation"
+      packing_list:
+        create: 'Packing list has been created'
+        update: 'Someone has edited the packing list'
+        destroy: "Someone removed a packing list"
+      deadline:
+        create: 'Deadline has been created'
+        update: 'Someone has edited the deadline'
+        destroy: "Someone removed a deadline"
+      delivery_schedule:
+        create: 'Delivery schedule has been created'
+        update: 'Someone has edited the delivery schedule'
+        destroy: "Someone removed a delivery schedule"
+      project:
+        create: 'Project has been created'
+        update: 'Someone has edited the project'
+        destroy: "Someone removed a project"
+      quality_control:
+        create: 'Quality control has been created'
+        update: 'Someone has edited the quality control'
+        destroy: "Someone removed a quality control"
+      sample:
+        create: 'Sample has been created'
+        update: 'Someone has edited the sample'
+        destroy: "Someone removed a sample"
+      design:
+        create: 'Design has been created'
+        update: 'Someone has edited the design'
+        destroy: "Someone removed a design"
+      visual:
+        create: 'Visual has been created'
+        update: 'Someone has edited the visual'
+        destroy: "Someone removed a visual"
     body:
       deal:
         create: 'Deal %{id}#%{name} has been created'
         update: 'Someone has edited the deal %{id}#%{name}'
         destroy: "Someone removed a deal %{id}#%{name}"
+      quotation:
+        create: 'Quotation has been created'
+        update: 'Someone has edited the quotation'
+        destroy: "Someone removed a quotation"
+      packing_list:
+        create: 'Packing list %{id} has been created'
+        update: 'Someone has edited the packing list %{id}'
+        destroy: "Someone removed a packing list %{id}"
+      deadline:
+        create: 'Deadline %{id} has been created'
+        update: 'Someone has edited the deadline %{id}'
+        destroy: "Someone removed a deadline %{id}"
+      delivery_schedule:
+        create: 'Delivery schedule %{id} has been created'
+        update: 'Someone has edited the delivery schedule %{id}'
+        destroy: "Someone removed a delivery schedule %{id}"
+      project:
+        create: 'Project %{id} has been created'
+        update: 'Someone has edited the project %{id}'
+        destroy: "Someone removed a project %{id}"
+      quality_control:
+        create: 'Quality control %{id} has been created'
+        update: 'Someone has edited the quality control %{id}'
+        destroy: "Someone removed a quality control %{id}"
+      sample:
+        create: 'Sample %{id} has been created'
+        update: 'Someone has edited the sample %{id}'
+        destroy: "Someone removed a sample %{id}"
+      design:
+        create: 'Design %{id} has been created'
+        update: 'Someone has edited the design %{id}'
+        destroy: "Someone removed a design %{id}"
+      visual:
+        create: 'Visual %{id} has been created'
+        update: 'Someone has edited the visual %{id}'
+        destroy: "Someone removed a visual %{id}"

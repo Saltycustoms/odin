@@ -48,7 +48,7 @@
     <div class="row">
       <div class="column small-11">
         <ul class="accordion" data-accordion data-allow-all-closed="true">
-          <li class="accordion-item <%= 'is-active' if @job_request_ids.include?(job_request.id) %>" data-accordion-item>
+          <li class="accordion-item <%= 'is-active' if @job_request_ids.include?(job_request.id.to_s) %>" data-accordion-item>
             <!-- Accordion tab title -->
             <a href="#" class="accordion-title"><%= job_request.design_name %></a>
 
@@ -84,7 +84,7 @@
         </ul>
       </div>
       <div class="column small-1">
-          <%= check_box_tag "select_job_request[]", job_request.id, @job_request_ids.include?(job_request.id) %>
+          <%= check_box_tag "select_job_request[]", job_request.id, @job_request_ids.include?(job_request.id.to_s) %>
       </div>
     </div>
   <% end %>
