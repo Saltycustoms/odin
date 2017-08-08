@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :deals
       resources :job_requests
       resources :quotations
+      resources :deadlines
       resources :print_details
     end
   end
