@@ -3,11 +3,17 @@ Rails.application.routes.draw do
   get "/products/:id/price_ranges", to: "products#price_ranges"
   namespace :api do
     namespace :v1 do
+      resources :add_ons
+      resources :approvals
       resources :deals
       resources :job_requests
       resources :quotations
       resources :deadlines
+      resources :organizations
+      resources :pics
       resources :print_details
+      resources :quotation_lines
+      resources :properties
     end
   end
   get "/states", to: "packing_lists#states"
