@@ -75,14 +75,15 @@
 
 <div class="callout">
   <h5 class="callout-header-title">Designs</h5>
+  <div class="in-production color-box"></div> <span>In Production</span>
   <ul class="accordion" data-accordion data-allow-all-closed="true">
-    <% @deal.designs_with_version_for_production.each do |design| %>
+    <% @deal.designs.each do |design| %>
       <li class="accordion-item" data-accordion-item>
         <!-- Accordion tab title -->
-        <a href="#" class="accordion-title design-accordion">
+        <a href="#" class="accordion-title design-accordion <%= 'in-production' if design.version_for_production %>">
           <span class="design-name"><%= design.name %></span>
           <span class="product-name text-center"><strong>Product:</strong> <%= JobRequest.find(design.design_requests.first.job_request_id).product.name %></span>
-          <span class="total-qty text-center"><strong>Total quantity:</strong> <%= @deal.quotation.quotation_lines.where(job_request_id: design.design_requests.first.job_request_id).sum(:quantity) %></span>
+          <span class="total-qty text-center"><strong>Total quantity:</strong> <%= @deal.quotation.quotation_lines.where(job_request_id: design.design_requests.first.job_request_id).sum(:quantity) if @deal.quotation %></span>
         </a>
 
         <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
