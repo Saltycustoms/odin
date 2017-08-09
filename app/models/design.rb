@@ -3,6 +3,15 @@ class Design < ActiveResource::Base
   has_many :design_requests
   belongs_to :version_for_production, class_name: "Version"
 
+  def deal
+    Deal.find(self.deal_id)
+  end
+
+  def job_request
+    design_request = DesignRequest.where(design_id: self.id).first
+    JobRequest.find(design_request.job_request_id)
+  end
+
   def version_for_production_image_url
     visual = version_for_production.visual
     if visual.manual?

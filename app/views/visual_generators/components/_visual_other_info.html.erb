@@ -1,0 +1,94 @@
+<%
+  @product_colors = visual.visual_product.colors.collect { |c| c.color }
+%>
+<div class="otherInfoContainer">
+  <div class="alwaysbreak"></div>
+  <div class="row" id="propertyInfo">
+    <div class="small-6 columns callout">
+      <h5>Fabric</h5>
+      <% @product_colors.each do |color| %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: color.name, hex: color.hex } %>
+      <% end %>
+    </div>
+    <div class="small-6 columns callout">
+      <h5>Backtape</h5>
+      <% visual.backtape_visual_properties.each do |vp| %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } %>
+      <% end %>
+    </div>
+    <div class="small-6 columns callout">
+      <h5>Binding Collar</h5>
+      <% visual.binding_collar_visual_properties.each do |vp| %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } %>
+      <% end %>
+      <h5>Binding Sleeve</h5>
+      <% visual.binding_sleeve_visual_properties.each do |vp| %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } %>
+      <% end %>
+    </div>
+    <div class="small-6 columns callout">
+      <h5>Double Needle Stitch</h5>
+      <% visual.double_needle_stitch_visual_properties.each do |vp| %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row" id="printInfo">
+    <% visual.visual_prints.each do |visual_print| %>
+      <% next if visual_print.artwork.blank? %>
+      <div class="small-4 columns callout">
+        <h5><%= visual_print.name %></h5>
+        <% if visual_print.artwork %>
+          <div class="artwork-wrapper">
+            <div class="artwork">
+              <span class="width"><%= visual_print.artwork_width %><%= visual_print.measurement_unit %></span>
+              <span class="height"><%= visual_print.artwork_height %><%= visual_print.measurement_unit %></span>
+              <%= image_tag visual_print.artwork_url, alt: visual_print.name %>
+            </div>
+          </div>
+        <% end %>
+        <% visual.pantones.each do |pantone| %>
+          <% next if pantone.visual_print_id != visual_print.id %>
+          <div class="small-6 columns">
+            <%= render partial: "visual_generators/components/color_box", locals: { label: pantone.name, hex: pantone.hex } %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="small-4 columns callout" style="min-height: 0%">
+      <h5>Printed Label</h5>
+      <% visual.print_labels.each do |print_label| %>
+        <%= image_tag print_label.attachment_url, alt: print_label.name,
+            style: "max-width: 70%" if print_label.attachment %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: print_label.name, hex: print_label.hex } %>
+      <% end %>
+    </div>
+    <div class="small-3 columns callout" style="min-height: 0%">
+      <h5>CARE Label</h5>
+      <% visual.care_labels.each do |care_label| %>
+         <% if care_label.attachment %>
+            <div class="artwork-wrapper">
+              <div class="artwork">
+                <span class="width"><%= care_label.width %><%= care_label.measurement_unit %></span>
+                <span class="height"><%= care_label.height %><%= care_label.measurement_unit %></span>
+                <%= image_tag care_label.attachment_url %>
+              </div>
+            </div>
+          <% end %>
+      <% end %>
+    </div>
+
+    <div class="small-5 columns callout" style="min-height: 0%">
+      <div class="small-12 columns">
+        <h5>Measurements</h5>
+      </div>
+      <% visual.measurements.each do |measurement| %>
+        <div class="small-6 columns">
+          <strong><%= measurement.title %></strong>
+          <%= simple_format(measurement.description) %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
