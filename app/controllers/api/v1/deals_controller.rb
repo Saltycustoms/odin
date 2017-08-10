@@ -1,6 +1,11 @@
 class Api::V1::DealsController < ApiController
   def index
-    @deals = Deal.all
+    if params[:q]
+      q = Deal.ransack(params[:q])
+      @deals = q.result
+    else
+      @deals = Deal.all
+    end
     respond_to do |format|
       format.json { render json: @deals }
     end
