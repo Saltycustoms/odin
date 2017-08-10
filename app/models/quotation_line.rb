@@ -6,6 +6,7 @@ class QuotationLine < ApplicationRecord
   monetize :price_per_unit_cents, with_model_currency: :currency
   monetize :total_cents, with_model_currency: :currency
   validates :quantity, numericality: {greater_than_or_equal_to: 0}
+  before_save :save_description
 
   def currency
     if quotation
@@ -31,10 +32,6 @@ class QuotationLine < ApplicationRecord
     end
   end
 
-  def display_name
-    "#{product.name} #{color.display_name} #{size.name}"
-  end
-
   def display_price_per_unit
     currency = self.quotation.currency
     if currency
@@ -51,5 +48,13 @@ class QuotationLine < ApplicationRecord
     else
       total
     end
+  end
+
+  def save_description
+    self.description = "#{product.name}|#{size.name}|#{color.name}"
+  end
+
+  def product
+    Product.find(product_id)
   end
 end

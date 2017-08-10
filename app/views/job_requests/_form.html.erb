@@ -14,7 +14,7 @@
     </div>
 
     <div class="medium-8 columns">
-      <h5>Print Details</h5>
+      <h5><strong>Print Details</strong></h5>
       <%= form.simple_fields_for :print_details do |print_detail| %>
         <div class="row align-bottom">
           <div class="column">
@@ -38,27 +38,27 @@
       <% end %>
 
       <%= form.link_to_add "Add print detail", :print_details, class: "button warning" %>
-    </div>
-  </div>
 
-  <div class="row columns">
-    <h5>Properties</h5>
-    <%= form.simple_fields_for :properties do |property| %>
-      <div class="row">
-        <div class="column">
-          <%= property.input :name, input_html: { list: "properties-type", class: "properties-name" } %>
+      <hr>
+      <h5><strong>Properties</strong></h5>
+      <%= form.simple_fields_for :properties do |property| %>
+        <div class="row">
+          <div class="column">
+            <%= property.input :name, input_html: { list: "properties-type", class: "properties-name" } %>
+          </div>
+          <div class="column">
+            <%= property.input :value, input_html: { class: "properties-value" } %>
+          </div>
+          <div class="small-1 column align-self-bottom">
+            <%= property.link_to_remove class: "button alert remove-button" do %>
+              <i class="fa fa-times" aria-hidden="true"></i>
+            <% end %>
+          </div>
         </div>
-        <div class="column">
-          <%= property.input :value, input_html: { class: "properties-value" } %>
-        </div>
-        <div class="small-1 column align-self-bottom">
-          <%= property.link_to_remove class: "button alert remove-button" do %>
-            <i class="fa fa-times" aria-hidden="true"></i>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-    <%= form.link_to_add "Add property", :properties, class: "button warning" %>
+      <% end %>
+      <%= form.link_to_add "Add property", :properties, class: "button warning" %>
+
+    </div>
   </div>
 
   <div class="row medium-unstack">

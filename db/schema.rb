@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804055736) do
+ActiveRecord::Schema.define(version: 20170810030459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(version: 20170804055736) do
     t.bigint "job_request_id"
     t.integer "size_id"
     t.integer "color_id"
+    t.integer "product_id"
     t.index ["job_request_id"], name: "index_quotation_lines_on_job_request_id"
     t.index ["quotation_id"], name: "index_quotation_lines_on_quotation_id"
   end

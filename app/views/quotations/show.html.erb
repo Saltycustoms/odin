@@ -18,7 +18,7 @@
     <% @quotation.quotation_lines.where.not(quantity: 0).order(:job_request_id, id: :asc).each do |line| %>
       <tr>
         <td><%= line.quantity %></td>
-        <td><%= line.display_name %></td>
+        <td><%= line.description %></td>
         <td><%= humanized_money_with_symbol line.display_price_per_unit %></td>
         <td><%= humanized_money_with_symbol line.display_total %></td>
       </tr>

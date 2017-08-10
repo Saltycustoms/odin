@@ -38,6 +38,7 @@
             <%= f.fields_for :quotation_lines, @quotation.quotation_lines.select { |line| (line.job_request_id == job_request.id && line.color_id == color.id) } do |q| %>
               <td>
                 <%= q.input :job_request_id, as: :hidden, input_html: {value: q.object.job_request_id} %>
+                <%= q.input :product_id, as: :hidden, input_html: {value: q.object.product_id} %>
                 <%= q.input :color_id, as: :hidden, input_html: {value: q.object.color_id} %>
                 <%= q.input :size_id, as: :hidden, input_html: {value: q.object.size_id} %>
                 <%= q.input :quantity, label: false, input_html: {class: "quantity-input", min: 0, data: {"product-id": job_request.product_id, "job_request-id": job_request.id}} %>

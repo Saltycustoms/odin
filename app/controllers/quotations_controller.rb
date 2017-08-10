@@ -11,7 +11,7 @@ class QuotationsController < ApplicationController
     @deal.job_requests.each do |job_request|
       job_request.selected_colors.each do |color|
         job_request.selected_sizes.each do |size|
-          @quotation.quotation_lines.new(job_request_id: job_request.id, color_id: color.id, size_id: size.id)
+          @quotation.quotation_lines.new(job_request_id: job_request.id, color_id: color.id, size_id: size.id, product_id: job_request.product_id)
         end
       end
     end
@@ -64,7 +64,7 @@ class QuotationsController < ApplicationController
       @job_request_price_per_unit["#{job_request.id}"] = job_request.quotation_lines.first ? job_request.quotation_lines.first.price_per_unit : 0
       job_request.selected_colors.each do |color|
         job_request.selected_sizes.each do |size|
-          @quotation.quotation_lines.find_or_initialize_by(job_request_id: job_request.id, color_id: color.id, size_id: size.id)
+          @quotation.quotation_lines.find_or_initialize_by(job_request_id: job_request.id, color_id: color.id, size_id: size.id, product_id: job_request.product_id)
         end
       end
     end
@@ -110,7 +110,7 @@ class QuotationsController < ApplicationController
 
   def quotation_params
     params.require(:quotation).permit(:discount_id, :payment_term, :currency, :shipping, :tax,
-    quotation_lines_attributes: [:id, :price_per_unit, :quantity, :job_request_id, :color_id, :size_id, :description, :_destroy], discount_attributes: [:id, :type, :value],
+    quotation_lines_attributes: [:id, :price_per_unit, :quantity, :job_request_id, :color_id, :size_id, :description, :product_id, :_destroy], discount_attributes: [:id, :type, :value],
     add_ons_attributes: [:id, :job_request_id, :quantity, :description, :price_per_unit, :_destroy])
   end
 end
