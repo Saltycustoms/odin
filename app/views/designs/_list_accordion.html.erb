@@ -7,16 +7,34 @@
       <!-- Accordion tab title -->
       <a href="#" class="accordion-title design-accordion">
         <span class="design-name"><%= design.id %>#<%= design.name %></span>
-        <span class="product-name text-center"><strong>Product:</strong> <%= design.job_request.product.name %></span>
+        <span class="product-name text-center"><strong>Product:</strong>
+          <%#= design.job_request.product.name %>
+          <%= deal.quotation_lines.find_all { |ql|
+               design.design_requests.collect { |dr| dr.job_request_id }.include?(ql.job_request_id)
+             }.collect { |ql|
+               ql.description.split('|')[0]
+             }.uniq %>
+        </span>
         <span class="total-qty text-center"><strong>Total quantity:</strong>
-          <%= design.deal.quotation.quotation_lines
-              .where(job_request_id: design.design_requests.first.job_request_id)
+          <%= deal.quotation.quotation_lines
+              .reject { |j| j.job_request_id != design.design_requests.first.job_request_id }
               .collect{|j| j.quantity}.inject(:+) %>
+        </span>
+        <span class="checkers-span">
+          <strong>Checker:</strong>
+          <% design.version_for_production&.checkers&.each do |checker| %>
+            <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
+          <% end %>
         </span>
       </a>
 
       <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
       <div class="accordion-content" data-tab-content>
+        <%#= link_to 'Show', design, class: "button" %>
+        <%#= link_to 'Create Visual', visual_generator_path(id: :select_actions, design_id: design.id), class: "button secondary" %>
+        <%#= link_to 'Reprint', new_design_path(reprint_id: design.id, deal_id: @deal.id), class: "button secondary" if @deal.present? %>
+        <%#= link_to 'Edit', edit_design_path(design), class: "button secondary" %>
+        <%#= link_to 'Destroy', design, method: :delete, data: { confirm: 'Are you sure?' }, class: "button secondary" %>
         <% if design.version_for_production %>
           <% if design.version_for_production.visual.manual? %>
             <%= image_tag design.visual.attachment_url, class: "design-accordion-image" %>

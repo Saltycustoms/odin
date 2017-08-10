@@ -33,8 +33,8 @@ input[type="number"].quantity-input {
 }
 
 .design-name {
-  font-weight: bold;
-  font-size: 1.5rem;
+   font-weight: bold;
+   font-size: 1rem;
 }
 
 .design-accordion {
@@ -47,10 +47,10 @@ input[type="number"].quantity-input {
   max-height: 400px;
 }
 
-.design-name, .product-name, .total-qty {
+.design-name, .product-name, .total-qty, .checkers-span {
   display: table-cell;
   color: black;
-  width: 33.33%;
+  width: 25%;
 }
 
 .product-breakdown-table {

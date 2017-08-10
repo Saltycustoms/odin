@@ -1,0 +1,66 @@
+<h5 class="callout-header-title">Product Breakdown</h5>
+<table class="product-breakdown-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Color</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% quotation_lines = product_breakdown.quotation_lines %>
+    <% product_colors = product_breakdown.quotation_lines.collect {|ql| [ql.description.split('|')[0], ql.description.split('|')[2]]}.uniq %>
+
+    <% product_colors.each do |product_color| %>
+      <tr>
+        <td><%= product_color[0] %></td>
+        <td><%= product_color[1] %></td>
+        <td>
+          <table class="product-breakdown-table">
+            <thead>
+              <tr>
+                <% sizes = quotation_lines
+                    .find_all { |ql|
+                      ql.description.split('|')[0] == product_color[0] &&
+                      ql.description.split('|')[2] == product_color[1]
+                    }
+                    .collect { |ql|
+                      ql.description.split('|')[1]
+                    }.uniq
+                    sizes.each do |size| %>
+                    <th class="text-center"><%= size %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <% sizes.each do |size| %>
+                 <td class="text-center"><%= quotation_lines
+                    .find_all { |ql|
+                      ql.description.split('|')[0] == product_color[0] &&
+                      ql.description.split('|')[2] == product_color[1] &&
+                      ql.description.split('|')[1] == size
+                    }
+                    .collect { |ql|
+                      ql.quantity
+                    }.inject(:+) %></td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td>
+          <%= quotation_lines
+             .find_all { |ql|
+               ql.description.split('|')[0] == product_color[0] &&
+               ql.description.split('|')[2] == product_color[1]
+             }
+             .collect { |ql|
+               ql.quantity
+             }.inject(:+) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

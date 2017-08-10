@@ -74,76 +74,15 @@
 </div>
 
 <div class="callout">
-  <%= render partial: "designs/list_accordion", object: @deal.designs %>
+  <%= render partial: "designs/list_accordion", object: @deal.designs, locals: { deal: @deal } %>
 </div>
 
 <% if @deal.quotation %>
   <div class="callout">
-    <h5 class="callout-header-title">Product Breakdown</h5>
-    <table class="product-breakdown-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Color</th>
-          <th>Quantity</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @deal.quotation.job_requests.uniq.each do |job_request| %>
-          <% job_request.selected_colors.each do |color| %>
-            <% next if job_request.quotation_lines.where(color_id: color.id).sum(:quantity) < 1 %>
-            <tr>
-              <td><%= job_request.product.name %></td>
-              <td><%= color.display_name %></td>
-              <td>
-                <table class="product-breakdown-table">
-                  <thead>
-                    <tr>
-                      <% job_request.quotation_lines.where(color_id: color.id).order(id: :asc).each do |quotation_line| %>
-                        <th class="text-center"><%= quotation_line.size.name %></th>
-                      <% end %>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <% job_request.quotation_lines.where(color_id: color.id).order(id: :asc).each do |quotation_line| %>
-                        <td class="text-center"><%= quotation_line.quantity %></td>
-                      <% end %>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td>
-                <%= job_request.quotation_lines.where(color_id: color.id).sum(:quantity) %>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render partial: 'deals/product_breakdown', object: @deal %>
   </div>
 
   <div class="callout">
-    <h5 class="callout-header-title">Add On</h5>
-    <table>
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Description</th>
-          <th>Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @deal.quotation.add_ons.order(job_request_id: :asc).each do |add_on| %>
-          <tr>
-            <td><%= add_on.job_request.product.name %></td>
-            <td><%= add_on.description %></td>
-            <td><%= add_on.quantity %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
+    <%= render partial: 'deals/add_on', object: @deal %>
   </div>
 <% end %>

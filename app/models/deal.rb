@@ -38,10 +38,13 @@ class Deal < ApplicationRecord
     end
   end
 
-  def as_json(*)
-    previous = super
-    previous[:display_name] = display_name
-    previous[:client_deadline] = client_deadline
+  # def as_json(*)
+  #   previous = super
+    # previous[:display_name] = display_name
+    # previous[:client_deadline] = client_deadline
+    # previous[:quotation_lines] = quotation_lines
+    # previous[:quotation] = quotation
+    # previous[:employee] = employee
     # previous[:has_pending_job_requests?] = has_pending_job_requests?
     # previous[:has_pending_designs?] = has_pending_designs?
     # previous[:has_pending_quotations?] = has_pending_quotations?
@@ -55,8 +58,8 @@ class Deal < ApplicationRecord
     # previous[:has_pending_shipping?] = has_pending_shipping?
     # previous[:has_pending_packing_lists?] = has_pending_packing_lists?
     # previous[:has_pending_deadline?] = has_pending_deadline?
-    previous
-  end
+  #   previous
+  # end
 
   def approvals
     Approval.where(deal_id: self.id)
