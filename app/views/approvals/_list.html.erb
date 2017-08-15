@@ -12,13 +12,12 @@
   <tr>
     <th>Description</th>
     <th>Status</th>
-    <th>Actions</th>
+    <th colspan="2">Actions</th>
   </tr>
   <% list.each do |approval| %>
     <tr>
       <td><%= approval.description %></td>
       <td><%= approval.status %></td>
-      <td><%= approval.pending? %></td>
       <td><%= link_to "Edit", edit_deal_approval_path(deal, approval) if approval.pending? %></td>
       <td><%= link_to "Destroy", deal_approval_path(deal, approval), method: :delete if approval.pending? %></td>
     </tr>

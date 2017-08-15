@@ -1,0 +1,62 @@
+@import "styles/toolkit";
+@import "global";
+
+.accordion-item {
+  &.production {
+    background: $success-color;
+  }
+
+  .accordion-title {
+    span {
+      margin-right: $global-margin;
+      font-size: $global-font-size;
+      color: $black;
+    }
+  }
+}
+
+/* .button.add-deal-button { */
+/*   margin: 0; */
+/* } */
+
+/* input[type="number"].quantity-input { */
+/*   margin: 0; */
+/* } */
+
+/* .subtotal { */
+/*   border-top: 1px dashed black; */
+/* } */
+
+/* .total { */
+/*   border-top: 1px solid black; */
+/*   border-bottom: 1px solid black; */
+/* } */
+
+/* .design-name { */
+/*    font-weight: bold; */
+/*    font-size: 1rem; */
+/* } */
+
+/* .design-accordion { */
+/*   display: table !important; */
+/*   width: 100%; */
+/* } */
+
+/* .design-accordion-image { */
+/*   max-width: 400px; */
+/*   max-height: 400px; */
+/* } */
+
+/* .design-name, .product-name, .total-qty, .checkers-span { */
+/*   display: table-cell; */
+/*   color: black; */
+/*   width: 25%; */
+/* } */
+
+/* .product-breakdown-table { */
+/*   margin: 0; */
+/* } */
+
+/* .product-breakdown-table th, .product-breakdown-table tbody td { */
+/*   padding: 0; */
+/* } */
