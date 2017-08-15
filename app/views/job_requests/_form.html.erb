@@ -1,4 +1,4 @@
-<%= simple_nested_form_for [deal, job_request] do |form| %>
+<%= simple_nested_form_for [deal, job_request], html: {multipart: true} do |form| %>
   <div class="row medium-unstack">
     <div class="medium-4 columns">
       <%= form.input :name %>
@@ -14,6 +14,30 @@
     </div>
 
     <div class="medium-8 columns">
+      <h5><strong>Client Artworks</strong></h5>
+
+      <%= form.input :provide_artwork %>
+
+      <div class="design-brief-and-concept" style="<%= 'display:none' if job_request.provide_artwork %>">
+        <%= form.input :design_brief %>
+        <%= form.input :concept %>
+      </div>
+      <div class="attachments-upload" style="<%= 'display:none' if !job_request.provide_artwork %>">
+        <%= label_tag "attachments[]", "Upload Artwork" %>
+        <%= file_field_tag "attachments[]", multiple: true %>
+
+        <div class="row small-up-2 medium-up-3 large-up-4">
+          <%= form.simple_fields_for :attachments, wrapper: false do |attachment_form| %>
+            <div class="column fields">
+              <%= attachment_form.link_to_remove "Remove"  %>
+              <%= image_tag attachment_form.object.attachment_url %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <hr>
+
       <h5><strong>Print Details</strong></h5>
       <%= form.simple_fields_for :print_details do |print_detail| %>
         <div class="row align-bottom">

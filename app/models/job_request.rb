@@ -3,6 +3,7 @@ class JobRequest < ApplicationRecord
   # has_many :designs, through: :design_requests
   has_many :quotation_lines
   has_many :add_ons
+  has_many :attachments, dependent: :destroy
   belongs_to :deal
   has_many :print_details, dependent: :destroy
   has_many :properties, dependent: :destroy
@@ -11,8 +12,10 @@ class JobRequest < ApplicationRecord
     colors: [:string]
   accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   accepts_nested_attributes_for :properties, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
+  accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   validates :product_id, :colors, :name, :sizes, presence: true
   before_save :update_quotation_and_lines
+  before_save :update_artwork
 
   def as_json(*)
     previous = super
@@ -102,6 +105,15 @@ class JobRequest < ApplicationRecord
 
       quotation.calculate_total
       quotation.save
+    end
+  end
+
+  def update_artwork
+    if provide_artwork
+      self.design_brief = nil
+      self.concept = nil
+    else
+      self.attachments.delete_all
     end
   end
 end

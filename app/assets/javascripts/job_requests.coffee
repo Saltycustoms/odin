@@ -34,3 +34,12 @@ $(document).on "turbolinks:load", ->
     else
       $("#sizes-select").html("")
       $("#colors-select").html("")
+
+  $("#job_request_provide_artwork").change ->
+    checked = $(this).is(":checked")
+    if checked
+      $(".design-brief-and-concept").hide()
+      $(".attachments-upload").show()
+    else
+      $(".design-brief-and-concept").show()
+      $(".attachments-upload").hide()

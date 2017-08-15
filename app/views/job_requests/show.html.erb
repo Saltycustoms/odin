@@ -90,6 +90,30 @@
 </div>
 
 <div class="callout">
+  <h5>Client Artworks</h5>
+  <% if @job_request.provide_artwork %>
+    <div class="row small-up-2 medium-up-4 large-up-6">
+      <% @job_request.attachments.each do |attachment| %>
+        <div class="column">
+          <%= image_tag attachment.attachment_url %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="column">
+        <strong>Design Brief</strong>
+        <%= simple_format @job_request.design_brief %>
+      </div>
+      <div class="column">
+        <strong>Concept</strong>
+        <%= simple_format @job_request.concept %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="callout">
   <div class="row">
     <div class="column">
       <strong>Remarks</strong>
