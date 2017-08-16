@@ -12,17 +12,17 @@ default: &default
 
 development:
   <<: *default
-  database: odin_development
+  database: hades_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: odin_test
+  database: hades_test
 
 production:
   <<: *default
-  database: odin_production
-  username: odin
-  password: <%= ENV['ODIN_DATABASE_PASSWORD'] %>
+  database: hades_production
+  username: hades
+  password: <%= ENV['HADES_DATABASE_PASSWORD'] %>
