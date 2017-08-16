@@ -67,7 +67,22 @@ class Api::V1::DealsController < ApiController
             },
             job_requests: {
               only: JobRequest.column_names,
-              methods: [:selected_colors, :selected_sizes]
+              methods: [:selected_colors, :selected_sizes, :product]
+            },
+            packing_lists: {
+              only: PackingList.column_names,
+              include: {
+                address: {
+                  only: Address.column_names,
+                  methods: [:to_html]
+                },
+                pics: {
+                  only: Pic.column_names
+                },
+                packing_list_items: {
+                  only: PackingListItem.column_names
+                }
+              }
             }
           },  methods: [:display_name, :employee, :client_deadline]
         )) || {}
