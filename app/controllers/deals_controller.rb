@@ -46,6 +46,7 @@ class DealsController < ApplicationController
     respond_to do |format|
       if @deal.update(deal_params)
         send_notification(@deal, self)
+        DealService.broadcast_changes(@deal)
         format.html { redirect_to @pic ? @pic.belongable.organization : @deal, notice: 'Deal was successfully updated.' }
         format.json { render :show, status: :ok, location: @deal }
       else

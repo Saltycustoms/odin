@@ -1,0 +1,6 @@
+<%= form_tag deals_path, method: :get do %>
+  <%= text_field_tag :name_cont %>
+  <%= number_field_tag :id_eq %>
+  <%= text_field_tag :department_name_cont %>
+  <%= submit_tag "Search"%>
+<% end %>

@@ -58,9 +58,9 @@
     <div class="small-4 columns callout" style="min-height: 0%">
       <h5>Printed Label</h5>
       <% visual.print_labels.each do |print_label| %>
-        <%= image_tag print_label.attachment_url, alt: print_label.name,
+        <%= image_tag print_label.attachment_url, alt: print_label.print_method,
             style: "max-width: 70%" if print_label.attachment %>
-        <%= render partial: "visual_generators/components/color_box", locals: { label: print_label.name, hex: print_label.hex } %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: print_label.print_method, hex: print_label.hex } %>
       <% end %>
     </div>
     <div class="small-3 columns callout" style="min-height: 0%">
