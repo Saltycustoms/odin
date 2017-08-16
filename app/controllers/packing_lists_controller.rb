@@ -42,12 +42,11 @@ class PackingListsController < ApplicationController
   end
 
   def edit
-    @job_request_ids = @packing_list.packing_list_items.pluck(:job_request_id).uniq
+    @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : @packing_list.packing_list_items.pluck(:job_request_id).uniq.collect { |id| id.to_s }
     @deal.job_requests_with_designs.each do |job_request|
-      next if @job_request_ids.include? job_request.id
       job_request.selected_colors.each do |color|
         job_request.selected_sizes.each do |size|
-          @packing_list.packing_list_items.new(job_request_id: job_request.id, color_id: color.id, size_id: size.id)
+          @packing_list.packing_list_items.find_or_initialize_by(job_request_id: job_request.id, color_id: color.id, size_id: size.id)
         end
       end
     end
@@ -55,7 +54,7 @@ class PackingListsController < ApplicationController
 
   def update
     new_params = packing_list_params.deep_dup
-    @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : []
+    @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : @packing_list.packing_list_items.pluck(:job_request_id).uniq.collect { |id| id.to_s }
     @packing_list.assign_attributes new_params
     if @packing_list.valid?
       new_params[:packing_list_items_attributes].each do |key, value|
