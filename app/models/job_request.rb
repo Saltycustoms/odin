@@ -3,7 +3,7 @@ class JobRequest < ApplicationRecord
   # has_many :designs, through: :design_requests
   has_many :quotation_lines
   has_many :add_ons
-  has_many :attachments, dependent: :destroy
+  has_many :attachments, as: :attachable, dependent: :destroy
   belongs_to :deal
   has_many :print_details, dependent: :destroy
   has_many :properties, dependent: :destroy

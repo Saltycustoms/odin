@@ -22,11 +22,15 @@ class PackingListsController < ApplicationController
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : []
     @packing_list = @deal.packing_lists.new(new_params)
-
     if @packing_list.valid?
       new_params[:packing_list_items_attributes].each do |key, value|
         if !@job_request_ids.include? value[:job_request_id]
           value.merge!(_destroy: 1)
+        end
+      end
+      if params[:attachments].present?
+        params[:attachments].each do |attachment|
+          @packing_list.attachments.new(attachment: attachment)
         end
       end
       @packing_list = @deal.packing_lists.create(new_params)
@@ -56,13 +60,22 @@ class PackingListsController < ApplicationController
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : @packing_list.packing_list_items.pluck(:job_request_id).uniq.collect { |id| id.to_s }
     @packing_list.assign_attributes new_params
+
     if @packing_list.valid?
       new_params[:packing_list_items_attributes].each do |key, value|
         if !@job_request_ids.include? value[:job_request_id]
           value.merge!(_destroy: 1)
         end
       end
+
       @packing_list = @packing_list.reload
+
+      if params[:attachments].present?
+        params[:attachments].each do |attachment|
+          @packing_list.attachments.new(attachment: attachment)
+        end
+      end
+
       @packing_list.update(new_params)
       send_notification(@packing_list, self)
       redirect_to @deal, notice: "Packing list was successfully updated."
@@ -79,7 +92,7 @@ class PackingListsController < ApplicationController
 
   def destroy
     @packing_list.destroy
-    redirect_to @deal, notice: "Packing list was successfully destroyed."
+    redirect_to deal_packing_lists_path, notice: "Packing list was successfully destroyed."
   end
 
   private
@@ -92,9 +105,10 @@ class PackingListsController < ApplicationController
   end
 
   def packing_list_params
-    params.require(:packing_list).permit(:shipping_method, :department,
+    params.require(:packing_list).permit(:shipping_method, :department, :upload_attachment,
       address_attributes: [:name, :address1, :address2, :city, :postal_code, :country_code, :state, :_destroy, :id],
       pics_attributes: [:id, :name, :tel, :title, :email, :_destroy],
-      packing_list_items_attributes: [:id, :design_id, :job_request_id, :quantity, :product_id, :size_id, :color_id])
+      packing_list_items_attributes: [:id, :design_id, :job_request_id, :quantity, :product_id, :size_id, :color_id],
+      attachments_attributes: [:id, :attachment, :_destroy])
   end
 end
