@@ -31,11 +31,20 @@ class Api::V1::DealsController < ApiController
               },
               job_requests: {
                 only: JobRequest.column_names
+              },
+              department: {
+                only: Department.column_names
               }
-            },  methods: [:display_name, :employee, :client_deadline]
+            },  methods: [:display_name, :client_deadline]
           ))
         else
-          render json: @deals
+          render json: JSON.parse(@deals.to_json(
+                    include: {
+                      department: {
+                        only: Department.column_names
+                      }
+                    }
+                  ))
         end
       }
     end
@@ -67,6 +76,10 @@ class Api::V1::DealsController < ApiController
             },
             job_requests: {
               only: JobRequest.column_names,
+              methods: [:selected_colors, :selected_sizes]
+            },
+            department: {
+              only: Department.column_names,
               methods: [:selected_colors, :selected_sizes, :product]
             },
             packing_lists: {
@@ -84,7 +97,7 @@ class Api::V1::DealsController < ApiController
                 }
               }
             }
-          },  methods: [:display_name, :employee, :client_deadline]
+          },  methods: [:display_name, :client_deadline]
         )) || {}
       }
     end
