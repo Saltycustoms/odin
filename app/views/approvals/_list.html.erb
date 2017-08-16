@@ -15,8 +15,19 @@
   </tr>
   <% list.each do |approval| %>
     <tr>
-      <td><%= approval.description %></td>
       <td>
+        <%= approval.description %>
+        <div class="pull-right">
+          <%= link_to edit_deal_approval_path(deal, approval) do %>
+            <span class="fa fa-edit" title="Edit"></span>
+          <% end if approval.pending? %>
+          &nbsp;
+          <%= link_to deal_approval_path(deal, approval), method: :delete do %>
+            <span class="fa fa-trash" title="Destroy"></span>
+          <% end if approval.pending? %>
+        </div>
+      </td>
+      <td class="text-center">
         <% if approval.status == "pending" %>
           <span class="label secondary"><%= approval.status %></span>
         <% elsif approval.status == "approve" %>
