@@ -37,6 +37,11 @@ class JobRequestsController < ApplicationController
       end
     end
     @job_request = @deal.job_requests.new(new_params)
+    if params[:attachments].present?
+      params[:attachments].each do |attachment|
+        @job_request.attachments.new(attachment: attachment)
+      end
+    end
     begin
       respond_to do |format|
         if @job_request.save
@@ -44,7 +49,7 @@ class JobRequestsController < ApplicationController
           format.html { redirect_to @deal, notice: 'Job request was successfully created.' }
           format.json { render :show, status: :created, location: @job_request }
         else
-          @product = Product.first
+          @product = Product.first || @job_request.product
           format.html { render :new }
           format.json { render json: @job_request.errors, status: :unprocessable_entity }
         end
@@ -63,6 +68,11 @@ class JobRequestsController < ApplicationController
     if new_params[:properties_attributes].present?
       new_params[:properties_attributes].each_pair do |key, property_attribute|
         property_attribute[:name] = property_attribute[:name].split(" ").join(" ").humanize
+      end
+    end
+    if params[:attachments].present?
+      params[:attachments].each do |attachment|
+        @job_request.attachments.new(attachment: attachment)
       end
     end
     respond_to do |format|
@@ -98,8 +108,9 @@ class JobRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_request_params
-      params.require(:job_request).permit(:deal_id, :product_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :pantone_code, :remark, :sample_required, :budget, :client_comment, colors: [], sizes: [],
+      params.require(:job_request).permit(:deal_id, :product_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :provide_artwork, :design_brief, :concept, :pantone_code, :remark, :sample_required, :budget, :client_comment, colors: [], sizes: [],
       print_details_attributes: [:id, :position, :print_method, :block, :color_count, :_destroy],
-      properties_attributes: [:id, :name, :value, :_destroy])
+      properties_attributes: [:id, :name, :value, :_destroy],
+      attachments_attributes: [:id, :attachment, :_destroy])
     end
 end
