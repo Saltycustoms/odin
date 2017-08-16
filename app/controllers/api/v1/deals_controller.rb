@@ -76,11 +76,10 @@ class Api::V1::DealsController < ApiController
             },
             job_requests: {
               only: JobRequest.column_names,
-              methods: [:selected_colors, :selected_sizes]
+              methods: [:selected_colors, :selected_sizes, :product]
             },
             department: {
-              only: Department.column_names,
-              methods: [:selected_colors, :selected_sizes, :product]
+              only: Department.column_names
             },
             packing_lists: {
               only: PackingList.column_names,
@@ -94,6 +93,9 @@ class Api::V1::DealsController < ApiController
                 },
                 packing_list_items: {
                   only: PackingListItem.column_names
+                },
+                attachments: {
+                  only: Attachment.column_names
                 }
               }
             }

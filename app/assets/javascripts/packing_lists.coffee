@@ -11,3 +11,12 @@ $(document).on "turbolinks:load", ->
       success: (data, status, jqXHR) ->
         state_html = data
         $('.state-select').html(state_html)
+
+  $("#packing_list_upload_attachment").change ->
+    checked = $(this).is(":checked")
+    if checked
+      $(".packing-list-manual").hide()
+      $(".packing-list-upload").show()
+    else
+      $(".packing-list-manual").show()
+      $(".packing-list-upload").hide()

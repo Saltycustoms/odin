@@ -8,4 +8,15 @@ class PackingList < ApplicationRecord
   accepts_nested_attributes_for :packing_list_items, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   enum shipping_method:{ delivery: 0, self_pick_up: 1 }
   validates :shipping_method, presence: true
+  has_many :attachments, as: :attachable, dependent: :destroy
+  accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
+  before_save :update_packing_list_attachment
+
+  def update_packing_list_attachment
+    if upload_attachment
+      self.packing_list_items.delete_all
+    else
+      self.attachments.delete_all
+    end
+  end
 end

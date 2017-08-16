@@ -18,14 +18,16 @@
 
 <% @organization.departments.each do |department| %>
   <div class="callout">
-    <div class="callout-header row align-middle">
-      <div class="column">
-        <h4 class="callout-header-title">
-          <%= link_to department.name, organization_department_path(@organization, department) %>
-        </h4>
-      </div>
-      <div class="column medium-text-right">
-        <%= link_to "Edit", edit_organization_department_path(@organization, department), class: "button warning" %>
+    <div class="header small bordered">
+      <div class="row align-bottom">
+        <div class="column">
+          <h4 class="header-title">
+            <%= link_to department.name, organization_department_path(@organization, department) %>
+          </h4>
+        </div>
+        <div class="column medium-text-right">
+          <%= link_to "Edit", edit_organization_department_path(@organization, department), class: "button small warning" %>
+        </div>
       </div>
     </div>
 

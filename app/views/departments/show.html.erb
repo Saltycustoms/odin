@@ -6,64 +6,93 @@
 <%= render "shared/page_header", {title: @department.name} %>
 
 <%= simple_format(@department.organization.name, wrapper: 'strong') %>
-
-  <%= @department.name %>
-
-  <strong>Description:</strong>
-  <%= @department.description %>
-
-<h1>PIC</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Tel</th>
-      <th>Title</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @department.pics.each do |pic| %>
-      <tr>
-        <td><%= pic.id %></td>
-        <td><%= pic.name %></td>
-        <td><%= pic.tel %></td>
-        <td><%= pic.title %></td>
-      </tr>
+<div class="row">
+  <div class="column">
+    <% if @department.name.present? %>
+      <strong>Department</strong>
+      <%= @department.name %>
     <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'New Deal', new_department_deal_path(@department), class: "button" %>
-
-<h1>Deals</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>No of pcs</th>
-      <th>Client Deadline</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @department.deals.each do |deal| %>
-      <tr>
-        <td><%= deal.id %></td>
-        <td><%= deal.name %></td>
-        <td><%= deal.no_of_pcs %></td>
-        <td><%= deal.client_deadline %></td>
-        <td><%= link_to 'Show', deal %></td>
-        <td><%= link_to 'Edit', edit_deal_path(deal) %></td>
-        <td><%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+  </div>
+  <div class="column">
+    <% if @department.description.present? %>
+      <strong>Description:</strong>
+      <%= @department.description %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
+
+<hr>
+
+<div class="callout">
+  <header class="header bordered small">
+    <h5 class="header-title">PIC</h5>
+  </header>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Tel</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @department.pics.each do |pic| %>
+        <tr>
+          <td><%= pic.id %></td>
+          <td><%= pic.name %></td>
+          <td><%= pic.tel %></td>
+          <td><%= pic.title %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="callout">
+  <header class="header bordered small">
+    <div class="row align-bottom">
+      <div class="column">
+        <h1 class="header-title">Deals</h1>
+      </div>
+      <div class="column text-right">
+        <%= link_to 'New Deal', new_department_deal_path(@department), class: "button small" %>
+      </div>
+    </div>
+  </header>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>No of pcs</th>
+        <th>Client Deadline</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @department.deals.each do |deal| %>
+        <tr>
+          <td>
+            <%= content_tag :span, deal.id, class: "subheader" %>
+            <%= link_to deal.name, deal %>
+            <div class="pull-right">
+              <%= link_to edit_deal_path(deal) do %>
+                <span class="fa fa-edit" title="Edit"></span>
+              <% end %>
+              &nbsp;
+              <%= link_to deal, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <span class="fa fa-trash" title="Destroy"></span>
+              <% end %>
+            </div>
+          </td>
+          <td><%= deal.no_of_pcs %></td>
+          <td><%= deal.client_deadline %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
 

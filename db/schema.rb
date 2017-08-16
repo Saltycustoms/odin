@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815074459) do
+ActiveRecord::Schema.define(version: 20170816082231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,11 +44,12 @@ ActiveRecord::Schema.define(version: 20170815074459) do
   end
 
   create_table "attachments", force: :cascade do |t|
-    t.bigint "job_request_id"
     t.text "attachment_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["job_request_id"], name: "index_attachments_on_job_request_id"
+    t.string "attachable_type"
+    t.bigint "attachable_id"
+    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
   end
 
   create_table "deadlines", force: :cascade do |t|
@@ -145,6 +146,7 @@ ActiveRecord::Schema.define(version: 20170815074459) do
     t.integer "shipping_method"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "upload_attachment", default: false
     t.index ["deal_id"], name: "index_packing_lists_on_deal_id"
   end
 
@@ -276,7 +278,6 @@ ActiveRecord::Schema.define(version: 20170815074459) do
 
   add_foreign_key "add_ons", "job_requests"
   add_foreign_key "add_ons", "quotations"
-  add_foreign_key "attachments", "job_requests"
   add_foreign_key "deadlines", "deals"
   add_foreign_key "discounts", "deals"
   add_foreign_key "orders", "deals"
