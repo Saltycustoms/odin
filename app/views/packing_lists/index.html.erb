@@ -37,33 +37,39 @@
         <% end %>
       </td>
       <td>
-        <% packing_list.packing_list_items.pluck(:job_request_id).uniq.each do |job_request_id| %>
-          <% job_request = JobRequest.find(job_request_id) %>
-          <table>
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Color</th>
-                <% job_request.selected_sizes.each do |size| %>
-                  <th><%= size.name %></th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <% job_request.selected_colors.each do |color| %>
+        <% if packing_list.upload_attachment %>
+          <% packing_list.attachments.each do |attachment| %>
+            <p><%= link_to attachment.attachment.original_filename, attachment_path(attachment) %></p>
+          <% end %>
+        <% else %>
+          <% packing_list.packing_list_items.pluck(:job_request_id).uniq.each do |job_request_id| %>
+            <% job_request = JobRequest.find(job_request_id) %>
+            <table>
+              <thead>
                 <tr>
-                  <th><%= job_request.product.name %></th>
-                  <th><%= color.display_name %></th>
-                  <% packing_list.packing_list_items.where(job_request_id: job_request_id, color_id: color.id).order(size_id: :asc).each do |item| %>
-                    <td>
-                      <%= item.quantity %>
-                    </td>
+                  <th>Product</th>
+                  <th>Color</th>
+                  <% job_request.selected_sizes.each do |size| %>
+                    <th><%= size.name %></th>
                   <% end %>
                 </tr>
-              <% end %>
-              <tr></tr>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% job_request.selected_colors.each do |color| %>
+                  <tr>
+                    <th><%= job_request.product.name %></th>
+                    <th><%= color.display_name %></th>
+                    <% packing_list.packing_list_items.where(job_request_id: job_request_id, color_id: color.id).order(size_id: :asc).each do |item| %>
+                      <td>
+                        <%= item.quantity %>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+                <tr></tr>
+              </tbody>
+            </table>
+          <% end %>
         <% end %>
       </td>
       <td><%= packing_list.shipping_method %></td>
