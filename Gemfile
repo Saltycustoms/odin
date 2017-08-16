@@ -32,7 +32,10 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-passenger'
+gem 'capistrano-rbenv', github: "capistrano/rbenv"
 gem 'devise'
 gem 'bunny'
 gem 'omniauth-oauth2'
