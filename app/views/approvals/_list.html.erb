@@ -1,10 +1,12 @@
-<div class="callout-header row medium-unstack align-middle">
-  <div class="column">
-    <h5 class="callout-header-title">Approvals</h5>
-  </div>
-  <div class="column medium-3 medium-text-right">
-    <%= link_to "Get Approval", new_deal_approval_path(@deal), class: "button" %>
-    <%= link_to "View Approvals", deal_approvals_path(@deal), class: "button secondary" %>
+<div class="header small bordered">
+  <div class="row align-middle">
+    <div class="column">
+      <h5 class="header-title">Approvals</h5>
+    </div>
+    <div class="column medium-text-right">
+      <%= link_to "Get Approval", new_deal_approval_path(@deal), class: "button" %>
+      <%= link_to "View Approvals", deal_approvals_path(@deal), class: "button secondary" %>
+    </div>
   </div>
 </div>
 
