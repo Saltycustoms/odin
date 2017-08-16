@@ -8,7 +8,6 @@
       <th>Name</th>
       <th class="text-center">No of pcs</th>
       <th>Client Deadline</th>
-      <th class="text-center">Delete</th>
     </tr>
   </thead>
 
@@ -18,17 +17,18 @@
         <td>
           <span class="subheader">#<%= deal.id %></span>
           <%= link_to "#{deal.name} - #{deal.department.organization.name}, #{deal.department.name}", deal %>
-          <%= link_to edit_deal_path(deal), class: "pull-right" do %>
-            <span title="Edit" class="fa fa-pencil"></span>
-          <% end %>
+          <div class="pull-right">
+            <%= link_to edit_deal_path(deal) do %>
+              <span title="Edit" class="fa fa-pencil"></span>
+            <% end %>
+            &nbsp;
+            <%= link_to deal, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span title="Delete" class="fa fa-trash"></span>
+            <% end %>
+          </div>
         </td>
         <td class="text-center"><%= deal.no_of_pcs %></td>
         <td><%= deal.client_deadline %></td>
-        <td class="text-center">
-          <%= link_to deal, method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <span title="Delete" class="fa fa-trash"></span>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </tbody>
