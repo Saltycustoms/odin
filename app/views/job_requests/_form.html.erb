@@ -42,13 +42,13 @@
       <%= form.simple_fields_for :print_details do |print_detail| %>
         <div class="row align-bottom">
           <div class="column">
-            <%= print_detail.input :position %>
+            <%= print_detail.input :position, collection: PrintDetail.print_positions %>
           </div>
           <div class="column">
             <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
           </div>
             <div class="column">
-            <%= print_detail.input :block %>
+            <%= print_detail.input :block, collection: PrintDetail.block_sizes %>
           </div>
           <div class="column">
             <%= print_detail.input :color_count %>
