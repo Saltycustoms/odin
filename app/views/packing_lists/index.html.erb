@@ -27,7 +27,13 @@
       </td>
       <td>
         <% packing_list.pics.each do |pic| %>
-          <p><%= pic.name %>, <%= pic.tel %>, <%= pic.title%></p>
+          <p>
+            <strong>Name: </strong><%= pic.name %><br>
+            <strong>Email: </strong><%= pic.email %><br>
+            <strong>Tel: </strong><%= pic.tel %><br>
+            <strong>Title: </strong><%= pic.title %><br>
+          </p>
+          <hr>
         <% end %>
       </td>
       <td>
