@@ -27,16 +27,6 @@
 </head>
 
   <body>
-    <%= render "shared/topbar" %>
-    <% unless notice.nil? %>
-      <div id="notice" class="callout" data-closable>
-        <%= notice %>
-        <%= button_tag data: { close: ""}, aria: { label: "Dismiss notice"}, class: "close-button" do %>
-          <span aria-hidden="true">&times;</span>
-        <% end %>
-      </div>
-    <% end %>
-
     <div id="offCanvas" class="off-canvas position-left" data-transition="overlap" data-off-canvas>
       <%= button_tag class: "button", data: {toggle: "offCanvas"} do %>
         <%= tag.span class: "fa fa-close" %>
@@ -53,6 +43,15 @@
     </div>
 
     <div class="off-canvas-content" data-off-canvas-content>
+      <%= render "shared/topbar" %>
+      <% unless notice.nil? %>
+        <div id="notice" class="callout" data-closable>
+          <%= notice %>
+          <%= button_tag data: { close: ""}, aria: { label: "Dismiss notice"}, class: "close-button" do %>
+            <span aria-hidden="true">&times;</span>
+          <% end %>
+        </div>
+      <% end %>
       <div class="content row column">
         <%= yield %>
       </div>
