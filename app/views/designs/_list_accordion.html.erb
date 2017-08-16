@@ -1,4 +1,6 @@
-<h5 class="callout-header-title">Designs</h5>
+<header class="header small bordered">
+  <h5 class="header-title">Designs</h5>
+</header>
 <ul class="accordion" data-accordion data-allow-all-closed="true">
   <% list_accordion.each do |design| %>
     <li class="accordion-item <%= "production" if design.version_for_production.present? %>" data-accordion-item>

@@ -1,6 +1,10 @@
 @import "styles/toolkit";
 @import "global";
 
+.header {
+  margin-bottom: $global-margin;
+}
+
 .accordion-item {
   &.production {
     background: $success-color;
@@ -12,23 +16,6 @@
       font-size: $global-font-size;
       color: $black;
     }
-  }
-}
-
-.page-header {
-  padding: $global-padding 0;
-  margin-bottom: $global-margin;
-  border-bottom: 2px solid;
-
-  &-title {
-    margin: 0;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-
-  .button {
-    margin-bottom: 0;
   }
 }
 
