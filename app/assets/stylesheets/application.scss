@@ -1,6 +1,10 @@
 @import "styles/toolkit";
 @import "global";
 
+.header {
+  margin-bottom: $global-margin;
+}
+
 .accordion-item {
   &.production {
     background: $success-color;
