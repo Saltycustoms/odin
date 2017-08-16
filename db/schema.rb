@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810030459) do
+ActiveRecord::Schema.define(version: 20170815074459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20170810030459) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["belongable_type", "belongable_id"], name: "index_addresses_on_belongable_type_and_belongable_id"
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.bigint "job_request_id"
+    t.text "attachment_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_request_id"], name: "index_attachments_on_job_request_id"
   end
 
   create_table "deadlines", force: :cascade do |t|
@@ -98,6 +106,9 @@ ActiveRecord::Schema.define(version: 20170810030459) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "metadata"
+    t.boolean "provide_artwork", default: false
+    t.text "design_brief"
+    t.text "concept"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -265,6 +276,7 @@ ActiveRecord::Schema.define(version: 20170810030459) do
 
   add_foreign_key "add_ons", "job_requests"
   add_foreign_key "add_ons", "quotations"
+  add_foreign_key "attachments", "job_requests"
   add_foreign_key "deadlines", "deals"
   add_foreign_key "discounts", "deals"
   add_foreign_key "orders", "deals"
