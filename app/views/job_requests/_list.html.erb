@@ -13,7 +13,6 @@
       <th>Name</th>
       <th>Product</th>
       <th>Budget</th>
-      <th></th>
     </tr>
   </thead>
 
@@ -23,17 +22,18 @@
         <td>
           <span class="subheader">#<%= job_request.id %></span>
           <%= link_to job_request.name, deal_job_request_path(@deal, job_request) %>
-          <%= link_to edit_deal_job_request_path(@deal, job_request), class: "pull-right" do %>
-            <span title="Edit" class="fa fa-pencil"></span>
-          <% end %>
+          <div class="pull-right">
+            <%= link_to edit_deal_job_request_path(@deal, job_request) do %>
+              <span title="Edit" class="fa fa-pencil"></span>
+            <% end %>
+            &nbsp;
+            <%= link_to deal_job_request_path(@deal, job_request), method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span class="fa fa-trash" title="delete"></span>
+            <% end %>
+          </div>
         </td>
         <td><%= job_request.product.name %></td>
         <td><%= job_request.budget %></td>
-        <td class="text-center">
-          <%= link_to deal_job_request_path(@deal, job_request), method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <span class="fa fa-trash" title="delete"></span>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </tbody>
