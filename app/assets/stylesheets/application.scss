@@ -15,23 +15,6 @@
   }
 }
 
-.page-header {
-  padding: $global-padding 0;
-  margin-bottom: $global-margin;
-  border-bottom: 2px solid;
-
-  &-title {
-    margin: 0;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-
-  .button {
-    margin-bottom: 0;
-  }
-}
-
 .off-canvas-content {
   min-height: 90vh;
 }
