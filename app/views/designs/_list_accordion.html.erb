@@ -1,9 +1,7 @@
 <h5 class="callout-header-title">Designs</h5>
 <ul class="accordion" data-accordion data-allow-all-closed="true">
   <% list_accordion.each do |design| %>
-    <li class="accordion-item" data-accordion-item style="
-                <%= "background-color: #8bc34a".html_safe if design.version_for_production.present? %>
-              ">
+    <li class="accordion-item <%= "production" if design.version_for_production.present? %>" data-accordion-item>
       <!-- Accordion tab title -->
       <a href="#" class="accordion-title design-accordion">
         <span class="design-name"><%= design.id %>#<%= design.name %></span>

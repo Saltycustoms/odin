@@ -54,8 +54,6 @@
       <% else %>
         <%= link_to "New Quotation", new_deal_quotations_path(@deal), class: "button" %>
       <% end %>
-      <%= link_to "Get Approval", new_deal_approval_path(@deal), class: "button secondary" %>
-      <%= link_to "Approvals", deal_approvals_path(@deal), class: "button secondary" %>
       <%= link_to "New Packing List", new_deal_packing_list_path(@deal), class: "button success" %>
       <%= link_to "View Packing List", deal_packing_lists_path(@deal), class: "button warning" %>
       <%= link_to "New Collection", new_deal_transaction_path(@deal), class: "button" %>
@@ -65,20 +63,20 @@
   </div>
 <% end %>
 
-<div class="callout">
+<div class="callout primary">
   <%= render partial: "job_requests/list", object: @deal.job_requests %>
 </div>
 
-<div class="callout">
+<div class="callout alert">
   <%= render partial: "approvals/list", object: @deal.approvals, locals: { deal: @deal } %>
 </div>
 
-<div class="callout">
+<div class="callout secondary">
   <%= render partial: "designs/list_accordion", object: @deal.designs, locals: { deal: @deal } %>
 </div>
 
 <% if @deal.quotation %>
-  <div class="callout">
+  <div class="callout warning">
     <%= render partial: 'deals/product_breakdown', object: @deal %>
   </div>
 <% end %>
