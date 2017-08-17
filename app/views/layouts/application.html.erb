@@ -35,7 +35,7 @@
 
       <div class="sidebar">
         <%= link_to root_path, class: "logo text-center" do %>
-          <%= image_tag "logo.svg", style: "max-width: 3rem;" %>
+          <%= image_tag "logo.svg" %>
         <% end %>
         <%= render "shared/menu" if user_signed_in? %>
         <%= yield(:sidebar) %>
