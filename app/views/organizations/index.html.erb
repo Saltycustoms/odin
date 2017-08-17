@@ -10,7 +10,6 @@
       <th>Name</th>
       <th>Description</th>
       <th>Industry</th>
-      <th class="text-center">Delete</th>
     </tr>
   </thead>
 
@@ -21,17 +20,18 @@
           <span class="subheader">#<%= organization.id %></span>
           <%= link_to organization.name, organization %>
 
-          <%= link_to edit_organization_path(organization), class: "pull-right" do %>
-            <span class="fa fa-pencil" title="Edit"></span>
-          <% end %>
+          <div class="pull-right">
+            <%= link_to edit_organization_path(organization) do %>
+              <span class="fa fa-pencil" title="Edit"></span>
+            <% end %>
+            &nbsp;
+            <%= link_to organization, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span class="fa fa-trash" title="Delete"></span>
+            <% end %>
+          </div>
         </td>
         <td><%= truncate(organization.description, length: 30) %></td>
         <td><%= organization.industry %></td>
-        <td class="text-center">
-          <%= link_to organization, method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <span class="fa fa-trash" title="Delete"></span>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </tbody>
