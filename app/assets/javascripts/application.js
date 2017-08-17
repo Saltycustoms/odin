@@ -24,7 +24,6 @@
 //= require notifications
 //= require products
 //= require scripts/toolkit
-//= require serviceworker-companion
 
 $(document).ready(function() {
   jQuery(".best_in_place").best_in_place();
