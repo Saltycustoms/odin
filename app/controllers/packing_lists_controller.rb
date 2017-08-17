@@ -21,21 +21,20 @@ class PackingListsController < ApplicationController
   def create
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : []
+    new_params[:packing_list_items_attributes].each do |key, value|
+      if !@job_request_ids.include? value[:job_request_id]
+        value.merge!(_destroy: 1)
+      end
+    end
     @packing_list = @deal.packing_lists.new(new_params)
-    if @packing_list.valid?
-      new_params[:packing_list_items_attributes].each do |key, value|
-        if !@job_request_ids.include? value[:job_request_id]
-          value.merge!(_destroy: 1)
-        end
+    if params[:attachments].present?
+      params[:attachments].each do |attachment|
+        @packing_list.attachments.new(attachment: attachment)
       end
-      if params[:attachments].present?
-        params[:attachments].each do |attachment|
-          @packing_list.attachments.new(attachment: attachment)
-        end
-      end
-      @packing_list = @deal.packing_lists.create(new_params)
+    end
+    if @packing_list.save
       send_notification(@packing_list, self)
-      redirect_to @deal, notice: "Packing list was successfully created."
+      redirect_to deal_packing_lists_path(@deal), notice: "Packing list was successfully created."
     else
       render :new
     end
@@ -59,26 +58,20 @@ class PackingListsController < ApplicationController
   def update
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : @packing_list.packing_list_items.pluck(:job_request_id).uniq.collect { |id| id.to_s }
-    @packing_list.assign_attributes new_params
-
-    if @packing_list.valid?
-      new_params[:packing_list_items_attributes].each do |key, value|
-        if !@job_request_ids.include? value[:job_request_id]
-          value.merge!(_destroy: 1)
-        end
+    new_params[:packing_list_items_attributes].each do |key, value|
+      if !@job_request_ids.include? value[:job_request_id]
+        value.merge!(_destroy: 1)
       end
-
-      @packing_list = @packing_list.reload
-
-      if params[:attachments].present?
-        params[:attachments].each do |attachment|
-          @packing_list.attachments.new(attachment: attachment)
-        end
+    end
+    if params[:attachments].present?
+      params[:attachments].each do |attachment|
+        @packing_list.attachments.new(attachment: attachment)
       end
+    end
 
-      @packing_list.update(new_params)
+    if @packing_list.update(new_params)
       send_notification(@packing_list, self)
-      redirect_to @deal, notice: "Packing list was successfully updated."
+      redirect_to deal_packing_lists_path(@deal), notice: "Packing list was successfully updated."
     else
       render :edit
     end
