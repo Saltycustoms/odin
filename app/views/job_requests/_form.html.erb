@@ -14,74 +14,82 @@
     </div>
 
     <div class="medium-8 columns">
-      <h5><strong>Client Artworks</strong></h5>
+      <div class="callout">
+        <div class="header small">
+          <h2 class="header-title">Client Artworks</h2>
+        </div>
+        <%= form.input :provide_artwork %>
 
-      <%= form.input :provide_artwork %>
+        <div class="design-brief-and-concept" style="<%= 'display:none' if job_request.provide_artwork %>">
+          <%= form.input :design_brief %>
+          <%= form.input :concept %>
+        </div>
+        <div class="attachments-upload" style="<%= 'display:none' if !job_request.provide_artwork %>">
+          <%= label_tag "attachments[]", "Upload Artwork" %>
+          <%= file_field_tag "attachments[]", multiple: true %>
 
-      <div class="design-brief-and-concept" style="<%= 'display:none' if job_request.provide_artwork %>">
-        <%= form.input :design_brief %>
-        <%= form.input :concept %>
-      </div>
-      <div class="attachments-upload" style="<%= 'display:none' if !job_request.provide_artwork %>">
-        <%= label_tag "attachments[]", "Upload Artwork" %>
-        <%= file_field_tag "attachments[]", multiple: true %>
-
-        <div class="row small-up-2 medium-up-3 large-up-4">
-          <%= form.simple_fields_for :attachments, wrapper: false do |attachment_form| %>
-            <div class="column fields">
-              <%= attachment_form.hidden_field :attachment, value: attachment_form.object.cached_attachment_data %>
-              <%= attachment_form.link_to_remove "Remove"  %>
-              <%= image_tag attachment_form.object.attachment_url %>
-            </div>
-          <% end %>
+          <div class="row small-up-2 medium-up-3 large-up-4">
+            <%= form.simple_fields_for :attachments, wrapper: false do |attachment_form| %>
+              <div class="column fields">
+                <%= attachment_form.hidden_field :attachment, value: attachment_form.object.cached_attachment_data %>
+                <%= attachment_form.link_to_remove "Remove"  %>
+                <%= image_tag attachment_form.object.attachment_url %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
 
-      <hr>
-
-      <h5><strong>Print Details</strong></h5>
-      <%= form.simple_fields_for :print_details do |print_detail| %>
-        <div class="row align-bottom">
-          <div class="column">
-            <%= print_detail.input :position, collection: PrintDetail.print_positions %>
-          </div>
-          <div class="column">
-            <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
-          </div>
+      <div class="callout">
+        <div class="header small">
+          <h2 class="header-title">Print Details</h2>
+        </div>
+        <%= form.simple_fields_for :print_details do |print_detail| %>
+          <div class="row align-bottom">
             <div class="column">
-            <%= print_detail.input :block, collection: PrintDetail.block_sizes %>
+              <%= print_detail.input :position, collection: PrintDetail.print_positions %>
+            </div>
+            <div class="column">
+              <%= print_detail.input :print_method, collection: PrintDetail.print_methods %>
+            </div>
+              <div class="column">
+              <%= print_detail.input :block, collection: PrintDetail.block_sizes %>
+            </div>
+            <div class="column">
+              <%= print_detail.input :color_count %>
+            </div>
+            <div class="small-1 column">
+              <%= print_detail.link_to_remove class: "button alert remove-button" do %>
+                <i class="fa fa-times" aria-hidden="true"></i>
+              <% end %>
+            </div>
           </div>
-          <div class="column">
-            <%= print_detail.input :color_count %>
-          </div>
-          <div class="small-1 column">
-            <%= print_detail.link_to_remove class: "button alert remove-button" do %>
-              <i class="fa fa-times" aria-hidden="true"></i>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
+        <%= form.link_to_add "Add print detail", :print_details, class: "button warning" %>
+      </div>
 
-      <%= form.link_to_add "Add print detail", :print_details, class: "button warning" %>
 
-      <hr>
-      <h5><strong>Properties</strong></h5>
-      <%= form.simple_fields_for :properties do |property| %>
-        <div class="row">
-          <div class="column">
-            <%= property.input :name, input_html: { list: "properties-type", class: "properties-name" } %>
-          </div>
-          <div class="column">
-            <%= property.input :value, input_html: { class: "properties-value" } %>
-          </div>
-          <div class="small-1 column align-self-bottom">
-            <%= property.link_to_remove class: "button alert remove-button" do %>
-              <i class="fa fa-times" aria-hidden="true"></i>
-            <% end %>
-          </div>
+      <div class="callout">
+        <div class="header small">
+          <h2 class="header-title">Properties</h2>
         </div>
-      <% end %>
-      <%= form.link_to_add "Add property", :properties, class: "button warning" %>
+        <%= form.simple_fields_for :properties do |property| %>
+          <div class="row">
+            <div class="column">
+              <%= property.input :name, input_html: { list: "properties-type", class: "properties-name" } %>
+            </div>
+            <div class="column">
+              <%= property.input :value, input_html: { class: "properties-value" } %>
+            </div>
+            <div class="small-1 column align-self-bottom">
+              <%= property.link_to_remove class: "button alert remove-button" do %>
+                <i class="fa fa-times" aria-hidden="true"></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= form.link_to_add "Add property", :properties, class: "button warning" %>
+      </div>
 
     </div>
   </div>
