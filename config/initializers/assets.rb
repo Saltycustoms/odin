@@ -11,5 +11,6 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.configuration.assets.precompile += %w[serviceworker.js manifest.json]
+Rails.configuration.assets.precompile += %w[serviceworker.js manifest.json
+*.ttf *.eot *.svg *.otf *.woff]
 Rails.application.config.assets.precompile << %r(.*.(?:eot|svg|ttf|woff|woff2)$)
