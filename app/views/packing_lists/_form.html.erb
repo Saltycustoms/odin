@@ -99,6 +99,7 @@
 
     <%= form.simple_fields_for :attachments do |attachment_form| %>
       <p>
+        <%= attachment_form.hidden_field :attachment, value: attachment_form.object.cached_attachment_data %>
         <%= attachment_form.object.attachment.original_filename %>
         <%= attachment_form.link_to_remove "Remove"  %>
       </p>
