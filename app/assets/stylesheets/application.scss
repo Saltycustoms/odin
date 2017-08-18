@@ -1,8 +1,9 @@
 @import "styles/toolkit";
 @import "global";
 
-.header {
-  margin-bottom: $global-margin;
+.content {
+  padding-top: $global-margin * 2;
+  padding-bottom: $global-margin * 2;
 }
 
 .accordion-item {
