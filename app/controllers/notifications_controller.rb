@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
   def index
-    employee = Employee.where(email: current_user.email).first
+    employee = Employee.find(current_user.uid)
     @notifications = employee.notifications(q: { s: "id desc", target_id_eq: "#{employee.id}" })
 
     # @unopened_notifications = @notifications.all(params: {
