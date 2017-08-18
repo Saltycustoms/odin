@@ -3,7 +3,7 @@ module NotificationHandlerController
 
   included do
     def send_notification(model, controller)
-      user = Employee.where(q: {id_eq: current_user.id}).first
+      user = Employee.where(q: {email_eq: current_user.email}).first
       message = model.label_with_model_name
       message["notification.key"] = "#{model.model_name.singular}.#{controller.action_name}"
       message["notifier.name"] = "Employee"
