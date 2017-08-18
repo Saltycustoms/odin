@@ -22,7 +22,7 @@
               <% @notifications = employee.notifications(q: { s: "id desc", target_id_eq: "#{employee.id}" }).first(5).each do |notification| %>
                 <p class="notifications <%= notification.opened_at.present? ? "opened" : "" %>" data-id=<%= notification.id %>>
                   <%= link_to notification.generate_link do %>
-                    <strong><%= notification.notifier.name %></strong> <%= I18n.t("notification.title.#{notification.key}") %><br>
+                    <strong><%= notification.notifier&.name %></strong> <%= I18n.t("notification.title.#{notification.key}") %><br>
                     <%= "#{distance_of_time_in_words Time.now, notification.created_at} ago" %>
                   <% end %>
                 </p>

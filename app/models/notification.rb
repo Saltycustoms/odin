@@ -14,6 +14,7 @@ class Notification < ActiveResource::Base
   end
 
   def notifier
+    return nil if self.notifier_type.blank?
     self.notifier_type.constantize.find(self.notifier_id)
   end
 
