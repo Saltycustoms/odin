@@ -2,7 +2,9 @@
   <%= form.input :shipping_method, collection: PackingList.shipping_methods.keys.collect { |k| [k.humanize, k] }  %>
   <div class="row">
     <div class="small-6 column">
-      <h5>Address</h5>
+      <div class="header small">
+        <h2 class="header-title">Address</h2>
+      </div>
       <%= form.fields_for :address do |address_form| %>
         <%= address_form.input :name %>
         <%= address_form.input :address1 %>
@@ -14,96 +16,99 @@
       <% end %>
     </div>
     <div class="small-6 column">
-      <h5>Department</h5>
+      <div class="header small">
+        <h2 class="header-title">Department</h2>
+      </div>
       <%= form.input :department, label: "Name" %>
-    </div>
-  </div>
-  <div class="callout">
-    <h5>PIC</h5>
-    <%= form.fields_for :pics do |pic_form| %>
-      <div class="row">
-        <div class="column">
-          <%= pic_form.input :name %>
+      <div class="callout">
+        <div class="header small">
+          <h2 class="header-title">PIC</h2>
         </div>
-        <div class="column">
-          <%= pic_form.input :email %>
-        </div>
-        <div class="column">
-          <%= pic_form.input :tel %>
-        </div>
-        <div class="column">
-          <%= pic_form.input :title %>
-        </div>
-        <div class="column align-self-bottom">
-          <%= pic_form.link_to_remove class: "button alert remove-button" do %>
-            <i class="fa fa-times" aria-hidden="true"></i>
-          <% end %>
-        </div>
+        <%= form.fields_for :pics do |pic_form| %>
+          <div class="row">
+            <div class="column">
+              <%= pic_form.input :name %>
+            </div>
+            <div class="column">
+              <%= pic_form.input :email %>
+            </div>
+            <div class="column">
+              <%= pic_form.input :tel %>
+            </div>
+            <div class="column">
+              <%= pic_form.input :title %>
+            </div>
+            <div class="column align-self-bottom">
+              <%= pic_form.link_to_remove class: "button alert remove-button" do %>
+                <i class="fa fa-times" aria-hidden="true"></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= form.link_to_add "Add PIC", :pics, class: "button warning" %>
       </div>
-    <% end %>
-    <%= form.link_to_add "Add PIC", :pics, class: "button warning" %>
-  </div>
+      <%= form.input :upload_attachment %>
 
-  <%= form.input :upload_attachment %>
+      <div class="packing-list-manual" style="<%= 'display:none' if @packing_list.upload_attachment %>">
+        <% deal.job_requests_with_designs.each do |job_request| %>
+          <div class="row">
+            <div class="column small-11">
+              <ul class="accordion" data-accordion data-allow-all-closed="true">
+                <li class="accordion-item <%= 'is-active' if @job_request_ids.include?(job_request.id.to_s) %>" data-accordion-item>
+                  <!-- Accordion tab title -->
+                  <a href="#" class="accordion-title"><%= job_request.design_name %></a>
 
-  <div class="packing-list-manual" style="<%= 'display:none' if @packing_list.upload_attachment %>">
-    <% deal.job_requests_with_designs.each do |job_request| %>
-      <div class="row">
-        <div class="column small-11">
-          <ul class="accordion" data-accordion data-allow-all-closed="true">
-            <li class="accordion-item <%= 'is-active' if @job_request_ids.include?(job_request.id.to_s) %>" data-accordion-item>
-              <!-- Accordion tab title -->
-              <a href="#" class="accordion-title"><%= job_request.design_name %></a>
-
-              <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
-              <div class="accordion-content" data-tab-content>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Color</th>
-                      <% job_request.selected_sizes.each do |size| %>
-                        <th><%= size.name %></th>
-                      <% end %>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% job_request.selected_colors.each do |color| %>
-                      <tr>
-                        <th><%= job_request.product.name %></th>
-                        <th><%= color.name %></th>
-                        <%= form.fields_for :packing_list_items, packing_list.packing_list_items.select { |item| (item.job_request_id == job_request.id && item.color_id == color.id) } do |item_form| %>
-                          <%= item_form.input :job_request_id, as: :hidden, input_html: {value: item_form.object.job_request_id} %>
-                          <%= item_form.input :color_id, as: :hidden, input_html: {value: item_form.object.color_id} %>
-                          <%= item_form.input :size_id, as: :hidden, input_html: {value: item_form.object.size_id} %>
-                          <td><%= item_form.input :quantity, label: false, input_html: {min: 0} %></td>
+                  <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
+                  <div class="accordion-content" data-tab-content>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Product</th>
+                          <th>Color</th>
+                          <% job_request.selected_sizes.each do |size| %>
+                            <th><%= size.name %></th>
+                          <% end %>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% job_request.selected_colors.each do |color| %>
+                          <tr>
+                            <th><%= job_request.product.name %></th>
+                            <th><%= color.name %></th>
+                            <%= form.fields_for :packing_list_items, packing_list.packing_list_items.select { |item| (item.job_request_id == job_request.id && item.color_id == color.id) } do |item_form| %>
+                              <%= item_form.input :job_request_id, as: :hidden, input_html: {value: item_form.object.job_request_id} %>
+                              <%= item_form.input :color_id, as: :hidden, input_html: {value: item_form.object.color_id} %>
+                              <%= item_form.input :size_id, as: :hidden, input_html: {value: item_form.object.size_id} %>
+                              <td><%= item_form.input :quantity, label: false, input_html: {min: 0} %></td>
+                            <% end %>
+                          </tr>
                         <% end %>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="column small-1">
-            <%= check_box_tag "select_job_request[]", job_request.id, @job_request_ids.include?(job_request.id.to_s) %>
-        </div>
+                      </tbody>
+                    </table>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="column small-1">
+                <%= check_box_tag "select_job_request[]", job_request.id, @job_request_ids.include?(job_request.id.to_s) %>
+            </div>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
 
-  <div class="packing-list-upload" style="<%= 'display:none' if !@packing_list.upload_attachment %>">
-    <%= label_tag "attachments[]", "Add Files Here" %>
-    <%= file_field_tag "attachments[]", multiple: true %>
+      <div class="packing-list-upload" style="<%= 'display:none' if !@packing_list.upload_attachment %>">
+        <%= label_tag "attachments[]", "Add Files Here" %>
+        <%= file_field_tag "attachments[]", multiple: true %>
 
-    <%= form.simple_fields_for :attachments do |attachment_form| %>
-      <p>
-        <%= attachment_form.hidden_field :attachment, value: attachment_form.object.cached_attachment_data %>
-        <%= attachment_form.object.attachment.original_filename %>
-        <%= attachment_form.link_to_remove "Remove"  %>
-      </p>
-    <% end %>
+        <%= form.simple_fields_for :attachments do |attachment_form| %>
+          <p>
+            <%= attachment_form.hidden_field :attachment, value: attachment_form.object.cached_attachment_data %>
+            <%= attachment_form.object.attachment.original_filename %>
+            <%= attachment_form.link_to_remove "Remove"  %>
+          </p>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="row">
