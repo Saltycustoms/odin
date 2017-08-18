@@ -3,7 +3,7 @@
     <%= distance_of_time_in_words Time.now, message.created_at %>
   </div>
   <div class="post">
-    <strong><%= message.notifier.name %></strong>
+    <strong><%= message.notifier&.name %></strong>
     <%= I18n.t("notification.title.#{message.key}") %>
   </div>
   <div class="description">
