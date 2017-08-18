@@ -107,18 +107,18 @@
 <% end %>
 
 <datalist id="properties-type">
-  <% @deal.properties_type.each do |property_name| %>
+  <% Property.name_and_placeholders.each do |property_name, property_value| %>
     <option value="<%= property_name %>">
   <% end %>
 </datalist>
 
 <script>
-  var properties_placeholder = <%= raw @deal.properties_placeholder.to_json %>
+  var properties = <%= raw Property.name_and_placeholders.to_json %>
   var properties_name = $(".properties-name")
   for (i = 0; i < properties_name.length; i ++) {
     property_name = $(properties_name[i]).val()
     parent = $(properties_name[i]).parent().parent().parent()
     property_value = parent.find(".properties-value")
-    property_value.attr("placeholder", properties_placeholder[property_name])
+    property_value.attr("placeholder", properties[property_name])
   }
 </script>
