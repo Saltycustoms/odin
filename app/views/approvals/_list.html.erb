@@ -10,63 +10,67 @@
   </div>
 </div>
 
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Status</th>
-  </tr>
-  <% list.each do |approval| %>
+<% if list.any? %>
+  <table>
     <tr>
-      <td>
-        <%= approval.description %>
-        <div class="pull-right">
-          <%= link_to edit_deal_approval_path(deal, approval) do %>
-            <span class="fa fa-edit" title="Edit"></span>
-          <% end if approval.pending? %>
-          &nbsp;
-          <%= link_to deal_approval_path(deal, approval), method: :delete do %>
-            <span class="fa fa-trash" title="Destroy"></span>
-          <% end if approval.pending? %>
-        </div>
-      </td>
-      <td class="text-center">
-        <% if approval.status == "pending" %>
-          <span class="label secondary"><%= approval.status %></span>
-        <% elsif approval.status == "approve" %>
-          <span class="label success"><%= approval.status %></span>
-        <% else %>
-          <span class="label alert"><%= approval.status %></span>
-        <% end %>
-        <button class="button approval-status-button" type="button" data-toggle="<%= "approval-#{approval.id}-status" %>">
-          <i class="fa fa-info" aria-hidden="true"></i>
-        </button>
-        <div class="dropdown-pane" id="<%= "approval-#{approval.id}-status" %>" data-dropdown data-auto-focus="true" data-close-on-click="true">
-          <table>
-            <thead>
-              <tr>
-                <th>Approver</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% approval.join_approvers.each do |join_approver|%>
-                <tr>
-                  <td><%= join_approver.employee.email %></td>
-                  <td>
-                    <% if join_approver.status == "pending" %>
-                      <span class="label secondary"><%= join_approver.status %></span>
-                    <% elsif join_approver.status == "approve" %>
-                      <span class="label success"><%= join_approver.status %></span>
-                    <% else %>
-                      <span class="label alert"><%= join_approver.status %></span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </td>
+      <th>Description</th>
+      <th>Status</th>
     </tr>
-  <% end %>
-</table>
+    <% list.each do |approval| %>
+      <tr>
+        <td>
+          <%= approval.description %>
+          <div class="pull-right">
+            <%= link_to edit_deal_approval_path(deal, approval) do %>
+              <span class="fa fa-edit" title="Edit"></span>
+            <% end if approval.pending? %>
+            &nbsp;
+            <%= link_to deal_approval_path(deal, approval), method: :delete do %>
+              <span class="fa fa-trash" title="Destroy"></span>
+            <% end if approval.pending? %>
+          </div>
+        </td>
+        <td class="text-center">
+          <% if approval.status == "pending" %>
+            <span class="label secondary"><%= approval.status %></span>
+          <% elsif approval.status == "approve" %>
+            <span class="label success"><%= approval.status %></span>
+          <% else %>
+            <span class="label alert"><%= approval.status %></span>
+          <% end %>
+          <button class="button approval-status-button" type="button" data-toggle="<%= "approval-#{approval.id}-status" %>">
+            <i class="fa fa-info" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-pane" id="<%= "approval-#{approval.id}-status" %>" data-dropdown data-auto-focus="true" data-close-on-click="true">
+            <table>
+              <thead>
+                <tr>
+                  <th>Approver</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% approval.join_approvers.each do |join_approver|%>
+                  <tr>
+                    <td><%= join_approver.employee.email %></td>
+                    <td>
+                      <% if join_approver.status == "pending" %>
+                        <span class="label secondary"><%= join_approver.status %></span>
+                      <% elsif join_approver.status == "approve" %>
+                        <span class="label success"><%= join_approver.status %></span>
+                      <% else %>
+                        <span class="label alert"><%= join_approver.status %></span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <%= render "shared/empty_list_placeholder", {title: "approvals", button_path: new_deal_approval_path(@deal), button_title: "Create new approval request" } %>
+<% end %>
