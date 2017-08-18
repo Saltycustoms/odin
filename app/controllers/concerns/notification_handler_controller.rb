@@ -13,7 +13,7 @@ module NotificationHandlerController
     def open_notification(model, controller, user)
       notifications = Notification.all(params: {
                         q:{
-                          target_id_eq: current_user.uid,
+                          target_id_eq: user.uid,
                           target_type_eq: "Employee",
                           notify_type_eq: model.model_name.name,
                           notify_id_eq: model.id,
