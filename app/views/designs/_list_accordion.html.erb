@@ -36,6 +36,7 @@
         <%#= link_to 'Edit', edit_design_path(design), class: "button secondary" %>
         <%#= link_to 'Destroy', design, method: :delete, data: { confirm: 'Are you sure?' }, class: "button secondary" %>
         <% if design.version_for_production %>
+        <p><%= link_to "Download PV", "#{Figaro.env.locate_design_app}/api/v1/versions/#{design.version_for_production_id}/download_production_visual", class: "button" %></p>
           <% if design.version_for_production.visual.manual? %>
             <%= image_tag design.version_for_production.visual.attachment_url, class: "design-accordion-image" %>
           <% elsif design.version_for_production.visual.visual_prints.count > 0 %>
