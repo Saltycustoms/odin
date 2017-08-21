@@ -176,4 +176,8 @@ class Deal < ApplicationRecord
   def has_pending_deadline?
     self.deadlines.blank?
   end
+
+  def has_quotation
+    quotation.present?
+  end
 end

@@ -42,8 +42,11 @@ class Api::V1::DealsController < ApiController
                     include: {
                       department: {
                         only: Department.column_names
+                      },
+                      quotation: {
+                        only: Quotation.column_names
                       }
-                    }
+                    }, methods: [:has_quotation]
                   ))
         end
       }
