@@ -3,15 +3,15 @@ if Rails.env.production?
   require "shrine/storage/s3"
 
   s3_options = {
-    access_key_id:     "",
-    secret_access_key: "",
+    access_key_id:     "AKIAILKV4TT6IQ3CK7CA",
+    secret_access_key: "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",
     region:            "ap-southeast-1",
-    bucket:            "",
+    bucket:            "thehand",
   }
 
   Shrine.storages = {
-    cache: Shrine::Storage::S3.new(prefix: "cache", **s3_options),
-    store: Shrine::Storage::S3.new(prefix: "store", **s3_options),
+    cache: Shrine::Storage::S3.new(prefix: "hades_cache", **s3_options),
+    store: Shrine::Storage::S3.new(prefix: "hades_store", **s3_options),
   }
 
 else
