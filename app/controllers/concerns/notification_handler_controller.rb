@@ -3,19 +3,17 @@ module NotificationHandlerController
 
   included do
     def send_notification(model, controller)
-      user = Employee.where(q: {email_eq: current_user.email}).first
       message = model.label_with_model_name
       message["notification.key"] = "#{model.model_name.singular}.#{controller.action_name}"
       message["notifier.name"] = "Employee"
-      message["notifier.id"] = user.id
+      message["notifier.id"] = current_user.uid
       NotificationService.notify(message)
     end
 
     def open_notification(model, controller, user)
-      user = Employee.where(q: {email_eq: user.email}).first
       notifications = Notification.all(params: {
                         q:{
-                          target_id_eq: user.id,
+                          target_id_eq: user.uid,
                           target_type_eq: "Employee",
                           notify_type_eq: model.model_name.name,
                           notify_id_eq: model.id,

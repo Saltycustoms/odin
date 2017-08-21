@@ -15,7 +15,7 @@
           <li>
             <a data-toggle="notification-dropdown" class="notification-dropdown-link">
               <i class="fa fa-bell" aria-hidden="true"></i>
-              <% employee = Employee.where(email: current_user.email).first %>
+              <% employee = Employee.find(current_user.uid) %>
               <span class="badge alert"><%= employee.notifications(q: { s: "id desc", target_id_eq: "#{employee.id}"  }).count{ |n| n.opened_at == nil } %></span>
             </a>
             <div class="dropdown-pane bottom" id="notification-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">

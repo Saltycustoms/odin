@@ -17,7 +17,7 @@ class JobRequestsController < ApplicationController
   def new
     @job_request = JobRequest.new
     @product = Product.find(params[:product_id]) if params[:product_id]
-    @deal.properties_type.each do |property_name|
+    Property.name_and_placeholders.each do |property_name, property_value|
       @job_request.properties.build(name: property_name)
     end
   end

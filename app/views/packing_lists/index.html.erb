@@ -1,28 +1,35 @@
 <% content_for :header_actions do %>
+  <%= link_to "Add location", new_deal_packing_list_path(@deal), class: "button" %>
+  &nbsp;
   <%= link_to 'Back', @deal %>
 <% end %>
 
-<%= render "shared/page_header", {title: "Packing Details"} %>
-<%= link_to "Add location", new_deal_packing_list_path(@deal), class: "button" %>
-<h4>
-  Total <%= @deal.packing_list_items.sum(:quantity) %> pcs
-</h4>
+<%= render "shared/page_header", {title: "Packing Details - Total #{@deal.packing_list_items.sum(:quantity)} pcs"} %>
+
 <table>
   <tr>
-    <th>Id</th>
+    <th></th>
     <th>Address</th>
     <th>PIC</th>
     <th>Details</th>
     <th>Method</th>
-    <th></th>
   </tr>
   <% @deal.packing_lists.each do |packing_list| %>
     <tr>
-      <td><%= packing_list.id %></td>
       <td>
-        <%= link_to edit_deal_packing_list_path(@deal, packing_list), class: "pull-right" do %>
-          <span title="Edit" class="fa fa-pencil"></span>
-        <% end %>
+        <%= content_tag :span, packing_list.id, class: "subheader" %>
+        <%= link_to "View", packing_list %>
+        <div class="pull-right">
+          <%= link_to edit_deal_packing_list_path(@deal, packing_list) do %>
+            <span title="Edit" class="fa fa-pencil"></span>
+          <% end %>
+          &nbsp;
+          <%= link_to deal_packing_list_path(@deal, packing_list), method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <span class="fa fa-trash" title="delete"></span>
+          <% end %>
+        </div>
+      </td>
+      <td>
         <%= packing_list.address.to_html %>
       </td>
       <td>
@@ -33,7 +40,6 @@
             <strong>Tel: </strong><%= pic.tel %><br>
             <strong>Title: </strong><%= pic.title %><br>
           </p>
-          <hr>
         <% end %>
       </td>
       <td>
@@ -72,12 +78,7 @@
           <% end %>
         <% end %>
       </td>
-      <td><%= packing_list.shipping_method %></td>
-      <td>
-        <%= link_to deal_packing_list_path(@deal, packing_list), method: :delete, data: { confirm: 'Are you sure?' } do %>
-          <span class="fa fa-trash" title="delete"></span>
-        <% end %>
-      </td>
+      <td><%= packing_list.shipping_method.humanize %></td>
 
     </tr>
   <% end %>
