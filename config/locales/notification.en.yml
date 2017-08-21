@@ -41,6 +41,14 @@ en:
         create: 'Visual has been created'
         update: 'Someone has edited the visual'
         destroy: "Someone removed a visual"
+      approver:
+        create: 'Approver has been created'
+        update: 'Someone has edited the approver'
+        destroy: "Someone removed a approver"
+      approval:
+        create: 'Approval has been created'
+        update: 'Someone has edited the approval'
+        destroy: "Someone removed a approval"
     body:
       deal:
         create: 'Deal %{id}#%{name} has been created'
@@ -82,3 +90,11 @@ en:
         create: 'Visual %{id} has been created'
         update: 'Someone has edited the visual %{id}'
         destroy: "Someone removed a visual %{id}"
+      approver:
+        create: 'Approver %{id} has been created'
+        update: 'Someone has edited the approver %{id}'
+        destroy: "Someone removed a approver %{id}"
+      approval:
+        create: 'Approval %{id} has been created'
+        update: 'Someone has edited the approval %{id}'
+        destroy: "Someone removed a approval %{id}"
