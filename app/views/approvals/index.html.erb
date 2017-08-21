@@ -4,19 +4,23 @@
 
 <%= render "shared/page_header", {title: "Approvals"} %>
 
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Status</th>
-    <th>Actions</th>
-  </tr>
-  <% @approvals.each do |approval| %>
+<% if @approvals.any? %>
+  <table>
     <tr>
-      <td><%= approval.description %></td>
-      <td><%= approval.status %></td>
-      <td><%= approval.pending? %></td>
-      <td><%= link_to "Edit", edit_deal_approval_path(@deal, approval) if approval.pending? %></td>
-      <td><%= link_to "Destroy", deal_approval_path(@deal, approval), method: :delete if approval.pending? %></td>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Actions</th>
     </tr>
-  <% end %>
-</table>
+    <% @approvals.each do |approval| %>
+      <tr>
+        <td><%= approval.description %></td>
+        <td><%= approval.status %></td>
+        <td><%= approval.pending? %></td>
+        <td><%= link_to "Edit", edit_deal_approval_path(@deal, approval) if approval.pending? %></td>
+        <td><%= link_to "Destroy", deal_approval_path(@deal, approval), method: :delete if approval.pending? %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <%= render "shared/empty_list_placeholder", {title: "approvals"} %>
+<% end %>

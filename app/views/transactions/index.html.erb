@@ -3,57 +3,78 @@
 <% end %>
 
 <%= render "shared/page_header", {title: "Deal Collections"} %>
+<div class="row small-up-2 medium-up-3">
+  <div class="column">
+    <strong>Name</strong>
+    <%= content_tag :p, @deal.name %>
+  </div>
 
-<h4>
-  <strong>Name:</strong>
-  <%= @deal.name %>
-</h4>
-<h4>
-  <strong>No Of Pcs:</strong>
-  <%= @deal.quotation_lines.sum(:quantity) %>
-</h4>
-<h4>
-  <strong>No Of Add Ons:</strong>
-  <%= @deal.add_ons.sum(:quantity) %>
-</h4>
-<h4>
-  <strong>Total:</strong>
-  <%= humanized_money_with_symbol @deal.quotation.net_total %>
-</h4>
-<h4>
-  <strong>Paid:</strong>
-  <%= humanized_money_with_symbol @deal.paid_amount %>
-</h4>
-<h4>
-  <strong>Remainder:</strong>
-  <%= humanized_money_with_symbol @deal.remaining_amount %>
-</h4>
+  <div class="column">
+    <strong>No Of Pcs:</strong>
+    <%= content_tag :p, @deal.quotation_lines.sum(:quantity) %>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Amount</th>
-      <th>Gateway</th>
-      <th>Date</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @transactions.each do |transaction| %>
-      <tr>
-        <td><%= transaction.id %></td>
-        <td><%= humanized_money_with_symbol transaction.amount %></td>
-        <td><%= transaction.gateway.name %></td>
-        <td><%= transaction.created_at %></td>
-        <td>
-          <%= link_to edit_deal_transaction_path(@deal, transaction) do %>
-            <span title="Edit" class="fa fa-pencil"></span>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="column">
+    <strong>No Of Add Ons:</strong>
+    <%= content_tag :p, @deal.add_ons.sum(:quantity) %>
+  </div>
 
-<%= link_to "Collect Payment", new_deal_transaction_path(@deal), class: "button" %>
+  <div class="column">
+    <strong>Total:</strong>
+    <%= content_tag :p, humanized_money_with_symbol(@deal.quotation.net_total) %>
+  </div>
+
+  <div class="column">
+    <strong>Paid:</strong>
+    <%= content_tag :p, humanized_money_with_symbol(@deal.paid_amount) %>
+  </div>
+
+  <div class="column">
+    <strong>Remainder:</strong>
+    <%= content_tag :p, humanized_money_with_symbol(@deal.remaining_amount) %>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="header small bordered">
+    <div class="row align-middle">
+      <div class="column">
+        <h2 class="header-title">Transactions</h2>
+      </div>
+      <div class="column medium-text-right">
+        <%= link_to "Collect Payment", new_deal_transaction_path(@deal), class: "button" %>
+      </div>
+    </div>
+  </div>
+  <% if @transactions.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Amount</th>
+          <th>Gateway</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.id %></td>
+            <td><%= humanized_money_with_symbol transaction.amount %></td>
+            <td><%= transaction.gateway.name %></td>
+            <td><%= transaction.created_at %></td>
+            <td>
+              <%= link_to edit_deal_transaction_path(@deal, transaction) do %>
+                <span title="Edit" class="fa fa-pencil"></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <%= render "shared/empty_list_placeholder", {title: "transactions"} %>
+  <% end %>
+</div>
+
