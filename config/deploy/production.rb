@@ -62,7 +62,7 @@
 
 server "apps02.saltycustoms.com",
   user: "deployer",
-  roles: %w{web app},
+  roles: %w{web app db},
   ssh_options: {
     # user: "user_name", # overrides user setting above
     # keys: %w(/home/user_name/.ssh/id_rsa),

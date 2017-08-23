@@ -36,3 +36,26 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/syst
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+set :keep_assets, 2
+
+namespace :deploy do
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      within release_path do
+       execute :rake, 'tmp:clear'
+      end
+    end
+  end
+
+end
+
+namespace :logs do
+  desc "tail rails logs"
+  task :tail_rails do
+    on roles(:app) do
+      puts "tail -f #{shared_path}/log/#{fetch(:rails_env)}.log"
+      execute "tail -f #{shared_path}/log/#{fetch(:rails_env)}.log"
+    end
+  end
+end
