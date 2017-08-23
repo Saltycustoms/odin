@@ -1,4 +1,5 @@
 class Attachment < ApplicationRecord
+  acts_as_paranoid
   belongs_to :attachable, polymorphic: true, optional: true
   include AttachmentUploader::Attachment.new(:attachment)
 

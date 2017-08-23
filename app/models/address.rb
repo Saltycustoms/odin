@@ -1,4 +1,5 @@
 class Address < ApplicationRecord
+  acts_as_paranoid
   belongs_to :belongable, polymorphic: true, optional: true
   validates :address1, :city, :postal_code, :country_code, presence: true
 

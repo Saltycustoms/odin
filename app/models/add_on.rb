@@ -1,4 +1,5 @@
 class AddOn < ApplicationRecord
+  acts_as_paranoid
   belongs_to :job_request
   belongs_to :quotation
   monetize :price_per_unit_cents, with_model_currency: :currency

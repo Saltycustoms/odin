@@ -1,4 +1,5 @@
 class QuotationLine < ApplicationRecord
+  acts_as_paranoid
   belongs_to :quotation
   belongs_to :job_request
   before_save :calculate_total

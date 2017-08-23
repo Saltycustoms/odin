@@ -1,4 +1,5 @@
 class PrintDetail < ApplicationRecord
+  acts_as_paranoid
   belongs_to :job_request
   include AttachmentUploader::Attachment.new(:attachment)
 

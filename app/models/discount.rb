@@ -1,4 +1,5 @@
 class Discount < ApplicationRecord
+  acts_as_paranoid
   belongs_to :deal, optional: true
   has_one :quotation
   before_save :update_deal_id

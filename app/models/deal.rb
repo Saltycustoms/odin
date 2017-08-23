@@ -1,10 +1,12 @@
 class Deal < ApplicationRecord
+  acts_as_paranoid
   has_one :quotation
-  has_many :job_requests
-  has_many :packing_lists
+  has_one :discount, dependent: :destroy
+  has_many :job_requests, dependent: :destroy
+  has_many :packing_lists, dependent: :destroy
   has_many :packing_list_items, through: :packing_lists
   has_many :deadlines, dependent: :destroy
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
   has_many :add_ons, through: :job_requests
   has_many :quotation_lines, through: :job_requests
   # has_many :approvals
