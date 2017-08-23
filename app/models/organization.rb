@@ -1,6 +1,7 @@
 class Organization < ApplicationRecord
   acts_as_taggable
-  has_many :departments
+  acts_as_paranoid
+  has_many :departments, dependent: :destroy
   validates :name, presence: true
   validates :industry, presence: true
 end

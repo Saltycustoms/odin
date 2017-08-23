@@ -1,4 +1,5 @@
 class Quotation < ApplicationRecord
+  acts_as_paranoid
   belongs_to :deal, optional: true
   belongs_to :discount, optional: true
   validates :currency, presence: true

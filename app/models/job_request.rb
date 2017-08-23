@@ -1,4 +1,5 @@
 class JobRequest < ApplicationRecord
+  acts_as_paranoid
   # has_many :design_requests
   # has_many :designs, through: :design_requests
   has_many :quotation_lines
