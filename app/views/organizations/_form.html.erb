@@ -3,5 +3,19 @@
   <%= f.input :description %>
   <%= f.input :industry %>
   <%= f.input :tag_list %>
+
+  <div class="header small">
+    <h2 class="header-title">Address</h2>
+  </div>
+  <%= f.fields_for :address do |address_form| %>
+    <%= address_form.input :name %>
+    <%= address_form.input :address1 %>
+    <%= address_form.input :address2 %>
+    <%= address_form.input :city %>
+    <%= address_form.input :postal_code %>
+    <%= address_form.input :country_code, collection: (ISO3166::Country.all.collect {|c| [c.name, c.alpha2]}.sort_by{|name, code| name} - [["Netherlands Antilles", "AN"], ["Åland Islands", "AX"]]).unshift(["Åland Islands", "AX"]), input_html: {class: "country-select"} %>
+    <%= address_form.input :state, collection: address_form.object.country_code.present? ? (ISO3166::Country[address_form.object.country_code].states.collect{|s|s.last['name']}) : [], input_html: {class: "state-select"} %>
+  <% end %>
+
   <%= f.button :submit %>
 <% end %>

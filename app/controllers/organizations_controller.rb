@@ -16,6 +16,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations/new
   def new
     @organization = Organization.new
+    @organization.build_address
   end
 
   # GET /organizations/1/edit
@@ -70,6 +71,7 @@ class OrganizationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def organization_params
-      params.require(:organization).permit(:name, :description, :industry, :tag_list)
+      params.require(:organization).permit(:name, :description, :industry, :tag_list,
+      address_attributes: [:name, :address1, :address2, :city, :postal_code, :country_code, :state, :_destroy, :id])
     end
 end
