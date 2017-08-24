@@ -9,7 +9,7 @@
   <div class="columns">
     <strong>Description: </strong><%= simple_format(@organization.description) unless @organization.description.blank? %>
     <strong>Industry: </strong><%= simple_format(@organization.industry) %>
-    <strong>Address</strong><br><%= @organization.address.to_html %>
+    <strong>Address</strong><br><%= @organization.address&.to_html %>
   </div>
   <div class="columns medium-text-right">
     <%= link_to 'Add Department', new_organization_department_path(@organization), class: "button" %>

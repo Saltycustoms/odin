@@ -2,6 +2,15 @@
 <% end %>
 <%= render "shared/page_header", {title: "Deals"} %>
 
+<%= render "shared/filter",
+  fields: [
+    {field_type: :number_field, field_name: :id_eq},
+    {field_type: :search_field, field_name: :name_cont},
+    {field_type: :search_field, field_name: :organization_name_cont},
+    {field_type: :search_field, field_name: :pic_name_or_pic_email_cont}
+  ]
+%>
+
 <table>
   <thead>
     <tr>
@@ -33,3 +42,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @deals %>

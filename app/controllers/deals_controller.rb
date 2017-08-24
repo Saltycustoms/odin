@@ -6,7 +6,8 @@ class DealsController < ApplicationController
   # GET /deals
   # GET /deals.json
   def index
-    @deals = Deal.all
+    @q = Deal.ransack(params[:q])
+    @deals = @q.result.includes(:organization, :pic).page(params[:page])
   end
 
   # GET /deals/1

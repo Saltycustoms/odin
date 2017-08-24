@@ -4,7 +4,8 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   # GET /organizations.json
   def index
-    @organizations = Organization.all
+    @q = Organization.ransack(params[:q])
+    @organizations = @q.result.page(params[:page])
   end
 
   # GET /organizations/1
@@ -21,6 +22,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/1/edit
   def edit
+    @organization.build_address if @organization.address.nil?
   end
 
   # POST /organizations
