@@ -10,4 +10,12 @@ class Attachment < ApplicationRecord
   def attachment_original_filename
     attachment.original_filename
   end
+
+  def as_json(*)
+    previous = super
+    previous[:attachment_full_url] = attachment_full_url
+    previous[:attachment] = attachment
+    previous[:attachment_original_filename] = attachment_original_filename
+    previous
+  end
 end

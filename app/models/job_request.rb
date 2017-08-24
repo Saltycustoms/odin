@@ -22,6 +22,7 @@ class JobRequest < ApplicationRecord
     previous = super
     previous[:selected_colors] = selected_colors
     previous[:selected_sizes] = selected_sizes
+    previous[:attachments] = attachments
     previous
   end
 
