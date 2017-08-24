@@ -11,63 +11,72 @@
 </p>
 
 <p>
-  <strong>Address:</strong>
-  <%= @packing_list.address.to_html %>
-</p>
-
-<p>
   <strong>Method:</strong>
   <%= @packing_list.shipping_method %>
 </p>
 
-<h5>Person In Charge</h5>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Tel</th>
-      <th>Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @packing_list.pics.each do |pic| %>
-      <tr>
-        <td><%= pic.name %></td>
-        <td><%= pic.email %></td>
-        <td><%= pic.tel %></td>
-        <td><%= pic.title %></td>
-      </tr>
+<% if @packing_list.upload_attachment %>
+  <p>
+    <strong>Attachments:</strong><br>
+    <% @packing_list.attachments.each do |attachment| %>
+      <%= link_to attachment.attachment.original_filename, attachment_path(attachment) %><br>
     <% end %>
-  </tbody>
-</table>
+  </p>
+<% else %>
+  <p>
+    <strong>Address:</strong>
+    <%= @packing_list.address.to_html %>
+  </p>
 
-<h5>Details</h5>
-<% @packing_list.packing_list_items.pluck(:job_request_id).uniq.each do |job_request_id| %>
-  <% job_request = JobRequest.find(job_request_id) %>
+  <h5>Person In Charge</h5>
   <table>
     <thead>
       <tr>
-        <th>Product</th>
-        <th>Color</th>
-        <% job_request.selected_sizes.each do |size| %>
-          <th><%= size.name %></th>
-        <% end %>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Tel</th>
+        <th>Title</th>
       </tr>
     </thead>
     <tbody>
-      <% job_request.selected_colors.each do |color| %>
+      <% @packing_list.pics.each do |pic| %>
         <tr>
-          <th><%= job_request.product.name %></th>
-          <th><%= color.display_name %></th>
-          <% @packing_list.packing_list_items.where(job_request_id: job_request_id, color_id: color.id).order(size_id: :asc).each do |item| %>
-            <td>
-              <%= item.quantity %>
-            </td>
-          <% end %>
+          <td><%= pic.name %></td>
+          <td><%= pic.email %></td>
+          <td><%= pic.tel %></td>
+          <td><%= pic.title %></td>
         </tr>
       <% end %>
-      <tr></tr>
     </tbody>
   </table>
+
+  <h5>Details</h5>
+  <% @packing_list.packing_list_items.pluck(:job_request_id).uniq.each do |job_request_id| %>
+    <% job_request = JobRequest.find(job_request_id) %>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Color</th>
+          <% job_request.selected_sizes.each do |size| %>
+            <th><%= size.name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% job_request.selected_colors.each do |color| %>
+          <tr>
+            <th><%= job_request.product.name %></th>
+            <th><%= color.display_name %></th>
+            <% @packing_list.packing_list_items.where(job_request_id: job_request_id, color_id: color.id).order(size_id: :asc).each do |item| %>
+              <td>
+                <%= item.quantity %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+        <tr></tr>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>
