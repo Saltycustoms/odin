@@ -1,52 +1,52 @@
 <%= simple_nested_form_for [deal, packing_list], html: {multipart: true} do |form| %>
-  <div class="row medium-unstack">
-    <div class="column">
-      <%= form.input :shipping_method, collection: PackingList.shipping_methods.keys.collect { |k| [k.humanize, k] }  %>
-      <%= form.input :department %>
-      <div class="callout">
-        <div class="header small">
-          <h2 class="header-title">PIC</h2>
-        </div>
-        <%= form.fields_for :pics do |pic_form| %>
-          <div class="row">
-            <div class="column">
-              <%= pic_form.input :name %>
-              <%= pic_form.input :email %>
-            </div>
-            <div class="column">
-              <%= pic_form.input :tel %>
-              <%= pic_form.input :title %>
-            </div>
-            <div class="column large-2 align-self-middle">
-              <%= pic_form.link_to_remove class: "button alert remove-button" do %>
-                <i class="fa fa-times" aria-hidden="true"></i>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-        <%= form.link_to_add "Add PIC", :pics, class: "button warning" %>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="header small">
-        <h2 class="header-title">Address</h2>
-      </div>
-      <%= form.fields_for :address do |address_form| %>
-        <%= address_form.input :name %>
-        <%= address_form.input :address1 %>
-        <%= address_form.input :address2 %>
-        <%= address_form.input :city %>
-        <%= address_form.input :postal_code %>
-        <%= address_form.input :country_code, collection: (ISO3166::Country.all.collect {|c| [c.name, c.alpha2]}.sort_by{|name, code| name} - [["Netherlands Antilles", "AN"], ["Åland Islands", "AX"]]).unshift(["Åland Islands", "AX"]), input_html: {class: "country-select"} %>
-        <%= address_form.input :state, collection: address_form.object.country_code.present? ? (ISO3166::Country[address_form.object.country_code].states.collect{|s|s.last['name']}) : [], input_html: {class: "state-select"} %>
-      <% end %>
-    </div>
-  </div>
-
+  <%= form.input :shipping_method, collection: PackingList.shipping_methods.keys.collect { |k| [k.humanize, k] }  %>
   <%= form.input :upload_attachment %>
 
   <div class="packing-list-manual" style="<%= 'display:none' if @packing_list.upload_attachment %>">
+    <div class="row medium-unstack">
+      <div class="column">
+        <%= form.input :department %>
+        <div class="callout">
+          <div class="header small">
+            <h2 class="header-title">PIC</h2>
+          </div>
+          <%= form.fields_for :pics do |pic_form| %>
+            <div class="row">
+              <div class="column">
+                <%= pic_form.input :name %>
+                <%= pic_form.input :email %>
+              </div>
+              <div class="column">
+                <%= pic_form.input :tel %>
+                <%= pic_form.input :title %>
+              </div>
+              <div class="column large-2 align-self-middle">
+                <%= pic_form.link_to_remove class: "button alert remove-button" do %>
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <%= form.link_to_add "Add PIC", :pics, class: "button warning" %>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="header small">
+          <h2 class="header-title">Address</h2>
+        </div>
+        <%= form.fields_for :address do |address_form| %>
+          <%= address_form.input :name %>
+          <%= address_form.input :address1 %>
+          <%= address_form.input :address2 %>
+          <%= address_form.input :city %>
+          <%= address_form.input :postal_code %>
+          <%= address_form.input :country_code, collection: (ISO3166::Country.all.collect {|c| [c.name, c.alpha2]}.sort_by{|name, code| name} - [["Netherlands Antilles", "AN"], ["Åland Islands", "AX"]]).unshift(["Åland Islands", "AX"]), input_html: {class: "country-select"} %>
+          <%= address_form.input :state, collection: address_form.object.country_code.present? ? (ISO3166::Country[address_form.object.country_code].states.collect{|s|s.last['name']}) : [], input_html: {class: "state-select"} %>
+        <% end %>
+      </div>
+    </div>
+
     <% deal.job_requests_with_designs.each do |job_request| %>
       <div class="row">
         <div class="column small-11">

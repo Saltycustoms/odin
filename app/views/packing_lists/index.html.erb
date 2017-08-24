@@ -7,79 +7,89 @@
 <%= render "shared/page_header", {title: "Packing Details - Total #{@deal.packing_list_items.sum(:quantity)} pcs"} %>
 
 <table>
-  <tr>
-    <th></th>
-    <th>Address</th>
-    <th>PIC</th>
-    <th>Details</th>
-    <th>Method</th>
-  </tr>
-  <% @deal.packing_lists.each do |packing_list| %>
+  <thead>
     <tr>
-      <td>
-        <%= content_tag :span, packing_list.id, class: "subheader" %>
-        <%= link_to "View", packing_list %>
-        <div class="pull-right">
-          <%= link_to edit_deal_packing_list_path(@deal, packing_list) do %>
-            <span title="Edit" class="fa fa-pencil"></span>
-          <% end %>
-          &nbsp;
-          <%= link_to deal_packing_list_path(@deal, packing_list), method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <span class="fa fa-trash" title="delete"></span>
-          <% end %>
-        </div>
-      </td>
-      <td>
-        <%= packing_list.address.to_html %>
-      </td>
-      <td>
-        <% packing_list.pics.each do |pic| %>
-          <p>
-            <strong>Name: </strong><%= pic.name %><br>
-            <strong>Email: </strong><%= pic.email %><br>
-            <strong>Tel: </strong><%= pic.tel %><br>
-            <strong>Title: </strong><%= pic.title %><br>
-          </p>
-        <% end %>
-      </td>
-      <td>
-        <% if packing_list.upload_attachment %>
-          <% packing_list.attachments.each do |attachment| %>
-            <p><%= link_to attachment.attachment.original_filename, attachment_path(attachment) %></p>
-          <% end %>
-        <% else %>
-          <% packing_list.packing_list_items.pluck(:job_request_id).uniq.each do |job_request_id| %>
-            <% job_request = JobRequest.find(job_request_id) %>
-            <table>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Color</th>
-                  <% job_request.selected_sizes.each do |size| %>
-                    <th><%= size.name %></th>
-                  <% end %>
-                </tr>
-              </thead>
-              <tbody>
-                <% job_request.selected_colors.each do |color| %>
+      <th></th>
+      <th>Method</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @deal.packing_lists.each do |packing_list| %>
+      <tr>
+        <td>
+          <%= content_tag :span, packing_list.id, class: "subheader" %>
+          <%= link_to "View", packing_list %>
+          <div class="pull-right">
+            <%= link_to edit_deal_packing_list_path(@deal, packing_list) do %>
+              <span title="Edit" class="fa fa-pencil"></span>
+            <% end %>
+            &nbsp;
+            <%= link_to deal_packing_list_path(@deal, packing_list), method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span class="fa fa-trash" title="delete"></span>
+            <% end %>
+          </div>
+        </td>
+        <td><%= packing_list.shipping_method.humanize %></td>
+        <td>
+          <% if packing_list.upload_attachment %>
+            <div class="row medium-unstack">
+              <% packing_list.attachments.each do |attachment| %>
+                <div class="column">
+                  <p><%= link_to attachment.attachment.original_filename, attachment_path(attachment) %></p>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="row medium-unstack">
+              <div class="column">
+                <% packing_list.pics.each do |pic| %>
+                  <p>
+                    <strong>Name: </strong><%= pic.name %><br>
+                    <strong>Email: </strong><%= pic.email %><br>
+                    <strong>Tel: </strong><%= pic.tel %><br>
+                    <strong>Title: </strong><%= pic.title %><br>
+                  </p>
+                <% end %>
+              </div>
+              <div class="column">
+                <p>
+                  <strong>Department: </strong><%= packing_list.department %><br>
+                  <strong>Address: </strong><%= packing_list.address.to_html %>
+                </p>
+              </div>
+            </div>
+            <% packing_list.packing_list_items.pluck(:job_request_id).uniq.each do |job_request_id| %>
+              <% job_request = JobRequest.find(job_request_id) %>
+              <table>
+                <thead>
                   <tr>
-                    <th><%= job_request.product.name %></th>
-                    <th><%= color.display_name %></th>
-                    <% packing_list.packing_list_items.where(job_request_id: job_request_id, color_id: color.id).order(size_id: :asc).each do |item| %>
-                      <td>
-                        <%= item.quantity %>
-                      </td>
+                    <th>Product</th>
+                    <th>Color</th>
+                    <% job_request.selected_sizes.each do |size| %>
+                      <th><%= size.name %></th>
                     <% end %>
                   </tr>
-                <% end %>
-                <tr></tr>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <% job_request.selected_colors.each do |color| %>
+                    <tr>
+                      <th><%= job_request.product.name %></th>
+                      <th><%= color.display_name %></th>
+                      <% packing_list.packing_list_items.where(job_request_id: job_request_id, color_id: color.id).order(size_id: :asc).each do |item| %>
+                        <td>
+                          <%= item.quantity %>
+                        </td>
+                      <% end %>
+                    </tr>
+                  <% end %>
+                  <tr></tr>
+                </tbody>
+              </table>
+            <% end %>
           <% end %>
-        <% end %>
-      </td>
-      <td><%= packing_list.shipping_method.humanize %></td>
-
-    </tr>
-  <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

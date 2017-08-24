@@ -15,6 +15,7 @@ class PackingList < ApplicationRecord
 
   def update_packing_list_attachment
     if upload_attachment
+      byebug
       self.packing_list_items.delete_all
     else
       self.attachments.delete_all
