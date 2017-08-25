@@ -2,7 +2,7 @@ class Api::V1::DealsController < ApiController
   def index
     if params[:q]
       q = Deal.ransack(params[:q])
-      @deals = q.result
+      @deals = q.result.includes(:organization, :pic)
     else
       @deals = Deal.all
     end
