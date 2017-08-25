@@ -21,9 +21,11 @@ class PackingListsController < ApplicationController
   def create
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : []
-    new_params[:packing_list_items_attributes].each do |key, value|
-      if !@job_request_ids.include? value[:job_request_id]
-        value.merge!(_destroy: 1)
+    if new_params[:packing_list_items_attributes].present?
+      new_params[:packing_list_items_attributes].each do |key, value|
+        if !@job_request_ids.include? value[:job_request_id]
+          value.merge!(_destroy: 1)
+        end
       end
     end
     @packing_list = @deal.packing_lists.new(new_params)
@@ -66,9 +68,11 @@ class PackingListsController < ApplicationController
   def update
     new_params = packing_list_params.deep_dup
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : @packing_list.packing_list_items.pluck(:job_request_id).uniq.collect { |id| id.to_s }
-    new_params[:packing_list_items_attributes].each do |key, value|
-      if !@job_request_ids.include? value[:job_request_id]
-        value.merge!(_destroy: 1)
+    if new_params[:packing_list_items_attributes].present?
+      new_params[:packing_list_items_attributes].each do |key, value|
+        if !@job_request_ids.include? value[:job_request_id]
+          value.merge!(_destroy: 1)
+        end
       end
     end
     if params[:attachments].present?
