@@ -50,6 +50,7 @@
         </div>
       </div>
 
+      <%= render "shared/callout_header", title: "Product Breakdown" %>
       <% deal.job_requests_with_designs.each do |job_request| %>
         <div class="row">
           <div class="column small-11">
@@ -89,8 +90,11 @@
               </li>
             </ul>
           </div>
-          <div class="column small-1">
-            <%= check_box_tag "select_job_request[]", job_request.id, @job_request_ids.include?(job_request.id.to_s) %>
+          <div class="column small-1 align-self-middle">
+            <label class="packing-list-label text-center">
+              <%= check_box_tag "select_job_request[]", job_request.id, @job_request_ids.include?(job_request.id.to_s), class: "packing-list-checkbox" %>
+              <span class="box"></span>
+            </label>
           </div>
         </div>
       <% end %>

@@ -1,13 +1,4 @@
-<div class="header small bordered">
-  <div class="row align-middle">
-    <div class="column">
-      <h5 class="header-title">Job Requests</h5>
-    </div>
-    <div class="column medium-text-right">
-      <%= link_to "Submit a Job Request", new_deal_job_request_path(@deal), class: "button" %>
-    </div>
-  </div>
-</div>
+<%= render "shared/callout_header", title: "Job Requests", links: [{title: "Submit a Job Request", path: new_deal_job_request_path(@deal)}] %>
 
 <table>
   <thead>

@@ -1,0 +1,13 @@
+<header class="header small bordered">
+  <div class="row align-middle">
+    <div class="columns">
+      <h4 class="header-title"><%= title %></h4>
+    </div>
+    <div class="columns medium-3 text-right">
+      <% links.each do |link| %>
+        <%= link_to link[:title], link[:path], class: "button" %>
+        <%= "&nbsp;|&nbsp;".html_safe unless link === links.last %>
+      <% end if defined?(links) %>
+    </div>
+  </div>
+</header>

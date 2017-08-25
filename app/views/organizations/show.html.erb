@@ -5,11 +5,12 @@
 
 <%= render "shared/page_header", {title: @organization.name} %>
 
-<div class="row medium-unstack">
+<div class="row medium-unstack organization-details">
   <div class="columns">
     <strong>Description: </strong><%= simple_format(@organization.description) unless @organization.description.blank? %>
     <strong>Industry: </strong><%= simple_format(@organization.industry) %>
     <strong>Address</strong><br><%= @organization.address&.to_html %>
+    <br>
   </div>
   <div class="columns medium-text-right">
     <%= link_to 'Add Department', new_organization_department_path(@organization), class: "button" %>
@@ -30,7 +31,6 @@
         </div>
       </div>
     </div>
-
 
     <% if department.pics.any? %>
       <h5 class="subheader"><strong>Person(s) in charge</strong></h5>

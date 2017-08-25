@@ -36,16 +36,8 @@
 </div>
 
 <div class="callout">
-  <div class="header small bordered">
-    <div class="row align-middle">
-      <div class="column">
-        <h2 class="header-title">Transactions</h2>
-      </div>
-      <div class="column medium-text-right">
-        <%= link_to "Collect Payment", new_deal_transaction_path(@deal), class: "button" %>
-      </div>
-    </div>
-  </div>
+  <%= render "shared/callout_header", title: "Transactions", links: [title: "Collect Payment", path: new_deal_transaction_path(@deal)] %>
+
   <% if @transactions.any? %>
     <table>
       <thead>
@@ -77,4 +69,3 @@
     <%= render "shared/empty_list_placeholder", {title: "transactions"} %>
   <% end %>
 </div>
-

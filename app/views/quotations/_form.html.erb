@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <h5>Product Breakdown</h5>
+    <%= render "shared/callout_header", title: "Product Breakdown" %>
     <table>
       <thead>
         <tr>
@@ -74,6 +74,8 @@
     </div>
     <hr>
   <% end %>
+
+  <%= render "shared/callout_header", title: "Other Details" %>
   <div class="row medium-unstack">
     <div class="columns">
       <%= f.input :payment_term %>
@@ -87,7 +89,7 @@
   </div>
 
   <div class="callout">
-    <h3>Discount</h3>
+    <%= render "shared/callout_header", title: "Discount" %>
     <%= f.fields_for :discount do |d| %>
     <div class="row">
       <div class="column">
