@@ -1,4 +1,5 @@
 class GatewaysController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_gateway, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -42,5 +43,11 @@ class GatewaysController < ApplicationController
 
   def gateway_params
     params.require(:gateway).permit(:name)
+  end
+  
+  def authorize_user
+    if !current_user.has_any_role? :admin, :apparel_consultant, :director
+      redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+    end
   end
 end

@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_organization, except: [:index]
   before_action :set_department, only: [:show, :edit, :update, :destroy]
 
@@ -75,5 +76,11 @@ class DepartmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
       params.require(:department).permit(:organization_id, :name, :description, pics_attributes: [:id, :name, :tel, :title, :email, :_destroy])
+    end
+
+    def authorize_user
+      if !current_user.has_any_role? :admin, :apparel_consultant, :director
+        redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+      end
     end
 end

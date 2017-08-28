@@ -1,9 +1,14 @@
-<%= render "shared/callout_header", 
+<%= render "shared/callout_header",
   title: "Approvals",
-  links: [
-    {title: "Get Approval", path: new_deal_approval_path(@deal)},
-    {title: "View Approval", path: deal_approvals_path(@deal)}
-  ]
+  links:
+    current_user.has_any_role?(:admin, :apparel_consultant, :director) ?
+    [
+      {title: "Get Approval", path: new_deal_approval_path(@deal)},
+      {title: "View Approval", path: deal_approvals_path(@deal)}
+    ] :
+    [
+      {title: "View Approval", path: deal_approvals_path(@deal)}
+    ]
 %>
 
 <% if list.any? %>
@@ -16,15 +21,17 @@
       <tr>
         <td>
           <%= approval.description %>
-          <div class="pull-right">
-            <%= link_to edit_deal_approval_path(deal, approval) do %>
-              <span class="fa fa-edit" title="Edit"></span>
-            <% end if approval.pending? %>
-            &nbsp;
-            <%= link_to deal_approval_path(deal, approval), method: :delete do %>
-              <span class="fa fa-trash" title="Destroy"></span>
-            <% end if approval.pending? %>
-          </div>
+          <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+            <div class="pull-right">
+              <%= link_to edit_deal_approval_path(deal, approval) do %>
+                <span class="fa fa-edit" title="Edit"></span>
+              <% end if approval.pending? %>
+              &nbsp;
+              <%= link_to deal_approval_path(deal, approval), method: :delete do %>
+                <span class="fa fa-trash" title="Destroy"></span>
+              <% end if approval.pending? %>
+            </div>
+          <% end %>
         </td>
         <td class="text-center">
           <% if approval.status == "pending" %>

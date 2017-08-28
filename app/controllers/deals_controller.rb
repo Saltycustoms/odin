@@ -1,4 +1,5 @@
 class DealsController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_deal, only: [:show, :edit, :update, :destroy]
   before_action :set_pic, except: [:index, :edit]
   before_action :establish_connection, only: [:create, :update]
@@ -86,5 +87,11 @@ class DealsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def deal_params
       params.require(:deal).permit(:pic_id, :name, :no_of_pcs, :employee_id, deadlines_attributes: [:id, :deadline, :reason, :cause_by, :_destroy])
+    end
+
+    def authorize_user
+      if !current_user.has_any_role? :admin, :apparel_consultant, :director
+        redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+      end
     end
 end

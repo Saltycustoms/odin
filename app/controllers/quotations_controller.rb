@@ -1,4 +1,5 @@
 class QuotationsController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_deal, except: [:show_quotation]
   before_action :set_quotation, only: [:show, :edit, :update, :destroy, :show_quotation]
 
@@ -112,5 +113,11 @@ class QuotationsController < ApplicationController
     params.require(:quotation).permit(:discount_id, :payment_term, :currency, :shipping, :tax,
     quotation_lines_attributes: [:id, :price_per_unit, :quantity, :job_request_id, :color_id, :size_id, :description, :product_id, :_destroy], discount_attributes: [:id, :type, :value],
     add_ons_attributes: [:id, :job_request_id, :quantity, :description, :price_per_unit, :_destroy])
+  end
+
+  def authorize_user
+    if !current_user.has_any_role? :admin, :apparel_consultant, :director
+      redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+    end
   end
 end

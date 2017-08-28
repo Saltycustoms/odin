@@ -1,4 +1,5 @@
 class PackingListsController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_packing_list, only: [:show, :edit, :update, :destroy]
   before_action :set_deal, except: [:states, :show]
 
@@ -123,5 +124,11 @@ class PackingListsController < ApplicationController
       pics_attributes: [:id, :name, :tel, :title, :email, :_destroy],
       packing_list_items_attributes: [:id, :design_id, :job_request_id, :quantity, :product_id, :size_id, :color_id],
       attachments_attributes: [:id, :attachment, :_destroy])
+  end
+
+  def authorize_user
+    if !current_user.has_any_role? :admin, :apparel_consultant, :director
+      redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+    end
   end
 end

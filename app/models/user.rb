@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  include RoleModel
+  roles_attribute :roles_mask
+  roles :admin, :apparel_consultant, :creative, :logistic, :procurement, :director
+
   acts_as_paranoid
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -18,7 +22,7 @@ class User < ApplicationRecord
        # user.skip_confirmation!
      end
      if user.persisted?
-       user.roles = auth.info.roles
+       user.roles_mask = auth.info.roles_mask
        user.save
      end
      user

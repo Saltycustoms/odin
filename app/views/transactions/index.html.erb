@@ -36,7 +36,14 @@
 </div>
 
 <div class="callout">
-  <%= render "shared/callout_header", title: "Transactions", links: [title: "Collect Payment", path: new_deal_transaction_path(@deal)] %>
+  <%= render "shared/callout_header",
+    title: "Transactions",
+    links:
+      current_user.has_any_role?(:admin, :apparel_consultant, :director) ?
+        [title: "Collect Payment", path: new_deal_transaction_path(@deal)]
+      :
+        []
+  %>
 
   <% if @transactions.any? %>
     <table>
@@ -59,7 +66,7 @@
             <td>
               <%= link_to edit_deal_transaction_path(@deal, transaction) do %>
                 <span title="Edit" class="fa fa-pencil"></span>
-              <% end %>
+              <% end if current_user.has_any_role?(:admin, :apparel_consultant, :director) %>
             </td>
           </tr>
         <% end %>

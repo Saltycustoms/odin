@@ -1,4 +1,5 @@
 class PrintDetailsController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_print_detail, only: [:show, :edit, :update, :destroy]
 
   # GET /print_details
@@ -70,5 +71,11 @@ class PrintDetailsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def print_detail_params
       params.require(:print_detail).permit(:job_request_id, :position, :block, :color_count, :print_method, :attachment_data)
+    end
+
+    def authorize_user
+      if !current_user.has_any_role? :admin, :apparel_consultant, :director
+        redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+      end
     end
 end

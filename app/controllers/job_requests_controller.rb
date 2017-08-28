@@ -1,4 +1,5 @@
 class JobRequestsController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_job_request, only: [:show, :edit, :update, :destroy]
   before_action :set_deal
 
@@ -112,5 +113,11 @@ class JobRequestsController < ApplicationController
       print_details_attributes: [:id, :position, :print_method, :block, :color_count, :_destroy],
       properties_attributes: [:id, :name, :value, :_destroy],
       attachments_attributes: [:id, :attachment, :_destroy])
+    end
+
+    def authorize_user
+      if !current_user.has_any_role? :admin, :apparel_consultant, :director
+        redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+      end
     end
 end

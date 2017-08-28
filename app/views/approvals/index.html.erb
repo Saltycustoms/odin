@@ -16,8 +16,10 @@
         <td><%= approval.description %></td>
         <td><%= approval.status %></td>
         <td><%= approval.pending? %></td>
-        <td><%= link_to "Edit", edit_deal_approval_path(@deal, approval) if approval.pending? %></td>
-        <td><%= link_to "Destroy", deal_approval_path(@deal, approval), method: :delete if approval.pending? %></td>
+        <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+          <td><%= link_to "Edit", edit_deal_approval_path(@deal, approval) if approval.pending? %></td>
+          <td><%= link_to "Destroy", deal_approval_path(@deal, approval), method: :delete, data: {confirm: "Are you sure?"} if approval.pending? %></td>
+        <% end %>
       </tr>
     <% end %>
   </table>
