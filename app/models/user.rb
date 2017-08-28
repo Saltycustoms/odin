@@ -22,7 +22,7 @@ class User < ApplicationRecord
        # user.skip_confirmation!
      end
      if user.persisted?
-       user.roles = auth.info.roles
+       user.roles_mask = auth.info.roles_mask
        user.save
      end
      user
