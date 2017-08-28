@@ -2,7 +2,7 @@
 
 <ul class="accordion" data-accordion data-allow-all-closed="true">
   <% list_accordion.each do |design| %>
-    <li class="accordion-item <%= "production" if design.version_for_production.present? %>" data-accordion-item>
+    <li class="accordion-item <%= "production" if design.design_version_for_production.present? %>" data-accordion-item>
       <!-- Accordion tab title -->
       <a href="#" class="accordion-title design-accordion">
         <span class="design-name"><%= design.id %>#<%= design.name %></span>
@@ -21,7 +21,7 @@
         </span>
         <span class="checkers-span">
           <strong>Checker:</strong>
-          <% design.version_for_production&.checkers&.each do |checker| %>
+          <% design.design_version_for_production&.checkers&.each do |checker| %>
             <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
           <% end %>
         </span>
@@ -34,13 +34,13 @@
         <%#= link_to 'Reprint', new_design_path(reprint_id: design.id, deal_id: @deal.id), class: "button secondary" if @deal.present? %>
         <%#= link_to 'Edit', edit_design_path(design), class: "button secondary" %>
         <%#= link_to 'Destroy', design, method: :delete, data: { confirm: 'Are you sure?' }, class: "button secondary" %>
-        <% if design.version_for_production %>
-        <p><%= link_to "Download PV", "#{Figaro.env.locate_design_app}/api/v1/versions/#{design.version_for_production_id}/download_production_visual", class: "button" %></p>
-          <% if design.version_for_production.visual.manual? %>
-            <%= image_tag design.version_for_production.visual.attachment_url, class: "design-accordion-image" %>
-          <% elsif design.version_for_production.visual.visual_prints.count > 0 %>
+        <% if design.design_version_for_production %>
+        <p><%= link_to "Download PV", "#{Figaro.env.locate_design_app}/api/v1/design_versions/#{design.design_version_for_production_id}/download_production_visual", class: "button" %></p>
+          <% if design.design_version_for_production.visual.manual? %>
+            <%= image_tag design.design_version_for_production.visual.attachment_url, class: "design-accordion-image" %>
+          <% elsif design.design_version_for_production.visual.visual_prints.count > 0 %>
             <%= render partial: "visual_generators/components/visual_other_info",
-                    locals: { visual: design.version_for_production.visual } %>
+                    locals: { visual: design.design_version_for_production.visual } %>
           <% end %>
         <% end %>
       </div>

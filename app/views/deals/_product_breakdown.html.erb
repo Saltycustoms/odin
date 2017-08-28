@@ -77,7 +77,7 @@
 <ul class="accordion" data-accordion data-allow-all-closed="true">
   <% @deal.designs.each do |design| %>
     <% job_request_id = design.design_requests.first.job_request_id %>
-    <li class="accordion-item <%= "production" if design.version_for_production.present? %>" data-accordion-item>
+    <li class="accordion-item <%= "production" if design.design_version_for_production.present? %>" data-accordion-item>
       <a href="#" class="accordion-title design-accordion">
         <span class="design-name"><%= design.id %>#<%= design.name %></span>
         <span class="product-name text-center"><strong>Product:</strong>
@@ -95,7 +95,7 @@
         </span>
         <span class="checkers-span">
           <strong>Checker:</strong>
-          <% design.version_for_production&.checkers&.each do |checker| %>
+          <% design.design_version_for_production&.checkers&.each do |checker| %>
             <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
           <% end %>
         </span>

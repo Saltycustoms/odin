@@ -72,12 +72,12 @@ class Deal < ApplicationRecord
     Design.where(deal_id: self.id)
   end
 
-  def has_designs_with_version_for_production?
-    designs.any? { |d| d.version_for_production }
+  def has_designs_with_design_version_for_production?
+    designs.any? { |d| d.design_version_for_production }
   end
 
-  def designs_with_version_for_production
-    designs.select { |d| d.version_for_production }
+  def designs_with_design_version_for_production
+    designs.select { |d| d.design_version_for_production }
   end
 
   def job_requests_with_designs

@@ -1,7 +1,7 @@
 class Design < ActiveResource::Base
   self.site = "#{Figaro.env.locate_design_app}/api/v1/"
   has_many :design_requests
-  belongs_to :version_for_production, class_name: "Version"
+  belongs_to :design_version_for_production, class_name: "DesignVersion"
 
   def deal
     Deal.find(self.deal_id)
@@ -12,8 +12,8 @@ class Design < ActiveResource::Base
     JobRequest.find(design_request.job_request_id)
   end
 
-  def version_for_production_image_url
-    visual = version_for_production.visual
+  def design_version_for_production_image_url
+    visual = design_version_for_production.visual
     if visual.manual?
       return visual.attachment_url
     else

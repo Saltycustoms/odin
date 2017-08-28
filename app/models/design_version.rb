@@ -1,4 +1,4 @@
-class Version < ActiveResource::Base
+class DesignVersion < ActiveResource::Base
   self.site = "#{Figaro.env.locate_design_app}/api/v1"
   belongs_to :design
   belongs_to :visual
