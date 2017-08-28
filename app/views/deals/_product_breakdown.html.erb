@@ -1,4 +1,11 @@
-<%= render "shared/callout_header", title: "Product Breakdown", links: [{title: "Edit Quotation", path: edit_deal_quotations_path(@deal)}] %>
+<%= render "shared/callout_header",
+  title: "Product Breakdown",
+  links:
+    current_user.has_any_role?(:admin, :apparel_consultant, :director) ?
+      [{title: "Edit Quotation", path: edit_deal_quotations_path(@deal)}]
+    :
+    []
+%>
 
 <table class="product-breakdown-table">
   <thead>

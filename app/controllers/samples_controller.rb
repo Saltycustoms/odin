@@ -1,4 +1,6 @@
 class SamplesController < ApplicationController
+  before_action :authorize_user, only: [:update]
+
   def index
     @samples = Sample.all
   end
@@ -22,5 +24,11 @@ class SamplesController < ApplicationController
 
   def sample_params
     params.require(:sample).permit(:id, :eta_pps, :received_pps, :status, :creative_comments, :ac_comments, attachments_attributes: [:id, :attachment, :attachment_data, :_destroy])
+  end
+
+  def authorize_user
+    if !current_user.has_any_role? :admin, :apparel_consultant, :director
+      redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+    end
   end
 end

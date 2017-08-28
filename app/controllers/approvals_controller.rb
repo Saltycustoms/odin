@@ -1,4 +1,5 @@
 class ApprovalsController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_approval, only: [:edit, :update, :destroy]
   before_action :set_deal, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :approvers_collection, only: [:new, :edit]
@@ -74,5 +75,11 @@ class ApprovalsController < ApplicationController
   def approval_params
     params.require(:approval).permit(:description, :deal_id, :hello, approver_ids:[],
      acknowledger_ids:[])
+  end
+
+  def authorize_user
+    if !current_user.has_any_role? :admin, :apparel_consultant, :director
+      redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+    end
   end
 end

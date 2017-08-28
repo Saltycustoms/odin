@@ -26,15 +26,17 @@
         <td>
           <span class="subheader">#<%= deal.id %></span>
           <%= link_to "#{deal.name} - #{deal.department.organization.name}, #{deal.department.name}", deal %>
-          <div class="pull-right">
-            <%= link_to edit_deal_path(deal) do %>
-              <span title="Edit" class="fa fa-pencil"></span>
-            <% end %>
-            &nbsp;
-            <%= link_to deal, method: :delete, data: { confirm: 'Are you sure?' } do %>
-              <span title="Delete" class="fa fa-trash"></span>
-            <% end %>
-          </div>
+          <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+            <div class="pull-right">
+              <%= link_to edit_deal_path(deal) do %>
+                <span title="Edit" class="fa fa-pencil"></span>
+              <% end %>
+              &nbsp;
+              <%= link_to deal, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <span title="Delete" class="fa fa-trash"></span>
+              <% end %>
+            </div>
+          <% end %>
         </td>
         <td class="text-center"><%= deal.no_of_pcs %></td>
         <td><%= deal.client_deadline %></td>

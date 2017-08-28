@@ -1,5 +1,7 @@
 <% content_for :header_actions do %>
-  <%= link_to 'Edit', edit_organization_path(@organization) %> |
+  <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+    <%= link_to 'Edit', edit_organization_path(@organization) %> |
+  <% end %>
   <%= link_to 'Back', organizations_path %>
 <% end %>
 
@@ -13,7 +15,9 @@
     <br>
   </div>
   <div class="columns medium-text-right">
-    <%= link_to 'Add Department', new_organization_department_path(@organization), class: "button" %>
+    <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+      <%= link_to 'Add Department', new_organization_department_path(@organization), class: "button" %>
+    <% end %>
   </div>
 </div>
 
@@ -27,7 +31,9 @@
           </h4>
         </div>
         <div class="column medium-text-right">
-          <%= link_to "Edit", edit_organization_department_path(@organization, department), class: "button small warning" %>
+          <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+            <%= link_to "Edit", edit_organization_department_path(@organization, department), class: "button small warning" %>
+          <% end %>
         </div>
       </div>
     </div>
@@ -41,7 +47,9 @@
             <th>Email</th>
             <th>Tel</th>
             <th>Title</th>
-            <th></th>
+            <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+              <th></th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -54,13 +62,19 @@
               <td><%= pic.email %></td>
               <td><%= pic.tel %></td>
               <td><%= pic.title %></td>
-              <td class="text-right"><%= link_to "Add Deal", new_pic_deal_path(pic), class: "button expanded add-deal-button" %></td>
+              <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+                <td class="text-right">
+                  <%= link_to "Add Deal", new_pic_deal_path(pic), class: "button expanded add-deal-button" %>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
       </table>
     <% else %>
-      <button class="button add-pic-button" data-open="add-pic-modal" data-dept-url="<%= "/organizations/#{@organization.id}/departments/#{department.id}" %>" data-dept-name="<%= department.name %>">Add PIC</button>
+      <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+        <button class="button add-pic-button" data-open="add-pic-modal" data-dept-url="<%= "/organizations/#{@organization.id}/departments/#{department.id}" %>" data-dept-name="<%= department.name %>">Add PIC</button>
+      <% end %>
     <% end %>
 
     <% if department.deals.any? %>
@@ -96,7 +110,7 @@
 
   </div>
 <% end %>
-<% if @department %>
+<% if (@department && current_user.has_any_role?(:admin, :apparel_consultant, :director)) %>
   <div class="reveal" id="add-pic-modal" data-reveal>
     <h4>Add PIC for <span id="add-pic-modal-dept-name"><%= @department.name %></span></h4>
     <%= simple_nested_form_for [@organization, @department], html: {id: "add-pic-form"} do |f| %>

@@ -1,4 +1,7 @@
-<%= render "shared/callout_header", title: "Job Requests", links: [{title: "Submit a Job Request", path: new_deal_job_request_path(@deal)}] %>
+<%= render "shared/callout_header",
+  title: "Job Requests",
+  links: current_user.has_any_role?(:admin, :apparel_consultant, :director) ? [{title: "Submit a Job Request", path: new_deal_job_request_path(@deal)}] : []
+%>
 
 <table>
   <thead>
@@ -15,15 +18,17 @@
         <td>
           <span class="subheader">#<%= job_request.id %></span>
           <%= link_to job_request.name, deal_job_request_path(@deal, job_request) %>
-          <div class="pull-right">
-            <%= link_to edit_deal_job_request_path(@deal, job_request) do %>
-              <span title="Edit" class="fa fa-pencil"></span>
-            <% end %>
-            &nbsp;
-            <%= link_to deal_job_request_path(@deal, job_request), method: :delete, data: { confirm: 'Are you sure?' } do %>
-              <span class="fa fa-trash" title="delete"></span>
-            <% end %>
-          </div>
+          <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+            <div class="pull-right">
+              <%= link_to edit_deal_job_request_path(@deal, job_request) do %>
+                <span title="Edit" class="fa fa-pencil"></span>
+              <% end %>
+              &nbsp;
+              <%= link_to deal_job_request_path(@deal, job_request), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <span class="fa fa-trash" title="delete"></span>
+              <% end %>
+            </div>
+          <% end %>
         </td>
         <td><%= job_request.product.name %></td>
         <td><%= job_request.budget %></td>

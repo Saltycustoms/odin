@@ -1,5 +1,7 @@
 <% content_for :header_actions do %>
-  <%= link_to "Edit", edit_deal_quotations_path(@deal) %> |
+  <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+    <%= link_to "Edit", edit_deal_quotations_path(@deal) %> |
+  <% end %>
   <%= link_to 'Back', @deal %>
 <% end %>
 

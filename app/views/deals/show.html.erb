@@ -1,5 +1,7 @@
 <% content_for :header_actions do %>
-  <%= link_to 'Edit', edit_deal_path(@deal) %> |
+  <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+    <%= link_to 'Edit', edit_deal_path(@deal) %> |
+  <% end %>
   <%= link_to 'Back', deals_path %>
 <% end %>
 
@@ -20,7 +22,9 @@
       <%= @deal.client_deadline %>
       <div class="button-group">
         <%= link_to "View deadlines", deal_deadlines_path(@deal), class: "button" %>
-        <%= link_to "New Deadline", new_deal_deadline_path(@deal), class: "button alert" if @deal.client_deadline %>
+        <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+          <%= link_to "New Deadline", new_deal_deadline_path(@deal), class: "button alert" if @deal.client_deadline %>
+        <% end %>
       </div>
     </p>
   </div>
@@ -49,14 +53,14 @@
   <div class="callout">
     <div class="button-group">
       <% if @deal.quotation %>
-        <%= link_to "Edit Quotation", edit_deal_quotations_path(@deal), class: "button" %>
+        <%= link_to "Edit Quotation", edit_deal_quotations_path(@deal), class: "button" if current_user.has_any_role? :admin, :apparel_consultant, :director %>
         <%= link_to "View Quotation", deal_quotations_path(@deal), class: "button" %>
       <% else %>
-        <%= link_to "New Quotation", new_deal_quotations_path(@deal), class: "button" %>
+        <%= link_to "New Quotation", new_deal_quotations_path(@deal), class: "button" if current_user.has_any_role? :admin, :apparel_consultant, :director %>
       <% end %>
-      <%= link_to "New Packing List", new_deal_packing_list_path(@deal), class: "button success" %>
+      <%= link_to "New Packing List", new_deal_packing_list_path(@deal), class: "button success" if current_user.has_any_role? :admin, :apparel_consultant, :director %>
       <%= link_to "View Packing List", deal_packing_lists_path(@deal), class: "button warning" %>
-      <%= link_to "New Collection", new_deal_transaction_path(@deal), class: "button" %>
+      <%= link_to "New Collection", new_deal_transaction_path(@deal), class: "button" if current_user.has_any_role? :admin, :apparel_consultant, :director %>
       <%= link_to "Collections", deal_transactions_path(@deal), class: "button secondary" %>
       <%= link_to "Conditions", deal_conditions_path(@deal), class: "button secondary" %>
     </div>

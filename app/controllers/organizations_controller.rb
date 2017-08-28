@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
   # GET /organizations
@@ -75,5 +76,11 @@ class OrganizationsController < ApplicationController
     def organization_params
       params.require(:organization).permit(:name, :description, :industry, :tag_list,
       address_attributes: [:name, :address1, :address2, :city, :postal_code, :country_code, :state, :_destroy, :id])
+    end
+
+    def authorize_user
+      if !current_user.has_any_role? :admin, :apparel_consultant, :director
+        redirect_to request.referrer ? request.referrer : root_path, notice: "You are not authorized."
+      end
     end
 end

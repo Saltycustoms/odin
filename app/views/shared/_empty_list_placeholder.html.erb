@@ -2,7 +2,9 @@
   <%= content_tag :h3, "Your #{title ||= nil} will appear here" if title %>
   <%= content_tag :h3, message ||= nil if message %>
   <%= content_tag(:p, subtitle ||= nil) if subtitle %>
-  <%= link_to button_path ||= nil, class: "button" do %>
-    <span class="fa fa-plus">&nbsp;</span><%= button_title %>
-  <% end unless button_path.nil? %>
+  <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+    <%= link_to button_path ||= nil, class: "button" do %>
+      <span class="fa fa-plus">&nbsp;</span><%= button_title %>
+    <% end unless button_path.nil? %>
+  <% end %>
 </div>
