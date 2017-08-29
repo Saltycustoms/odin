@@ -11,6 +11,10 @@ class DealsController < ApplicationController
     @deals = @q.result.includes(:organization, :pic).page(params[:page])
   end
 
+  def my_deals
+    @q = Deal.where(employee_id: current_user.uid).ransack(params[:q])
+    @deals = @q.result.includes(:organization, :pic).page(params[:page])
+  end
   # GET /deals/1
   # GET /deals/1.json
   def show

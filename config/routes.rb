@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get "/states", to: "packing_lists#states"
   resources :print_details
   resources :deals do
+    collection do
+      get "my_deals"
+    end
     resource :quotations
     resources :job_requests
     resources :deadlines

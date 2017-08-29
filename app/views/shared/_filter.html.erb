@@ -2,7 +2,7 @@
   <div class="callout-header no-border">
     <h3 class="callout-header-title small">Filter by</h3>
   </div>
-  <%= search_form_for @q do |f| %>
+  <%= search_form_for @q, url: url do |f| %>
     <div class="row small-up-1 medium-up-2 large-up-3">
       <% fields.each do |field| %>
         <div class="column">
