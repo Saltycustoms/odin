@@ -1,0 +1,31 @@
+<p> This page should be view by admin for tracking purpose</p>
+<ul class="tabs" data-tabs id="historiesTab">
+  <% @item_types.each_with_index do |item_type, index| %>
+    <li class="tabs-title <%= "is-active" if index==0 %>">
+      <%= link_to item_type, "#tab#{item_type}" %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="tabs-content" data-tabs-content="historiesTab">
+  <% @item_types.each_with_index do |item_type, index| %>
+    <div class="tabs-panel <%= "is-active" if index==0 %>" id="<%= "tab#{item_type}"%>">
+      <table>
+        <thead>
+          <tr>
+            <th>Who did it</th>
+            <th>Modify Date</th>
+            <th>Metadata</th>
+          </tr>
+        </thead>
+        <% @items[item_type].each do |item| %>
+          <tr>
+            <td><%= item.whodunnit %></td>
+            <td><%= item.created_at %></td>
+            <td><%= item.object %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</div>
