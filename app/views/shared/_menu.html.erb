@@ -5,4 +5,5 @@
   <li data-path-root="organizations" data-pathing="organizations-index"><%= link_to "Organizations", organizations_path %>
   <li data-path-root="gateways" data-pathing="gateways-index"><%= link_to "Gateways", gateways_path %>
   <li data-path-root="notifications" data-pathing="notifications-index"><%= link_to "Notifications", notifications_path %>
+  <li><%= link_to "Edit Profile", "#{Figaro.env.locate_employee_app}/settings", target: "_blank" if user_signed_in? %></li>
 </ul>
