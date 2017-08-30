@@ -41,60 +41,60 @@ en:
         create: 'Visual has been created'
         update: 'Someone has edited the visual'
         destroy: "Someone removed a visual"
-      approver:
-        create: 'Approver has been created'
-        update: 'Someone has edited the approver'
-        destroy: "Someone removed a approver"
       approval:
         create: 'Approval has been created'
         update: 'Someone has edited the approval'
         destroy: "Someone removed a approval"
+      approver:
+        create: "There is new request for approval that need you to approve."
+      acknowledger:
+        create: "There is new request for approval."
     body:
       deal:
-        create: 'Deal %{id}#%{name} has been created'
-        update: 'Someone has edited the deal %{id}#%{name}'
-        destroy: "Someone removed a deal %{id}#%{name}"
+        create: 'Deal %{id}#%{name} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the deal %{id}#%{name}'
+        destroy: "Someone name %{whodidit} removed a deal %{id}#%{name}"
       quotation:
-        create: 'Quotation has been created'
-        update: 'Someone has edited the quotation'
-        destroy: "Someone removed a quotation"
+        create: 'Quotation has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the quotation'
+        destroy: "Someone name %{whodidit} removed a quotation"
       packing_list:
-        create: 'Packing list %{id} has been created'
-        update: 'Someone has edited the packing list %{id}'
-        destroy: "Someone removed a packing list %{id}"
+        create: 'Packing list %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the packing list %{id}'
+        destroy: "Someone name %{whodidit} removed a packing list %{id}"
       deadline:
-        create: 'Deadline %{id} has been created'
-        update: 'Someone has edited the deadline %{id}'
-        destroy: "Someone removed a deadline %{id}"
+        create: 'Deadline %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the deadline %{id}'
+        destroy: "Someone name %{whodidit} removed a deadline %{id}"
       delivery_schedule:
-        create: 'Delivery schedule %{id} has been created'
-        update: 'Someone has edited the delivery schedule %{id}'
-        destroy: "Someone removed a delivery schedule %{id}"
+        create: 'Delivery schedule %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the delivery schedule %{id}'
+        destroy: "Someone name %{whodidit} removed a delivery schedule %{id}"
       project:
-        create: 'Project %{id} has been created'
-        update: 'Someone has edited the project %{id}'
-        destroy: "Someone removed a project %{id}"
+        create: 'Project %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the project %{id}'
+        destroy: "Someone name %{whodidit} removed a project %{id}"
       quality_control:
-        create: 'Quality control %{id} has been created'
-        update: 'Someone has edited the quality control %{id}'
-        destroy: "Someone removed a quality control %{id}"
+        create: 'Quality control %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the quality control %{id}'
+        destroy: "Someone name %{whodidit} removed a quality control %{id}"
       sample:
-        create: 'Sample %{id} has been created'
-        update: 'Someone has edited the sample %{id}'
-        destroy: "Someone removed a sample %{id}"
+        create: 'Sample %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the sample %{id}'
+        destroy: "Someone name %{whodidit} removed a sample %{id}"
       design:
-        create: 'Design %{id} has been created'
-        update: 'Someone has edited the design %{id}'
-        destroy: "Someone removed a design %{id}"
+        create: 'Design %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the design %{id}'
+        destroy: "Someone name %{whodidit} removed a design %{id}"
       visual:
-        create: 'Visual %{id} has been created'
-        update: 'Someone has edited the visual %{id}'
-        destroy: "Someone removed a visual %{id}"
-      approver:
-        create: 'Approver %{id} has been created'
-        update: 'Someone has edited the approver %{id}'
-        destroy: "Someone removed a approver %{id}"
+        create: 'Visual %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the visual %{id}'
+        destroy: "Someone name %{whodidit} removed a visual %{id}"
       approval:
-        create: 'Approval %{id} has been created'
-        update: 'Someone has edited the approval %{id}'
-        destroy: "Someone removed a approval %{id}"
+        create: 'Approval %{id} has been created by %{whodidit}.'
+        update: 'Someone name %{whodidit} has edited the approval %{id}.'
+        destroy: "Someone name %{whodidit} removed a approval %{id}."
+      approver:
+        create: "There is new request for approval that need you to approve."
+      acknowledger:
+        create: "There is new request for approval."
