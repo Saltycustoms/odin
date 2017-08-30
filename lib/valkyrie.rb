@@ -19,7 +19,8 @@ module OmniAuth
       info do
         {
           email: raw_info['email'],
-          roles_mask: raw_info['roles_mask']
+          roles_mask: raw_info['roles_mask'],
+          name: raw_info['name']
         }
       end
 
