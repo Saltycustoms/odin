@@ -7,11 +7,11 @@ class Visual < ActiveResource::Base
   #   VisualProduct.where(visual_id: self.id).first
   # end
 
-  def attachment_url
-    if attachment_data
-      "#{Figaro.env.locate_design_app}/uploads/store/#{JSON.parse(attachment_data)['id']}"
-    end
-  end
+  # def attachment_url
+  #   if attachment_data
+  #     "#{Figaro.env.locate_design_app}/uploads/store/#{JSON.parse(attachment_data)['id']}"
+  #   end
+  # end
 
   # [:pantone, :care_label, :measurement, :other_detail, :print_label].each do |info|
   #   define_method("#{info.to_s.pluralize}") {

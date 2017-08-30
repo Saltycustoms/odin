@@ -4,7 +4,7 @@ class Attachment < ApplicationRecord
   include AttachmentUploader::Attachment.new(:attachment)
 
   def attachment_full_url
-    "#{Figaro.env.locate_deal_app}#{attachment_url}"
+    "#{attachment_url}"
   end
 
   def attachment_original_filename
