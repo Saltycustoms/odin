@@ -1,6 +1,6 @@
 <% content_for :header_actions do %>
 <% end %>
-<%= render "shared/page_header", {title: "Deals"} %>
+<%= render "shared/page_header", {title: "My Deals"} %>
 
 <%= render "shared/filter",
   fields: [
@@ -9,7 +9,7 @@
     {field_type: :search_field, field_name: :organization_name_cont},
     {field_type: :search_field, field_name: :pic_name_or_pic_email_cont}
   ],
-  url: deals_path
+  url: my_deals_deals_path
 %>
 
 <table>
