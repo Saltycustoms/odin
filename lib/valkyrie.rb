@@ -11,6 +11,7 @@ module OmniAuth
       }
       # option :provider_ignores_state, true
 
+      #soon please point to uuid
       uid {
         raw_info['id']
       }
