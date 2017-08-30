@@ -12,6 +12,7 @@
     <div class="top-bar-right">
       <ul class="menu">
         <% if user_signed_in? %>
+          <li class="menu-text">Hello, <%= current_user.name %></li>
           <li>
             <a data-toggle="notification-dropdown" class="notification-dropdown-link">
               <i class="fa fa-bell" aria-hidden="true"></i>
