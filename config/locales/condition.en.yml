@@ -7,32 +7,32 @@ en:
       "true": "This deal have no design yet."
       "false": "This deal have designs."
     has_pending_designs_for_job_requests:
-      "true": "There are job request that haven't create design."
-      "false": "All job request have design."
+      "true": "There are unfulfilled job request."
+      "false": "All job request has been fulfilled."
     has_pending_delivery_schedules:
-      "true": "This deal haven't schedule for delivery yet."
-      "false": "This deal schedule for delivery already."
+      "true": "This deal hasn't been schedule for delivery yet."
+      "false": "This deal has been schedule for delivery already."
     has_pending_projects_for_designs:
       "true": "There are designs not place in manufacturing yet."
       "false": "All designs has been put into manufacturing."
     has_pending_approval:
-      "true": "There are pending approval."
+      "true": "There are pending approvals that awaiting are for respond."
       "false": "All approval has been responded."
     has_pending_initial_payments:
       "true": "Please collect initial payment."
       "false": "Initial payment has been collected."
     has_pending_sample_comment_from_ac:
-      "true": "There are sample need AC to comment."
+      "true": "There are samples need to be review and comment by AC."
       "false": "No samples are pending AC comment."
     has_pending_sample_comment_from_creative:
-      "true": "There are sample need Creative to comment."
+      "true": "There are samples need to be review and comment by Creative."
       "false": "No samples are pending Creative comment."
     has_pending_shipping:
-      "true": "There are pending for shippings."
+      "true": "There are pending deliveries."
       "false": "All has been shipped out."
     has_pending_packing_lists:
-      "true": "There are pending for packing list."
+      "true": "Packing list is absence for this deal, kindly fill in so that Logistic can proceed."
       "false": "Packing lists been filled."
     has_pending_deadline:
-      "true": "There are pending for deal deadline."
-      "false": "Deadline has been set."
+      "true": "Deadline hasn't been set yet, kindly set the deadline for this deal."
+      "false": "Deadline is set."
