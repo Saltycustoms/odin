@@ -17,7 +17,7 @@
         <span class="total-qty text-center"><strong>Total quantity:</strong>
           <%= deal.quotation.quotation_lines
               .reject { |j| j.job_request_id != design.design_requests.first.job_request_id }
-              .collect{|j| j.quantity}.inject(:+) %>
+              .collect{|j| j.quantity}.inject(:+) if deal.quotation.present? %>
         </span>
         <span class="checkers-span">
           <strong>Checker:</strong>
