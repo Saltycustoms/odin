@@ -9,7 +9,7 @@
       <div class="small-6 column">
         <strong>Price Per Piece:</strong><br>
         <%= hidden_field_tag "job_request_price_per_unit[#{job_request.id}][id]", job_request.id %>
-        <%= number_field_tag "job_request_price_per_unit[#{job_request.id}][price_per_unit]", @job_request_price_per_unit["#{job_request.id}"] %>
+        <%= number_field_tag "job_request_price_per_unit[#{job_request.id}][price_per_unit]", @job_request_price_per_unit["#{job_request.id}"], placeholder: "10.90" %>
       </div>
       <div class="small-6 small-offset-6 column">
         <strong>Recommended price Per Piece:</strong><br>

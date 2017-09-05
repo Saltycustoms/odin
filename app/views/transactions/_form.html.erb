@@ -5,7 +5,7 @@
       <p><strong>Paid:</strong> <%= humanized_money_with_symbol @deal.paid_amount %></p>
       <%= f.input :transaction_number %>
       <%= f.input :gateway_id, collection: Gateway.all.collect { |gateway| [gateway.name, gateway.id] } %>
-      <%= f.input :value, as: :integer, input_html: {min: 1} %>
+      <%= f.input :value, as: :integer, input_html: {min: 1, placeholder: "10.90"} %>
       <%= f.button :submit, "Save" %>
     </div>
   </div>
