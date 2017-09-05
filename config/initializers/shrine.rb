@@ -30,5 +30,7 @@ else
   }
 end
 
+Shrine.plugin :default_url_options, store: { host: "https://thehand.s3.amazonaws.com" }
+
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data # for forms
