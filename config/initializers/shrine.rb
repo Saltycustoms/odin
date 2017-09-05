@@ -12,6 +12,8 @@ if Rails.env.production?
   Shrine.storages = {
     cache: Shrine::Storage::S3.new(prefix: "hades_cache", **s3_options),
     store: Shrine::Storage::S3.new(prefix: "hades_store", **s3_options),
+    cache_control: "public, max-age=#{30.days}",
+    acl: "public-read"
   }
 
 else
@@ -27,6 +29,8 @@ else
   Shrine.storages = {
     cache: Shrine::Storage::S3.new(prefix: "hades_cache_dev", **s3_options),
     store: Shrine::Storage::S3.new(prefix: "hades_store_dev", **s3_options),
+    cache_control: "public, max-age=#{30.days}",
+    acl: "public-read"
   }
 end
 
