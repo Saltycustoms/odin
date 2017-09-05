@@ -7,13 +7,12 @@ if Rails.env.production?
     secret_access_key: "t2Y6XgP4KwOZtDEXUwWltNn3bPQsWuDzfQ2bJBMI",
     region:            "ap-southeast-1",
     bucket:            "thehand",
+    upload_options: { acl: "public-read" }
   }
 
   Shrine.storages = {
     cache: Shrine::Storage::S3.new(prefix: "hades_cache", **s3_options),
-    store: Shrine::Storage::S3.new(prefix: "hades_store", **s3_options),
-    cache_control: "public, max-age=#{30.days}",
-    acl: "public-read"
+    store: Shrine::Storage::S3.new( prefix: "hades_store", **s3_options),
   }
 
 else
@@ -24,17 +23,16 @@ else
     secret_access_key: "t2Y6XgP4KwOZtDEXUwWltNn3bPQsWuDzfQ2bJBMI",
     region:            "ap-southeast-1",
     bucket:            "thehand",
+    upload_options: { acl: "public-read" }
   }
 
   Shrine.storages = {
     cache: Shrine::Storage::S3.new(prefix: "hades_cache_dev", **s3_options),
-    store: Shrine::Storage::S3.new(prefix: "hades_store_dev", **s3_options),
-    cache_control: "public, max-age=#{30.days}",
-    acl: "public-read"
+    store: Shrine::Storage::S3.new( prefix: "hades_store_dev", **s3_options),
   }
 end
 
-Shrine.plugin :default_url_options, store: { host: "https://thehand.s3.amazonaws.com" }
+Shrine.plugin :default_url_options, store: { public: true, host: "https://thehand.s3.amazonaws.com" }
 
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data # for forms
