@@ -29,11 +29,6 @@
 
       <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
       <div class="accordion-content" data-tab-content>
-        <%#= link_to 'Show', design, class: "button" %>
-        <%#= link_to 'Create Visual', visual_generator_path(id: :select_actions, design_id: design.id), class: "button secondary" %>
-        <%#= link_to 'Reprint', new_design_path(reprint_id: design.id, deal_id: @deal.id), class: "button secondary" if @deal.present? %>
-        <%#= link_to 'Edit', edit_design_path(design), class: "button secondary" %>
-        <%#= link_to 'Destroy', design, method: :delete, data: { confirm: 'Are you sure?' }, class: "button secondary" %>
         <% if design.design_version_for_production %>
         <p><%= link_to "Download PV", "#{Figaro.env.locate_design_app}/api/v1/design_versions/#{design.design_version_for_production_id}/download_production_visual", class: "button" %></p>
           <% if design.design_version_for_production.visual.manual? %>
