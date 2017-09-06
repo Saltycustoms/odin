@@ -25,11 +25,8 @@
 //= require products
 //= require scripts/toolkit
 
-$(document).ready(function() {
-  jQuery(".best_in_place").best_in_place();
-});
-
 $(document).on('turbolinks:load', function() {
+    jQuery(".best_in_place").best_in_place();
     var sidebar = $('[data-sidebar]')
     pathing = sidebar.data("controller") + '-' + sidebar.data("action")
     $('[data-pathing=' + pathing + ']').addClass('active')
