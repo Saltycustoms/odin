@@ -2,9 +2,9 @@ class Api::V1::PropertiesController < ApiController
   def index
     keys = params.keys.collect { |k| k if k.end_with?("_id")}.compact
     if keys
-      @propertys = Property.where(build_options(keys))
+      @propertys = JobRequestProperty.where(build_options(keys))
     else
-      @propertys = Property.all
+      @propertys = JobRequestProperty.all
     end
     respond_to do |format|
       format.json { render json: @propertys }
@@ -12,7 +12,7 @@ class Api::V1::PropertiesController < ApiController
   end
 
   def show
-    @property = Property.find_by(id: params[:id])
+    @property = JobRequestProperty.find_by(id: params[:id])
     respond_to do |format|
       format.json { render json: @property || {} }
     end

@@ -85,7 +85,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @job_request.properties.each do |property| %>
+      <% @job_request.job_request_properties.each do |property| %>
         <tr>
           <td><%= property.name %></td>
           <td><%= property.value %></td>

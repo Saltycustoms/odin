@@ -1,4 +1,4 @@
-class Property < ApplicationRecord
+class JobRequestProperty < ApplicationRecord
   acts_as_paranoid
   belongs_to :job_request
   validates :name, uniqueness: { scope: :job_request_id }

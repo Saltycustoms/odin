@@ -18,8 +18,8 @@ class JobRequestsController < ApplicationController
   def new
     @job_request = JobRequest.new
     @product = Product.find(params[:product_id]) if params[:product_id]
-    Property.name_and_placeholders.each do |property_name, property_value|
-      @job_request.properties.build(name: property_name)
+    JobRequestProperty.name_and_placeholders.each do |property_name, property_value|
+      @job_request.job_request_properties.build(name: property_name)
     end
   end
 
@@ -32,8 +32,8 @@ class JobRequestsController < ApplicationController
   # POST /job_requests.json
   def create
     new_params = job_request_params.deep_dup
-    if new_params[:properties_attributes].present?
-      new_params[:properties_attributes].each_pair do |key, property_attribute|
+    if new_params[:job_request_properties_attributes].present?
+      new_params[:job_request_properties_attributes].each_pair do |key, property_attribute|
         property_attribute[:name] = property_attribute[:name].split(" ").join(" ").humanize
       end
     end
@@ -66,8 +66,8 @@ class JobRequestsController < ApplicationController
   def update
     @product = @job_request.product
     new_params = job_request_params.deep_dup
-    if new_params[:properties_attributes].present?
-      new_params[:properties_attributes].each_pair do |key, property_attribute|
+    if new_params[:job_request_properties_attributes].present?
+      new_params[:job_request_properties_attributes].each_pair do |key, property_attribute|
         property_attribute[:name] = property_attribute[:name].split(" ").join(" ").humanize
       end
     end
@@ -111,7 +111,7 @@ class JobRequestsController < ApplicationController
     def job_request_params
       params.require(:job_request).permit(:deal_id, :product_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :provide_artwork, :design_brief, :concept, :pantone_code, :remark, :sample_required, :budget, :client_comment, colors: [], sizes: [],
       print_details_attributes: [:id, :position, :print_method, :block, :color_count, :_destroy],
-      properties_attributes: [:id, :name, :value, :_destroy],
+      job_request_properties_attributes: [:id, :name, :value, :_destroy],
       attachments_attributes: [:id, :attachment, :_destroy])
     end
 

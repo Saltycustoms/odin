@@ -73,7 +73,7 @@
         <div class="header small">
           <h2 class="header-title">Properties</h2>
         </div>
-        <%= form.simple_fields_for :properties do |property| %>
+        <%= form.simple_fields_for :job_request_properties do |property| %>
           <div class="row">
             <div class="column">
               <%= property.input :name, input_html: { list: "properties-type", class: "properties-name" } %>
@@ -88,7 +88,7 @@
             </div>
           </div>
         <% end %>
-        <%= form.link_to_add "Add property", :properties, class: "button warning" %>
+        <%= form.link_to_add "Add property", :job_request_properties, class: "button warning" %>
       </div>
 
     </div>
@@ -107,13 +107,13 @@
 <% end %>
 
 <datalist id="properties-type">
-  <% Property.name_and_placeholders.each do |property_name, property_value| %>
+  <% JobRequestProperty.name_and_placeholders.each do |property_name, property_value| %>
     <option value="<%= property_name %>">
   <% end %>
 </datalist>
 
 <script>
-  var properties = <%= raw Property.name_and_placeholders.to_json %>
+  var properties = <%= raw JobRequestProperty.name_and_placeholders.to_json %>
   var properties_name = $(".properties-name")
   for (i = 0; i < properties_name.length; i ++) {
     property_name = $(properties_name[i]).val()

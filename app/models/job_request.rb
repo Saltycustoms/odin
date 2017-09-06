@@ -7,12 +7,12 @@ class JobRequest < ApplicationRecord
   has_many :attachments, as: :attachable, dependent: :destroy
   belongs_to :deal
   has_many :print_details, dependent: :destroy
-  has_many :properties, dependent: :destroy
+  has_many :job_request_properties, dependent: :destroy
   jsonb_accessor :metadata,
     sizes: [:string],
     colors: [:string]
   accepts_nested_attributes_for :print_details, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
-  accepts_nested_attributes_for :properties, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
+  accepts_nested_attributes_for :job_request_properties, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   validates :product_id, :colors, :name, :sizes, presence: true
   before_save :update_quotation_and_lines
