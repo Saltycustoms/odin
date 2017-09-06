@@ -81,7 +81,6 @@ class DealsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_deal
-      console
       @deal = Deal.find(params[:id])
     end
 

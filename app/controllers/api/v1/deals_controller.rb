@@ -80,7 +80,7 @@ class Api::V1::DealsController < ApiController
           methods: [:selected_colors, :selected_sizes, :product],
           include: {
             attachments: {
-              only: Attachment.column_names - ["attachable_type", "attachable_id"],
+              only: Attachment.column_names,
               methods: [:attachment_full_url, :attachment, :attachment_original_filename]
             }
           }
