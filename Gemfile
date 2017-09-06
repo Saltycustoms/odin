@@ -57,6 +57,7 @@ gem 'aws-sdk'
 gem "paranoia", "~> 2.2"
 gem 'kaminari'
 gem 'paper_trail'
+gem 'web-console', '>= 3.3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
