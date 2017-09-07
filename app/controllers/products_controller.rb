@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
           price_cents = price_range.price_cents
         end
       end
-      render json: {configurator_price: "#{product.currency} #{Money.new(price_cents, product.currency).to_i}"}
+      render json: {configurator_price: "#{product.currency} #{Money.new(price_cents, product.currency)}"}
     end
   end
 

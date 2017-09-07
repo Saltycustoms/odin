@@ -44,7 +44,7 @@ class JobRequest < ApplicationRecord
       end
     end
 
-    "#{product.currency} #{Money.new(price_cents, product.currency).to_i}"
+    "#{product.currency} #{Money.new(price_cents, product.currency)}"
   end
 
   def designs

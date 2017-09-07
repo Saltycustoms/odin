@@ -4,7 +4,7 @@ class QuotationLine < ApplicationRecord
   belongs_to :job_request
   before_save :calculate_total
   before_update :calculate_total
-  monetize :price_per_unit_cents, with_model_currency: :currency
+  monetize :price_per_unit_cents, with_model_currency: :currency, numericality: { greater_than_or_equal_to: 0 }
   monetize :total_cents, with_model_currency: :currency
   validates :quantity, numericality: {greater_than_or_equal_to: 0}
   before_save :save_description
