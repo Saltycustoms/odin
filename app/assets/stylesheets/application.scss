@@ -26,3 +26,15 @@
 .off-canvas-content {
   min-height: 90vh;
 }
+
+.input.error {
+  input {
+    background: rgba(#D50000, .3);
+    border-color: #D50000;
+  }
+
+  label,
+  small {
+    color: #D50000;
+  }
+}

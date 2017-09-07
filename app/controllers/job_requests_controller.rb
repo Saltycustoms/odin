@@ -43,9 +43,11 @@ class JobRequestsController < ApplicationController
         @job_request.attachments.new(attachment: attachment)
       end
     end
+    @colors = new_params[:colors].present? ? new_params[:colors].reject { |c| c.empty? } : []
+    @sizes = new_params[:sizes].present? ? new_params[:sizes].reject { |s| s.empty? } : []
     begin
       respond_to do |format|
-        if @job_request.save
+        if @job_request.save && @colors.present? && @sizes.present?
           # Publisher.publish("design", @job_request.attributes)
           format.html { redirect_to @deal, notice: 'Job request was successfully created.' }
           format.json { render :show, status: :created, location: @job_request }
