@@ -1,0 +1,144 @@
+#svgContainer {
+  width: 700px;
+  margin: auto;
+}
+
+.flex-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.color-picker {
+  display: inline-block;
+  padding-bottom: 20px;
+
+  input[type='checkbox'] {
+    display: block;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  input[type='checkbox'] + label {
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    display: inline-block;
+    border: 0px solid black;
+
+    span {
+      content: " ";
+    }
+  }
+
+  input[type='checkbox']:checked + label {
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    display: inline-block;
+    border: 2px solid black;
+  }
+}
+
+.otherInfoContainer {
+  font-size: 0.7rem;
+  #propertyInfo {
+    div.columns.callout {
+      min-height: 10%;
+      margin-bottom: 0;
+    }
+  }
+
+  #printInfo {
+    div.columns.callout {
+      min-height: 30%;
+      margin-bottom: 0;
+    }
+  }
+
+  .artwork-wrapper {
+    padding: 0 60px 60px 0
+  }
+
+  .artwork {
+    position: relative;
+    &:after,
+    &:before {
+      content: '';
+      position: absolute;
+    }
+
+    &:before {
+      width: 2px;
+      background: red;
+      top: 0;
+      bottom: 0;
+      right: -10px;
+    }
+
+    &:after {
+      height: 2px;
+      background: red;
+      left: 0;
+      right: 0;
+      bottom: -10px;
+    }
+
+    .height {
+      position: absolute;
+      right: -70px;
+      top: 40%;
+    }
+
+    .width {
+      position: absolute;
+      bottom: -30px;
+      left: 40%;
+    }
+  }
+}
+
+.shirt-wrapper {
+  position: relative;
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+  }
+
+  &:before {
+    width: 2px;
+    background: red;
+    top: 23%;
+    bottom: 71%;
+    left: 50%;
+  }
+
+  &:after {
+    height: 2px;
+    background: red;
+    left: 30%;
+    right: 30%;
+    bottom: 34%;
+  }
+
+  .down-the-collar {
+    position: absolute;
+    left: 52%;
+    top: 24%;
+  }
+
+  .artwork-width {
+    position: absolute;
+    bottom: 31%;
+    left: 50%;
+  }
+}
+
+div.alwaysbreak { page-break-before: always; }
+div.nobreak:before { clear:both; }
+div.nobreak { page-break-inside: avoid; }
