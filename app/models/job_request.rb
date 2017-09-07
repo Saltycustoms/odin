@@ -32,7 +32,7 @@ class JobRequest < ApplicationRecord
     if job_request_designs.present?
       job_request_designs.first.name
     else
-      ""
+      name
     end
   end
 
