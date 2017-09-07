@@ -4,7 +4,7 @@
       <%= form.input :name %>
       <%= form.input :budget %>
       <%= form.input :product_id, collection: Product.all.collect { |p| [p.name, p.id] }, input_html: {id: "product-select"}, selected: @product ? @product.id : nil, include_blank: true %>
-      <div class="input <%= 'error' if @colors.empty? %>">
+      <div class="input <%= 'error' if @colors && @colors.empty? %>">
         <%= label_tag "job_requests[colors][]" do %>
           <abbr title="required">*</abbr>
           Colors
@@ -16,7 +16,7 @@
         <% end %>
       </div>
 
-      <div class="input <%= 'error' if @sizes.empty? %>">
+      <div class="input <%= 'error' if @sizes && @sizes.empty? %>">
         <%= label_tag "job_requests[sizes][]" do %>
           <abbr title="required">*</abbr>
           Sizes
