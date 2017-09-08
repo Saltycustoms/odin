@@ -26,6 +26,8 @@ class JobRequestsController < ApplicationController
   # GET /job_requests/1/edit
   def edit
     @product = @job_request.product
+    @color_ids = @job_request.selected_color_ids
+    @size_ids = @job_request.selected_size_ids
   end
 
   # POST /job_requests
@@ -43,16 +45,18 @@ class JobRequestsController < ApplicationController
         @job_request.attachments.new(attachment: attachment)
       end
     end
-    @colors = new_params[:colors].present? ? new_params[:colors].reject { |c| c.empty? } : []
-    @sizes = new_params[:sizes].present? ? new_params[:sizes].reject { |s| s.empty? } : []
+    # Reject empty string and convert each of them to string so can be compared.
+    @color_ids = new_params[:colors].present? ? new_params[:colors].reject { |c| c.empty? }.map { |c| c.to_i } : []
+    @size_ids = new_params[:sizes].present? ? new_params[:sizes].reject { |s| s.empty? }.map { |s| s.to_i } : []
     begin
       respond_to do |format|
-        if @job_request.save && @colors.present? && @sizes.present?
+        if @job_request.valid? && @color_ids.present? && @size_ids.present?
           # Publisher.publish("design", @job_request.attributes)
+          @job_request.save(validate: false)
           format.html { redirect_to @deal, notice: 'Job request was successfully created.' }
           format.json { render :show, status: :created, location: @job_request }
         else
-          @product = Product.first || @job_request.product
+          @product = @job_request&.product
           format.html { render :new }
           format.json { render json: @job_request.errors, status: :unprocessable_entity }
         end
@@ -66,8 +70,8 @@ class JobRequestsController < ApplicationController
   # PATCH/PUT /job_requests/1
   # PATCH/PUT /job_requests/1.json
   def update
-    @product = @job_request.product
     new_params = job_request_params.deep_dup
+    @product = Product.find(new_params[:product_id]) if new_params[:product_id].present?
     if new_params[:job_request_properties_attributes].present?
       new_params[:job_request_properties_attributes].each_pair do |key, property_attribute|
         property_attribute[:name] = property_attribute[:name].split(" ").join(" ").humanize
@@ -78,8 +82,12 @@ class JobRequestsController < ApplicationController
         @job_request.attachments.new(attachment: attachment)
       end
     end
+    @color_ids = new_params[:colors].present? ? new_params[:colors].reject { |c| c.empty? }.map { |c| c.to_i } : []
+    @size_ids = new_params[:sizes].present? ? new_params[:sizes].reject { |s| s.empty? }.map { |s| s.to_i } : []
+    @job_request.assign_attributes(new_params)
     respond_to do |format|
-      if @job_request.update(new_params)
+      if @job_request.valid? && @color_ids.present? && @size_ids.present?
+        @job_request.save(validate: false)
         format.html { redirect_to [@deal, @job_request], notice: 'Job request was successfully updated.' }
         format.json { render :show, status: :ok, location: @job_request }
       else
