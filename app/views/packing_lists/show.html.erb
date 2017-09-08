@@ -55,6 +55,7 @@
   <h5>Details</h5>
   <% @packing_list.packing_list_items.pluck(:job_request_id).uniq.each do |job_request_id| %>
     <% job_request = JobRequest.find(job_request_id) %>
+    <%= render "shared/callout_header", title: job_request.design_name %>
     <table>
       <thead>
         <tr>
