@@ -81,7 +81,7 @@
       <%= f.input :payment_term %>
     </div>
     <div class="columns">
-      <%= f.input :currency, collection: Money::Currency.all.map{|curr| ["#{curr.name} (#{curr.iso_code})", curr.iso_code]} %>
+      <%= f.input :currency, collection: ([["Malaysian Ringgit (MYR)", "MYR"], ["Singapore Dollar (SGD)", "SGD"]] + (Money::Currency.all.map{|curr| ["#{curr.name} (#{curr.iso_code})", curr.iso_code]} - [["Malaysian Ringgit (MYR)", "MYR"], ["Singapore Dollar (SGD)", "SGD"]])) %>
     </div>
     <div class="columns">
       <%= f.input :shipping, as: :integer, input_html: {min: 0} %>
