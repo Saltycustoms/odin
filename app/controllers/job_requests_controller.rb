@@ -1,6 +1,6 @@
 class JobRequestsController < ApplicationController
-  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy]
-  before_action :set_job_request, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user, only: [:new, :edit, :create, :update, :destroy, :duplicate, :create_duplicate]
+  before_action :set_job_request, only: [:show, :edit, :update, :destroy, :duplicate, :create_duplicate]
   before_action :set_deal
 
   # GET /job_requests
@@ -104,6 +104,39 @@ class JobRequestsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @deal, notice: 'Job request was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def duplicate
+    @new_job_request = JobRequest.new
+  end
+
+  def create_duplicate
+    new_params = job_request_params.deep_dup.merge(@job_request.attributes.slice("remark", "budget", "client_comment", "provide_artwork", "design_brief", "concept"))
+    if @job_request.provide_artwork
+    end
+    print_details_attributes = {}
+    job_request_properties_attributes = {}
+    attachments_attributes = {}
+    @job_request.print_details.each_with_index do |print_detail, index|
+      print_details_attributes[index] = print_detail.attributes.slice("position", "block", "color_count", "print_method")
+    end
+    @job_request.job_request_properties.each_with_index do |property, index|
+      job_request_properties_attributes[index] = property.attributes.slice("name", "value")
+    end
+    @job_request.attachments.each_with_index do |attachment, index|
+      attachments_attributes[index] = attachment.attributes.slice("attachment_data")
+    end
+    new_params.merge!({print_details_attributes: print_details_attributes, job_request_properties_attributes: job_request_properties_attributes, attachments_attributes: attachments_attributes})
+    @product = Product.find(new_params[:product_id]) if new_params[:product_id].present?
+    @color_ids = new_params[:colors].present? ? new_params[:colors].reject { |c| c.empty? }.map { |c| c.to_i } : []
+    @size_ids = new_params[:sizes].present? ? new_params[:sizes].reject { |s| s.empty? }.map { |s| s.to_i } : []
+    @new_job_request = @deal.job_requests.new(new_params)
+    if @new_job_request.valid? && @color_ids.present? && @size_ids.present?
+      @new_job_request.save
+      redirect_to @deal, notice: 'Job request was successfully duplicated.'
+    else
+      render :duplicate
     end
   end
 

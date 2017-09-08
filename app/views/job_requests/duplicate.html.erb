@@ -1,0 +1,148 @@
+<% content_for :header_actions do %>
+  <%= link_to 'Back', @deal %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Duplicating Job Request #{@job_request.name}"} %>
+
+<div class="row">
+  <div class="column medium-4">
+    <%= render "shared/callout_header", title: "Job Request Details" %>
+    <strong>Deal</strong>
+    <p><%= @job_request.deal.display_name %></p>
+
+    <strong>Name</strong>
+    <p>
+      <%= @job_request.name %>
+    </p>
+
+    <strong>Product</strong>
+    <p>
+      <%= @job_request.product.name %>
+    </p>
+
+    <strong>Budget</strong>
+    <p>
+      <%= @job_request.budget %>
+    </p>
+    <strong>Colors</strong>
+    <ul>
+      <% @job_request.selected_colors.each do |color| %>
+        <li><%= color.display_name %></li>
+      <% end %>
+    </ul>
+
+    <strong>Sizes</strong>
+    <ul>
+      <% @job_request.selected_sizes.each do |size| %>
+        <li><%= size.name %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="column medium-8">
+    <%= render "shared/callout_header", title: "Print Details" %>
+    <table>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Print Method</th>
+          <th>Block</th>
+          <th>Color Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @job_request.print_details.each do |print_detail| %>
+          <tr>
+            <td><%= print_detail.position %></td>
+            <td><%= print_detail.print_method %></td>
+            <td><%= print_detail.block %></td>
+            <td><%= print_detail.color_count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= render "shared/callout_header", title: "Properties" %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @job_request.job_request_properties.each do |property| %>
+          <tr>
+            <td><%= property.name %></td>
+            <td><%= property.value %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= render "shared/callout_header", title: "Client Artworks" %>
+<% if @job_request.provide_artwork %>
+  <div class="row small-up-2 medium-up-4 large-up-6">
+    <% @job_request.attachments.each do |attachment| %>
+      <div class="column">
+        <%= image_tag attachment.attachment_url %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="column">
+      <strong>Design Brief</strong>
+      <%= simple_format @job_request.design_brief %>
+    </div>
+    <div class="column">
+      <strong>Concept</strong>
+      <%= simple_format @job_request.concept %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "shared/callout_header", title: "Comments" %>
+<div class="row">
+  <div class="column">
+    <strong>Remarks</strong>
+    <%= simple_format @job_request.remark %>
+  </div>
+  <div class="column">
+    <strong>Client comment</strong>
+    <%= simple_format @job_request.client_comment %>
+  </div>
+</div>
+
+<%= simple_form_for @new_job_request, url: create_duplicate_deal_job_request_path(@deal, @job_request) do |form| %>
+  <div class="row align-center">
+    <div class="small-6 column callout">
+      <%= render "shared/callout_header", title: "Duplicate Job Request with above details except name, product, colors and sizes" %>
+      <%= form.input :name %>
+      <%= form.input :product_id, collection: Product.all.collect { |p| [p.name, p.id] }, input_html: {id: "product-select"}, selected: @product ? @product.id : nil, include_blank: true %>
+      <div class="input <%= 'error' if @color_ids&.empty? %>">
+        <%= label_tag "job_requests[colors][]" do %>
+          <abbr title="required">*</abbr>
+          Colors
+          <%= link_to "Add Pantone Color", @product ? new_color_path(@product, deal_id: @deal.id) : "javascript:void(0)", class: "pull-right", id: "add-pantone-color-link", style: (@product && @product.custom_dye) ? "display: block" : "display: none", data: {"deal_id": @deal.id} %>
+        <% end %>
+        <%= form.input :colors, label: false, collection: @product ? @product.colors.collect { |c| [c.display_name, c.id] } : [], selected: @product ? (@product.color_ids & @color_ids) : [], input_html: { multiple: true, id: "colors-select" } %>
+        <% if @color_ids&.empty? %>
+          <small class="error">must be selected</small>
+        <% end %>
+      </div>
+      <div class="input <%= 'error' if @size_ids&.empty? %>">
+        <%= label_tag "job_requests[sizes][]" do %>
+          <abbr title="required">*</abbr>
+          Sizes
+        <% end %>
+        <%= form.input :sizes, label: false, collection: @product ? @product.sizes.collect { |s| [s.name, s.id] } : [], selected: @product ? (@product.size_ids & @size_ids) : [], input_html: { multiple: true, id: "sizes-select" } %>
+        <% if @size_ids&.empty? %>
+          <small class="error">must be selected</small>
+        <% end %>
+      </div>
+      <%= form.button :submit, "Duplicate" %>
+    </div>
+  </div>
+<% end %>

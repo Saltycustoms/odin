@@ -24,7 +24,12 @@ Rails.application.routes.draw do
       get "my_deals"
     end
     resource :quotations
-    resources :job_requests
+    resources :job_requests do
+      member do
+        get "duplicate"
+        post "create_duplicate"
+      end
+    end
     resources :deadlines
     resources :approvals
     resources :packing_lists
