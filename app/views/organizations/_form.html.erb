@@ -8,7 +8,7 @@
     <h2 class="header-title">Address</h2>
   </div>
   <%= f.fields_for :address do |address_form| %>
-    <%= address_form.input :name %>
+    <%= address_form.input :name, label: "Att/Company Name" %>
     <%= address_form.input :address1 %>
     <%= address_form.input :address2 %>
     <%= address_form.input :city %>
