@@ -5,7 +5,16 @@
 <% else %>
   <%= simple_nested_form_for [deal, packing_list], html: {multipart: true} do |form| %>
     <%= form.input :shipping_method, collection: PackingList.shipping_methods.keys.collect { |k| [k.humanize, k] }  %>
-    <%= form.input :upload_attachment %>
+
+    <div class="self-pickup-locations-container" style="<%= 'display:none' if !(@packing_list.shipping_method == "self_pick_up") %>">
+      <%= label_tag :self_pickup_locations %>
+      <%= radio_button_tag(:self_pickup_locations, "malaysia", (@packing_list.shipping_method == "self_pick_up" && @packing_list.address&.country_code == "MY")) %>
+      <%= label_tag(:self_pickup_locations_malaysia, "Malaysia") %>
+      <%= radio_button_tag(:self_pickup_locations, "singapore", (@packing_list.shipping_method == "self_pick_up" && @packing_list.address&.country_code == "SG")) %>
+      <%= label_tag(:self_pickup_locations_singapore, "Singapore") %>
+    </div>
+
+    <%= form.input :upload_attachment, label: "Upload attachment (If selected then don't have to fill in address details)" %>
 
     <div class="packing-list-manual" style="<%= 'display:none' if @packing_list.upload_attachment %>">
       <div class="row medium-unstack">
