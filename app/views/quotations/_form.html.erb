@@ -78,8 +78,17 @@
   <%= render "shared/callout_header", title: "Other Details" %>
   <div class="row medium-unstack">
     <div class="columns">
-      <%= f.input :payment_term %>
+      <%= f.input :payment_term, input_html: {list: "payment_term_list"} %>
     </div>
+    <datalist id="payment_term_list">
+        <option value="Upfront 100%">
+        <option value="Upfront 60%, On-delivery 40%">
+        <option value="Cash on Delivery">
+        <option value="Credit Term 7 days">
+        <option value="Credit Term 30 days">
+        <option value="Credit Term 60 days">
+    </datalist>
+
     <div class="columns">
       <%= f.input :currency, collection: ([["Malaysian Ringgit (MYR)", "MYR"], ["Singapore Dollar (SGD)", "SGD"]] + (Money::Currency.all.map{|curr| ["#{curr.name} (#{curr.iso_code})", curr.iso_code]} - [["Malaysian Ringgit (MYR)", "MYR"], ["Singapore Dollar (SGD)", "SGD"]])) %>
     </div>
