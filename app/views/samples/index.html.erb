@@ -23,7 +23,11 @@
         <td nowrap>
           <div class="row">
             <% sample.sample_attachments.each do |attachment| %>
-              <p class="small-12 medium-6"><%= image_tag attachment.attachment_original_url, class: "sample-image" %></p>
+              <p class="small-12 medium-6">
+                <%= link_to attachment.attachment_original_url, target: "_blank" do %>
+                  <%= image_tag attachment.attachment_original_url, class: "sample-image" %>
+                <% end %>
+              </p>
             <% end %>
           </div>
         </td>
