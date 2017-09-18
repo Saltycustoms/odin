@@ -6,6 +6,7 @@
       <th>Design</th>
       <th>AC Comments</th>
       <th>Creative Comments</th>
+      <th>Images</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,13 @@
           <td><%= simple_format sample.ac_comments %></td>
         <% end %>
         <td><%= simple_format sample.creative_comments %></td>
+        <td nowrap>
+          <div class="row">
+            <% sample.sample_attachments.each do |attachment| %>
+              <p class="small-12 medium-6"><%= image_tag attachment.attachment_original_url, class: "sample-image" %></p>
+            <% end %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
