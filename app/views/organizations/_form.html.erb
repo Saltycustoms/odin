@@ -2,9 +2,10 @@
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :industry %>
-  <label>
-    Tags
-    <input type="text" data-tags='<%= organization.tag_list %>' class="tags" />
+  <label>Tags
+    <div class="callout tags-wrapper">
+      <input type="text" placeholder="Add tags..." data-tags='<%= organization.tag_list %>' class="tags" />
+    </div>
   </label>
 
   <div class="header small">
@@ -22,6 +23,19 @@
 
   <%= f.button :submit %>
 <% end %>
+
+<style>
+  .tags-wrapper {
+  }
+
+  .tags {
+    display: inline-block;
+    box-shadow: none;
+    border: none;
+    width: auto;
+    margin: 0;
+  }
+</style>
 
 <script>
 
