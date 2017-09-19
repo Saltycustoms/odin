@@ -2,7 +2,7 @@
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :industry %>
-  <%= f.input :tag_list %>
+  <%= f.input :tag_list, input_html: { class: "tags" } %>
 
   <div class="header small">
     <h2 class="header-title">Address</h2>
@@ -19,3 +19,13 @@
 
   <%= f.button :submit %>
 <% end %>
+
+<script>
+
+  (function($, window, document, undefined) {
+    $(document).ready(function() {
+      $('.tags').tagsManager();
+    });
+  })(window.jQuery, window, document);
+
+</script>
