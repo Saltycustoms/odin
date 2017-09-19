@@ -2,7 +2,10 @@
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :industry %>
-  <%= f.input :tag_list, input_html: { class: "tags" } %>
+  <label>
+    Tags
+    <input type="text" data-tags='<%= organization.tag_list %>' class="tags" />
+  </label>
 
   <div class="header small">
     <h2 class="header-title">Address</h2>
@@ -24,7 +27,11 @@
 
   (function($, window, document, undefined) {
     $(document).ready(function() {
-      $('.tags').tagsManager();
+      var tags = $('.tags');
+      tags.tagsManager({
+        prefilled: tags.data('tags'),
+        hiddenTagListName: 'organization[tag_list]',
+      });
     });
   })(window.jQuery, window, document);
 
