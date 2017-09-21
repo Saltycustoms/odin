@@ -1,4 +1,38 @@
+<span id="productsData" data-products="<%= @products.to_json %>"></span>
+
 <%= simple_nested_form_for [deal, job_request], html: {multipart: true} do |form| %>
+  <div class="row medium-unstack">
+    <div class="small-6 columns">
+      <%= form.input :name %>
+    </div>
+    <div class="small-6 columns">
+      <%= form.input :budget %>
+    </div>
+  </div>
+
+  <div class="callout">
+    <%= render "shared/callout_header", title: "Products" %>
+    <%= form.simple_fields_for :job_request_products do |product_form| %>
+      <div class="row product-form">
+        <div class="column align-self-top">
+          <%= product_form.input :product_id, collection: @products.collect { |product| [product.name, product.id] }, input_html: {class: "product-select"} %>
+        </div>
+        <div class="column">
+          <%= product_form.input :sizes, collection: [], input_html: {class: "size-select", multiple: true} %>
+        </div>
+        <div class="column">
+          <%= product_form.input :colors, collection: [], input_html: {class: "color-select", multiple: true} %>
+        </div>
+        <div class="small-1 column align-self-middle">
+          <%= product_form.link_to_remove class: "button alert remove-button" do %>
+            <i class="fa fa-times" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <%= form.link_to_add "Add products", :job_request_products, class: "button warning" %>
+  </div>
+
   <div class="row medium-unstack">
     <div class="medium-4 columns">
       <%= form.input :name %>

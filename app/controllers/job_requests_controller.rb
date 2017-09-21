@@ -16,6 +16,7 @@ class JobRequestsController < ApplicationController
 
   # GET /job_requests/new
   def new
+    @products = Product.all
     @job_request = JobRequest.new
     @product = Product.find(params[:product_id]) if params[:product_id]
     JobRequestProperty.name_and_placeholders.each do |property_name, property_value|
@@ -25,6 +26,7 @@ class JobRequestsController < ApplicationController
 
   # GET /job_requests/1/edit
   def edit
+    @products = Product.all
     @product = @job_request.product
     @color_ids = @job_request.selected_color_ids
     @size_ids = @job_request.selected_size_ids
@@ -56,12 +58,14 @@ class JobRequestsController < ApplicationController
           format.html { redirect_to @deal, notice: 'Job request was successfully created.' }
           format.json { render :show, status: :created, location: @job_request }
         else
+          @products = Product.all
           @product = @job_request&.product
           format.html { render :new }
           format.json { render json: @job_request.errors, status: :unprocessable_entity }
         end
       end
     rescue
+      @products = Product.all
       flash.now[:notice] = "Can't have more than 1 property with same name."
       render :new
     end
@@ -91,6 +95,7 @@ class JobRequestsController < ApplicationController
         format.html { redirect_to [@deal, @job_request], notice: 'Job request was successfully updated.' }
         format.json { render :show, status: :ok, location: @job_request }
       else
+        @products = Product.all
         format.html { render :edit }
         format.json { render json: @job_request.errors, status: :unprocessable_entity }
       end
@@ -155,6 +160,7 @@ class JobRequestsController < ApplicationController
       params.require(:job_request).permit(:deal_id, :product_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :provide_artwork, :design_brief, :concept, :pantone_code, :remark, :sample_required, :budget, :client_comment, colors: [], sizes: [],
       print_details_attributes: [:id, :position, :print_method, :block, :color_count, :_destroy],
       job_request_properties_attributes: [:id, :name, :value, :_destroy],
+      job_request_products_attributes: [:id, :product_id, :_destroy, sizes:[], colors:[]],
       attachments_attributes: [:id, :attachment, :_destroy])
     end
 
