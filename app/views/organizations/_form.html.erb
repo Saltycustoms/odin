@@ -2,7 +2,11 @@
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :industry %>
-  <%= f.input :tag_list %>
+  <label>Tags
+    <div class="callout tags-wrapper">
+      <input type="text" placeholder="Add tags..." data-tags='<%= organization.tag_list %>' class="tags" />
+    </div>
+  </label>
 
   <div class="header small">
     <h2 class="header-title">Address</h2>
@@ -19,3 +23,30 @@
 
   <%= f.button :submit %>
 <% end %>
+
+<style>
+  .tags-wrapper {
+  }
+
+  .tags {
+    display: inline-block;
+    box-shadow: none;
+    border: none;
+    width: auto;
+    margin: 0;
+  }
+</style>
+
+<script>
+
+  (function($, window, document, undefined) {
+    $(document).ready(function() {
+      var tags = $('.tags');
+      tags.tagsManager({
+        prefilled: tags.data('tags'),
+        hiddenTagListName: 'organization[tag_list]',
+      });
+    });
+  })(window.jQuery, window, document);
+
+</script>

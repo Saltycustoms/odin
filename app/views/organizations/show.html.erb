@@ -12,7 +12,10 @@
     <strong>Description: </strong><%= simple_format(@organization.description) unless @organization.description.blank? %>
     <strong>Industry: </strong><%= simple_format(@organization.industry) %>
     <strong>Address</strong><br><%= @organization.address&.to_html %>
-    <br>
+    <strong>Tags: </strong>
+    <% @organization.tag_list.each do |tag| %>
+      <%= link_to tag, organizations_path(tag: tag) %><%= "," unless tag === @organization.tag_list.last %>
+    <% end %>
   </div>
   <div class="columns medium-text-right">
     <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>

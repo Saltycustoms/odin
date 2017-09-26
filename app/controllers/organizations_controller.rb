@@ -30,6 +30,7 @@ class OrganizationsController < ApplicationController
   # POST /organizations.json
   def create
     @organization = Organization.new(organization_params)
+    @organization.tag_list = organization_params[:tag_list]
 
     respond_to do |format|
       if @organization.save
@@ -45,6 +46,9 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1
   # PATCH/PUT /organizations/1.json
   def update
+    # Update tags
+    @organization.tag_list = organization_params[:tag_list]
+
     respond_to do |format|
       if @organization.update(organization_params)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
