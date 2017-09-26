@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :approvals
       resources :deals
       resources :job_requests
+      resources :job_request_products
       resources :quotations
       resources :deadlines
       resources :organizations

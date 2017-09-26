@@ -5,8 +5,18 @@ class JobRequestProduct < ApplicationRecord
     sizes: [:string],
     colors: [:string]
 
+  def as_json(*)
+    previous = super
+    previous[:selected_colors] = selected_colors
+    previous[:selected_sizes]  = selected_sizes
+    previous[:product] = product
+    previous
+  end
 
-    
+  def product
+    Product.find(product_id) if product_id
+  end
+
   def selected_sizes
     if sizes && JSON.parse(sizes).reject { |s| s.empty? }.present?
       Size.where(id: JSON.parse(sizes))
