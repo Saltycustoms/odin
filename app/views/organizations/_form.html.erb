@@ -4,7 +4,13 @@
   <%= f.input :industry %>
   <label>Tags
     <div class="callout tags-wrapper">
-      <input type="text" placeholder="Add tags..." data-tags='<%= organization.tag_list %>' class="tags" />
+      <input type="text" placeholder="Add tags..." data-tags='<%= organization.tag_list %>' class="tags" list="tagChoices"/>
+      <datalist id="tagChoices">
+        <option value="F&B">
+        <option value="Hospitality">
+        <option value="Travel">
+        <option value="Apparel">
+      </datalist>
     </div>
   </label>
 
