@@ -31,4 +31,8 @@ $(document).on('turbolinks:load', function() {
     var sidebar = $('[data-sidebar]')
     pathing = sidebar.data("controller") + '-' + sidebar.data("action")
     $('[data-pathing=' + pathing + ']').addClass('active')
+
+    $('.disabled').click(function(e){
+      e.preventDefault();
+    })
 });

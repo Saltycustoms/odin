@@ -60,8 +60,20 @@
       <% end %>
       <%= link_to "New Packing List", new_deal_packing_list_path(@deal), class: "button success" if current_user.has_any_role? :admin, :apparel_consultant, :director %>
       <%= link_to "View Packing List", deal_packing_lists_path(@deal), class: "button warning" %>
-      <%= link_to "New Collection", new_deal_transaction_path(@deal), class: "button" if current_user.has_any_role? :admin, :apparel_consultant, :director %>
-      <%= link_to "Collections", deal_transactions_path(@deal), class: "button secondary" %>
+      <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+        <% if @deal.quotation.blank? %>
+          <%= link_to "New Collection", new_deal_transaction_path(@deal), class: "button disabled has-tip", data: { tooltip: true, disable_hover: false },
+                    aria: { haspopup: true }, tabindex: 1, title: "Quotation is blank" %>
+        <% else %>
+          <%= link_to "New Collection", new_deal_transaction_path(@deal), class: "button" %>
+        <% end %>
+      <% end %>
+      <% if @deal.quotation.blank? %>
+        <%= link_to "Collections", deal_transactions_path(@deal), class: "button secondary disabled has-tip", data: { tooltip: true, disable_hover: false },
+                  aria: { haspopup: true }, tabindex: 1, title: "Quotation is blank" %>
+      <% else %>
+        <%= link_to "Collections", deal_transactions_path(@deal), class: "button secondary" %>
+      <% end %>
       <%= link_to "Conditions", deal_conditions_path(@deal), class: "button secondary" %>
     </div>
   </div>
