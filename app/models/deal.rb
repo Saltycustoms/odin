@@ -185,4 +185,9 @@ class Deal < ApplicationRecord
   def has_quotation
     quotation.present?
   end
+
+  def rush_order?
+    return false if deadlines.blank? || !deadlines.order(id: :desc).take.rush_order
+    true
+  end
 end

@@ -80,6 +80,9 @@ GEM
     builder (3.2.3)
     bunny (2.7.0)
       amq-protocol (>= 2.2.0)
+    business_time (0.7.6)
+      activesupport (>= 3.1.0)
+      tzinfo
     byebug (9.0.6)
     capistrano (3.9.0)
       airbrussh (>= 1.0.0)
@@ -332,6 +335,7 @@ DEPENDENCIES
   aws-sdk
   best_in_place (~> 3.0.1)
   bunny
+  business_time
   byebug
   capistrano
   capistrano-passenger

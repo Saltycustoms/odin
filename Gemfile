@@ -58,6 +58,7 @@ gem "paranoia", "~> 2.2"
 gem 'kaminari'
 gem 'paper_trail'
 gem 'rails-assets-tagmanager', source: 'https://rails-assets.org'
+gem 'business_time'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

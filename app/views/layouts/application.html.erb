@@ -42,7 +42,11 @@
       </div>
     </div>
 
-    <div class="off-canvas-content" data-off-canvas-content>
+    <div class="off-canvas-content" data-off-canvas-content
+    <% if @deal.present? && @deal.rush_order? %>
+      style="background-color: pink"
+    <% end %>
+    >
       <%= render "shared/topbar" %>
       <% unless notice.nil? %>
         <div id="notice" class="callout" data-closable>

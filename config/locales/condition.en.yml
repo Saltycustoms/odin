@@ -36,3 +36,6 @@ en:
     has_pending_deadline:
       "true": "Deadline hasn't been set yet, kindly set the deadline for this deal."
       "false": "Deadline is set."
+    rush_order:
+      "true": "This deal is a rush order"
+      "false": "This deal is not a rush order"
