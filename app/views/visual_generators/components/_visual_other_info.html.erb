@@ -1,5 +1,6 @@
 <%
-  @product_colors = visual.visual_product.colors.collect { |c| c.color }
+  #the visual_product.colors here return colors straight, so there is no need of calling color
+  @product_colors = visual.visual_product.colors.collect { |c| c }
 %>
 <div class="otherInfoContainer">
   <div class="alwaysbreak"></div>
