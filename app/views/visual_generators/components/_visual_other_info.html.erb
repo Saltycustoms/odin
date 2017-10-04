@@ -14,23 +14,23 @@
     <div class="small-6 columns callout">
       <h5>Backtape</h5>
       <% visual.backtape_visual_properties.each do |vp| %>
-        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } if vp.property.present? %>
       <% end %>
     </div>
     <div class="small-6 columns callout">
       <h5>Binding Collar</h5>
       <% visual.binding_collar_visual_properties.each do |vp| %>
-        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } if vp.property.present? %>
       <% end %>
       <h5>Binding Sleeve</h5>
       <% visual.binding_sleeve_visual_properties.each do |vp| %>
-        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } if vp.property.present? %>
       <% end %>
     </div>
     <div class="small-6 columns callout">
       <h5>Double Needle Stitch</h5>
       <% visual.double_needle_stitch_visual_properties.each do |vp| %>
-        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: vp.property.name, hex: vp.property.hex } if vp.property.present? %>
       <% end %>
     </div>
   </div>
