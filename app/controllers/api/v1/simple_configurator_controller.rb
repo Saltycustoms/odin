@@ -49,4 +49,8 @@ class SimpleConfiguratorController < ApiController
     @quotation = @deal.quotation.new(discount_id: @discount&.id)
     @quotation.quotation_lines.new()
   end
+  
+  def product
+    @product = Product.where(simple_configurator: true, active: true).first
+  end
 end
