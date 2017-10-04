@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :print_details
       resources :quotation_lines
       resources :properties
+      resources :simple_configurator
     end
   end
   get "/states", to: "packing_lists#states"
