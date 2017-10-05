@@ -18,7 +18,7 @@ class Api::V1::DealsController < ApiController
                   },
                   job_requests: {
                     only: JobRequest.column_names,
-                    methods: [:selected_colors]
+                    methods: [:selected_colors, :design_name]
                   }
                 },
                 only: Quotation.column_names
@@ -77,7 +77,7 @@ class Api::V1::DealsController < ApiController
         },
         job_requests: {
           only: JobRequest.column_names,
-          methods: [:selected_colors, :selected_sizes, :product],
+          methods: [:selected_colors, :selected_sizes, :product, :design_name],
           include: {
             attachments: {
               only: Attachment.column_names,
