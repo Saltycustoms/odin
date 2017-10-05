@@ -10,7 +10,7 @@ class PackingListsController < ApplicationController
     @job_request_ids = []
     @packing_list = PackingList.new
     @packing_list.build_address
-    @deal.job_requests_with_designs.each do |job_request|
+    @deal.job_requests.each do |job_request|
       job_request.selected_colors.each do |color|
         job_request.selected_sizes.each do |size|
           @packing_list.packing_list_items.new(job_request_id: job_request.id, color_id: color.id, size_id: size.id)
@@ -39,7 +39,7 @@ class PackingListsController < ApplicationController
       send_notification(@packing_list, self)
       redirect_to deal_packing_lists_path(@deal), notice: "Packing list was successfully created."
     else
-      @deal.job_requests_with_designs.each do |job_request|
+      @deal.job_requests.each do |job_request|
         next if @job_request_ids.include? job_request.id.to_s
         job_request.selected_colors.each do |color|
           job_request.selected_sizes.each do |size|
@@ -57,7 +57,7 @@ class PackingListsController < ApplicationController
 
   def edit
     @job_request_ids = params[:select_job_request].present? ? params[:select_job_request].collect {|id| id} : @packing_list.packing_list_items.pluck(:job_request_id).uniq.collect { |id| id.to_s }
-    @deal.job_requests_with_designs.each do |job_request|
+    @deal.job_requests.each do |job_request|
       job_request.selected_colors.each do |color|
         job_request.selected_sizes.each do |size|
           @packing_list.packing_list_items.find_or_initialize_by(job_request_id: job_request.id, color_id: color.id, size_id: size.id)
@@ -86,7 +86,7 @@ class PackingListsController < ApplicationController
       send_notification(@packing_list, self)
       redirect_to deal_packing_lists_path(@deal), notice: "Packing list was successfully updated."
     else
-      @deal.job_requests_with_designs.each do |job_request|
+      @deal.job_requests.each do |job_request|
         next if @job_request_ids.include? job_request.id.to_s
         job_request.selected_colors.each do |color|
           job_request.selected_sizes.each do |size|
