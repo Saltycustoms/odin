@@ -127,7 +127,7 @@ class Deal < ApplicationRecord
 
   def has_pending_delivery_schedules?
     true if self.delivery_schedules.blank?
-    @ds_designs = self.delivery_schedules.collect { |ds| ds.id }
+    @ds_designs = self.delivery_schedules.collect { |ds| ds.design_id }
     @designs = self.designs.collect { |design| design.id }
     @pending_designs = @designs - @ds_designs
     @pending_designs.present?
