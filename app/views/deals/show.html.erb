@@ -5,7 +5,19 @@
   <%= link_to 'Back', deals_path %>
 <% end %>
 
-<%= render "shared/page_header", {title: @deal.display_name} %>
+<% title = @deal.display_name %>
+
+<% if !@deal.has_pending_shipping? %>
+  <% title += " <i class='fa fa-ship' aria-hidden='true' title='#{I18n.t 'condition.has_pending_shipping.false'}'></i>" %>
+<% end %>
+<% if !@deal.has_pending_delivery_schedules? %>
+  <% title += " <i class='fa fa-truck' aria-hidden='true' title='#{I18n.t 'condition.has_pending_delivery_schedules.false'}'></i>" %>
+<% end %>
+<% if !@deal.has_pending_projects_for_designs? %>
+  <% title += " <i class='fa fa-industry' aria-hidden='true' title='#{I18n.t 'condition.has_pending_projects_for_designs.false'}'></i>" %>
+<% end %>
+
+<%= render "shared/page_header", {title: title.html_safe} %>
 
 <div class="row medium-unstack">
   <div class="columns">
