@@ -1,6 +1,6 @@
 <span id="organization-address" data-organization-address="<%= @deal.organization.address.to_json %>"></span>
 
-<% if deal.job_requests_with_designs.empty? %>
+<% if deal.job_requests.empty? %>
   <%= render "shared/empty_list_placeholder", message: "This deal does not have any designs." %>
 <% else %>
   <%= simple_nested_form_for [deal, packing_list], html: {multipart: true} do |form| %>
@@ -65,7 +65,7 @@
       </div>
 
       <%= render "shared/callout_header", title: "Product Breakdown" %>
-      <% deal.job_requests_with_designs.each do |job_request| %>
+      <% deal.job_requests.each do |job_request| %>
         <div class="row">
           <div class="column small-11">
             <ul class="accordion" data-accordion data-allow-all-closed="true">

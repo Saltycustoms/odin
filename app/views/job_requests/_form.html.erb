@@ -1,9 +1,11 @@
+<% not_deleted_products = Product.all.select { |p| p.deleted_at.nil? } %>
+<% deleted_product_msg = (job_request.persisted? && !not_deleted_products.collect { |p| p.id }.include?(job_request.product_id)) ? "Your product for this job request has been deleted." : ""%>
 <%= simple_nested_form_for [deal, job_request], html: {multipart: true} do |form| %>
   <div class="row medium-unstack">
     <div class="medium-4 columns">
       <%= form.input :name %>
       <%= form.input :budget %>
-      <%= form.input :product_id, collection: Product.all.collect { |p| [p.name, p.id] }, input_html: {id: "product-select"}, selected: @product ? @product.id : nil, include_blank: true %>
+      <%= form.input :product_id, label: "Product<br>#{deleted_product_msg}".html_safe, collection: not_deleted_products.select { |p| p.deleted_at.nil? }.collect { |p| [p.name, p.id] }, input_html: {id: "product-select"}, selected: @product ? @product.id : nil, include_blank: true %>
       <div class="input <%= 'error' if @color_ids&.empty? %>">
         <%= label_tag "job_requests[colors][]" do %>
           <abbr title="required">*</abbr>

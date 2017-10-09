@@ -18,6 +18,7 @@
       <th>Name</th>
       <th class="text-center">No of pcs</th>
       <th>Client Deadline</th>
+      <th>Conditions</th>
     </tr>
   </thead>
 
@@ -41,6 +42,17 @@
         </td>
         <td class="text-center"><%= deal.no_of_pcs %></td>
         <td><%= deal.client_deadline %></td>
+        <td>
+          <% if !deal.has_pending_shipping? %>
+            <i class="fa fa-ship" aria-hidden="true" title="<%= I18n.t "condition.has_pending_shipping.false" %>"></i>
+          <% end %>
+          <% if !deal.has_pending_delivery_schedules? %>
+            <i class="fa fa-truck" aria-hidden="true" title="<%= I18n.t "condition.has_pending_delivery_schedules.false" %>"></i>
+          <% end %>
+          <% if !deal.has_pending_projects_for_designs? %>
+            <i class="fa fa-industry" aria-hidden="true" title="<%= I18n.t "condition.has_pending_projects_for_designs.false" %>"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

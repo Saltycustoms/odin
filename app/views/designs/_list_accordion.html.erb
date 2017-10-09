@@ -29,8 +29,12 @@
 
       <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
       <div class="accordion-content" data-tab-content>
+        <div class="button-group">
+          <% design.design_versions.each do |version| %>
+            <%= link_to "Version #{version.version_number} PV" + (version.id == design.design_version_for_production_id ? " (confirmed)" : ""), "#{Figaro.env.locate_design_app}/api/v1/design_versions/#{version.id}/download_production_visual", class: "button #{version.id == design.design_version_for_production_id ? "success" : ""}" %>
+          <% end %>
+        </div>
         <% if design.design_version_for_production %>
-        <p><%= link_to "Download PV", "#{Figaro.env.locate_design_app}/api/v1/design_versions/#{design.design_version_for_production_id}/download_production_visual", class: "button" %></p>
           <% if design.design_version_for_production.visual.manual? %>
             <%= image_tag design.design_version_for_production.visual.attachment_url, class: "design-accordion-image" %>
           <% elsif design.design_version_for_production.visual.visual_prints.count > 0 %>

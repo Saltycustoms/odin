@@ -27,6 +27,18 @@
         <% end %>
       </div>
     </p>
+    <p>
+      <strong>Important Conditions Fulfilled:</strong>
+      <% if !@deal.has_pending_shipping? %>
+        <i class="fa fa-ship" aria-hidden="true" title="<%= I18n.t "condition.has_pending_shipping.false" %>"></i>
+      <% end %>
+      <% if !@deal.has_pending_delivery_schedules? %>
+        <i class="fa fa-truck" aria-hidden="true" title="<%= I18n.t "condition.has_pending_delivery_schedules.false" %>"></i>
+      <% end %>
+      <% if !@deal.has_pending_projects_for_designs? %>
+        <i class="fa fa-industry" aria-hidden="true" title="<%= I18n.t "condition.has_pending_projects_for_designs.false" %>"></i>
+      <% end %>
+    </p>
   </div>
   <div class="columns">
     <p>
