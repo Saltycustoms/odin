@@ -134,7 +134,7 @@ class Deal < ApplicationRecord
   end
 
   def has_pending_projects_for_designs?
-    @project_designs = self.projects.collect { |design| design.id }
+    @project_designs = self.projects.collect { |project| project.design_id }
     @designs = self.designs.collect { |design| design.id }
     @pending_designs = @designs - @project_designs
     @pending_designs.present?
