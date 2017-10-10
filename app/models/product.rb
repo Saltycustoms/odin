@@ -1,4 +1,4 @@
-class Product < ActiveResource::Base
+class Product < ActiveResourceRecord
   self.site = "#{Figaro.env.locate_catalogue_app}/api/v1/"
   has_many :sizes
   has_many :colors
