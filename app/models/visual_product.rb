@@ -1,4 +1,4 @@
-class VisualProduct < ActiveResource::Base
+class VisualProduct < ActiveResourceRecord
   self.site = "#{Figaro.env.locate_design_app}/api/v1/"
   has_many :visual_product_colors
 

@@ -1,4 +1,4 @@
-class Design < ActiveResource::Base
+class Design < ActiveResourceRecord
   self.site = "#{Figaro.env.locate_design_app}/api/v1/"
   has_many :design_requests
   belongs_to :design_version_for_production, class_name: "DesignVersion"

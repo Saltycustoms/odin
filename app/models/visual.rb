@@ -1,4 +1,4 @@
-class Visual < ActiveResource::Base
+class Visual < ActiveResourceRecord
   self.site = "#{Figaro.env.locate_design_app}/api/v1"
   # has_many :visual_prints
   # has_many :visual_properties

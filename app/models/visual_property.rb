@@ -1,4 +1,4 @@
-class VisualProperty < ActiveResource::Base
+class VisualProperty < ActiveResourceRecord
   self.site = "#{Figaro.env.locate_design_app}/api/v1/"
 
   def property

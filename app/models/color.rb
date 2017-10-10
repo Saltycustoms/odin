@@ -1,4 +1,4 @@
-class Color < ActiveResource::Base
+class Color < ActiveResourceRecord
   self.site = "#{Figaro.env.locate_catalogue_app}/api/v1/"
 
   def display_name

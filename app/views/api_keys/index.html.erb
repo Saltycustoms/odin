@@ -1,0 +1,17 @@
+<%= render partial: 'api_keys/form', object: @api_key %>
+<table>
+  <thead>
+    <tr>
+      <th>Access Token</th>
+      <th>App</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @api_keys.each do |api_key| %>
+      <tr>
+        <td><%= api_key.access_token %></td>
+        <td><%= api_key.app %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

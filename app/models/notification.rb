@@ -1,4 +1,4 @@
-class Notification < ActiveResource::Base
+class Notification < ActiveResourceRecord
   self.site = "#{Figaro.env.locate_employee_app}/api/v1/"
 
   def parameters_keys

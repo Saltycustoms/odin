@@ -1,0 +1,18 @@
+<%= simple_form_for form do |ak| %>
+  <a href="#" id="generateSHA" class="button">Generate SHA256 hex</a>
+  <label>Secret Key:</label>
+  <input type="text" id="secretKey"></input>
+  <br/>
+  <h5>Api Key:</h5>
+  <p id="shaHex">Fill in <b>Secret Key</b> and click <b>Generate SHA256 hex</b> to generate your api key. Then copy and paste it in <b>Access token</b> column.</p>
+  <%= ak.input :app, as: :select, collection: ApiKey.apps %>
+  <%= ak.input :access_token %>
+  <%= ak.submit %>
+<% end %>
+<script>
+  $('#generateSHA').click(function(event){
+    event.preventDefault();
+    var digest_hex = SHA256_hash($('#secretKey').val());
+    $('#shaHex').text(digest_hex);
+  })
+</script>

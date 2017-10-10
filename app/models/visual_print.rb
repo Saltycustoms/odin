@@ -1,4 +1,4 @@
-class VisualPrint < ActiveResource::Base
+class VisualPrint < ActiveResourceRecord
   self.site = "#{Figaro.env.locate_design_app}/api/v1"
 
   # def artwork_url
