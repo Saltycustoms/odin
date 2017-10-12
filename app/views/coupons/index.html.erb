@@ -1,0 +1,39 @@
+<% content_for :header_actions do %>
+  <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
+    <%= link_to 'New Coupon', new_coupon_path, class: "button" %>
+  <% end %>
+<% end %>
+
+<%= render "shared/page_header", {title: "Coupons"} %>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Discount</th>
+      <th>From</th>
+      <th>To</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @coupons.each do |coupon| %>
+      <tr>
+        <td><%= coupon.id %></td>
+        <td><%= coupon.name %></td>
+        <td><%= coupon.code %></td>
+        <td>
+          <%= "RM #{coupon.discount.value}" if coupon.discount.type == "Discount::FlatRate"  %>
+          <%= "#{coupon.discount.value}%" if coupon.discount.type == "Discount::Percentage"  %>
+        </td>
+        <td><%= coupon.from %></td>
+        <td><%= coupon.to %></td>
+        <td>
+          <%= link_to edit_coupon_path(coupon) do %>
+            <span title="Edit" class="fa fa-pencil"></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

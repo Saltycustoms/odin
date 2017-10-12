@@ -1,0 +1,21 @@
+<% if coupon.errors.any? %>
+  <div class="callout alert">
+    <ul>
+      <% coupon.errors.each do |attribute, message| %>
+        <li><%= attribute %> <%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= render "shared/page_header", {title: "New Coupon"} %>
+<%= simple_form_for coupon do |form| %>
+  <%= form.input :name %>
+  <%= form.input :code %>
+  <%= form.fields_for :discount do |d| %>
+    <%= d.input :type, collection: ["Discount::FlatRate", "Discount::Percentage"] %>
+    <%= d.input :value %>
+  <% end %>
+  <%= form.input :from, as: :date %>
+  <%= form.input :to, as: :date %>
+  <%= form.submit %>
+<% end %>
