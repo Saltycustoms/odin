@@ -104,6 +104,7 @@
       <% @job_request.attachments.each do |attachment| %>
         <div class="column">
           <%= image_tag attachment.attachment_url %>
+          <p><%= attachment.attachment.metadata["filename"] %></p>
         </div>
       <% end %>
     </div>
