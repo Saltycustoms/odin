@@ -1,5 +1,7 @@
 class Deal < ApplicationRecord
   acts_as_paranoid
+  # will use taggable to tag if this is a configurator deal or enterprise deal
+  acts_as_taggable
   has_one :quotation
   has_one :discount, dependent: :destroy
   has_many :job_requests, dependent: :destroy

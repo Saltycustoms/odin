@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009092215) do
+ActiveRecord::Schema.define(version: 20171016074120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20171009092215) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.string "type"
     t.index ["deleted_at"], name: "index_gateways_on_deleted_at"
   end
 
@@ -213,6 +214,7 @@ ActiveRecord::Schema.define(version: 20171009092215) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.datetime "deleted_at"
+    t.integer "billing_address_id"
     t.index ["belongable_type", "belongable_id"], name: "index_pics_on_belongable_type_and_belongable_id"
     t.index ["deleted_at"], name: "index_pics_on_deleted_at"
   end
@@ -305,6 +307,7 @@ ActiveRecord::Schema.define(version: 20171009092215) do
     t.datetime "updated_at", null: false
     t.bigint "deal_id"
     t.datetime "deleted_at"
+    t.integer "status"
     t.index ["deal_id"], name: "index_transactions_on_deal_id"
     t.index ["deleted_at"], name: "index_transactions_on_deleted_at"
   end

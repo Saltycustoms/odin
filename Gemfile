@@ -48,7 +48,7 @@ gem 'jquery-rails'
 gem 'money-rails'
 gem 'countries'
 gem 'shrine'
-gem 'acts-as-taggable-on', '~> 4.0'
+gem 'acts-as-taggable-on', '~> 5.0'
 gem 'serviceworker-rails'
 gem 'best_in_place', '~> 3.0.1'
 gem 'role_model'
@@ -59,6 +59,7 @@ gem 'kaminari'
 gem 'paper_trail'
 gem 'rails-assets-tagmanager', source: 'https://rails-assets.org'
 gem 'business_time'
+gem 'braintree'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

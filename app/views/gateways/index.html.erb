@@ -23,7 +23,7 @@
                 <span title="Edit" class="fa fa-pencil"></span>
               <% end %>
               &nbsp;
-              <%= link_to gateway, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <%= link_to gateway.becomes(Gateway), method: :delete, data: { confirm: 'Are you sure?' } do %>
                 <span title="Delete" class="fa fa-trash"></span>
               <% end %>
             </div>
