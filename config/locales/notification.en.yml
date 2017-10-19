@@ -91,9 +91,9 @@ en:
         update: 'Someone name %{whodidit} has edited the visual %{id}'
         destroy: "Someone name %{whodidit} removed a visual %{id}"
       approval:
-        create: 'Approval %{id} has been created by %{whodidit}.'
-        update: 'Someone name %{whodidit} has edited the approval %{id}.'
-        destroy: "Someone name %{whodidit} removed a approval %{id}."
+        create: 'Approval %{id} has been created}.'
+        update: 'Someone name has edited the approval %{id}.'
+        destroy: "Someone name removed a approval %{id}."
       approver:
         create: "There is new request for approval that need you to approve."
       acknowledger:
