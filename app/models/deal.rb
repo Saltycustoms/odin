@@ -122,13 +122,13 @@ class Deal < ApplicationRecord
   def has_pending_designs_for_job_requests?
     return true if self.job_requests.blank?
     self.job_requests.each do |job_request|
-      true if DesignRequest.where(job_request_id: job_request.id).blank?
+      return true if DesignRequest.where(job_request_id: job_request.id).blank?
     end
     false
   end
 
   def has_pending_delivery_schedules?
-    true if self.delivery_schedules.blank?
+    return true if self.delivery_schedules.blank?
     @ds_designs = self.delivery_schedules.collect { |ds| ds.design_id }
     @designs = self.designs.collect { |design| design.id }
     @pending_designs = @designs - @ds_designs
@@ -136,6 +136,7 @@ class Deal < ApplicationRecord
   end
 
   def has_pending_projects_for_designs?
+    return true if self.projects.blank?
     @project_designs = self.projects.collect { |project| project.design_id }
     @designs = self.designs.collect { |design| design.id }
     @pending_designs = @designs - @project_designs

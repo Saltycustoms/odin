@@ -1,5 +1,6 @@
 class ApiKeysController < ApplicationController
   http_basic_authenticate_with name: "salty", password: "customs"
+  skip_before_action :authenticate_user!
 
   def index
     @api_key = ApiKey.new
