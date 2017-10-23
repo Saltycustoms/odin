@@ -45,11 +45,15 @@ class SimpleConfiguratorController < ApiController
 
     #calculate price
     #check coupon, coupon valid, return coupon discount_id
-    @discount = nil
+    @coupon = Coupon.where(code: params[:coupon_code]).take
+    @discount = (@coupon && @coupon.valid?) ? @coupon.discount : nil
     @quotation = @deal.quotation.new(discount_id: @discount&.id)
     @quotation.quotation_lines.new()
+
+    #save quotation deal created
+    #charge and create transaction
   end
-  
+
   def product
     @product = Product.where(simple_configurator: true, active: true).first
   end

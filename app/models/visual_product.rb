@@ -6,6 +6,8 @@ class VisualProduct < ActiveResourceRecord
     Product.find(self.product_id)
   end
 
+  # this colors would be call from visual.visual_product,
+  # because visual.visual_product is refer to json
   def colors
   #   @color_options = ColorOption.where(product_id: self.id)
   #   return [] if @color_options.blank?

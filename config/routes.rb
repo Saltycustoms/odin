@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       resources :quotation_lines
       resources :properties
       resources :simple_configurator
+      resources :braintree do
+        get 'generate_token'
+      end
     end
   end
   get "/states", to: "packing_lists#states"

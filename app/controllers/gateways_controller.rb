@@ -42,7 +42,7 @@ class GatewaysController < ApplicationController
   end
 
   def gateway_params
-    params.require(:gateway).permit(:name, :type)
+    params.require(:gateway).permit(:name, :type, :merchant_id, :public_key, :private_key, :staging)
   end
 
   def authorize_user

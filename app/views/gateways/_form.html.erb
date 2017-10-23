@@ -1,5 +1,9 @@
 <%= simple_form_for gateway.becomes(Gateway) do |f| %>
   <%= f.input :name %>
   <%= f.input :type, as: :select, collection: Gateway.types %>
+  <%= f.input :merchant_id %>
+  <%= f.input :public_key %>
+  <%= f.input :private_key %>
+  <%= f.input :staging, as: :select, collection: [true,false] %>
   <%= f.button :submit %>
 <% end %>
