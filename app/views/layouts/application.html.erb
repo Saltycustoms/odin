@@ -47,7 +47,9 @@
       style="background-color: pink"
     <% end %>
     >
-      <%= render "shared/topbar" %>
+      <% unless content_for?(:no_topbar) %>
+        <%= render "shared/topbar" %>
+      <% end %>
       <% unless notice.nil? %>
         <div id="notice" class="callout" data-closable>
           <%= notice %>
