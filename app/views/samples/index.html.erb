@@ -3,6 +3,7 @@
   <thead>
     <tr>
       <th>Id</th>
+      <th>Deal Name</th>
       <th>Design</th>
       <th>AC Comments</th>
       <th>Creative Comments</th>
@@ -13,6 +14,7 @@
     <% @samples.each do |sample| %>
       <tr>
         <td><%= sample.id %></td>
+        <td><%= sample.deal_name %></td>
         <td><%= sample.project.design.attributes.present? ? sample.project.design.name : nil %></td>
         <% if current_user.has_any_role? :admin, :apparel_consultant, :director %>
           <td><%= best_in_place sample, :ac_comments, as: :textarea, place_holder: "Click me to edit" %></td>
