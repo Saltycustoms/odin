@@ -36,11 +36,11 @@
         </div>
         <%= form.input :provide_artwork %>
 
-        <div class="design-brief-and-concept" style="<%= 'display:none' if job_request.provide_artwork %>">
+        <div class="design-brief-and-concept">
           <%= form.input :design_brief %>
           <%= form.input :concept %>
         </div>
-        <div class="attachments-upload" style="<%= 'display:none' if !job_request.provide_artwork %>">
+        <div class="attachments-upload">
           <p><i>You can upload multiple files by click ctrl and choose files that you want to upload.</i></p>
           <%= label_tag "attachments[]", "Upload Artwork" %>
           <%= file_field_tag "attachments[]", multiple: true %>
