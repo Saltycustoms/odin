@@ -68,5 +68,11 @@
         <p class="footer-text">&copy; <%= DateTime.now.strftime('%Y') %> Saltycustoms</p>
       </div>
     </footer>
+    <script type="text/javascript">
+      $(document).ready(function() {
+         Feedback({h2cPath:'html2canvas.js',
+            url: '<%= "#{Figaro.env.locate_employee_app}/api/v1/bug_reports" %>'});
+       });
+    </script>
   </body>
 </html>

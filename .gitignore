@@ -21,6 +21,8 @@
 /yarn-error.log
 
 .byebug_history
+!/public/html2canvas.js
+*/public
 
 # Ignore application configuration
 /config/application.yml
