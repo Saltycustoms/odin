@@ -155,7 +155,7 @@ class JobRequestsController < ApplicationController
       params.require(:job_request).permit(:deal_id, :product_id, :name, :sleeve, :relabeling, :woven_tag, :hang_tag, :provide_artwork, :design_brief, :concept, :pantone_code, :remark, :sample_required, :budget, :client_comment, colors: [], sizes: [],
       print_details_attributes: [:id, :position, :print_method, :block, :color_count, :_destroy],
       job_request_properties_attributes: [:id, :name, :value, :_destroy],
-      attachments_attributes: [:id, :attachment, :_destroy])
+      attachments_attributes: [:id, :attachment, :_destroy],
     end
 
     def authorize_user
