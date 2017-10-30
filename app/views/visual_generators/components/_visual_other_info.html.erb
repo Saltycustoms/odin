@@ -47,22 +47,17 @@
               <%= image_tag visual_print.artwork_url, alt: visual_print.name %>
             </div>
           </div>
-          <%byebug%>
           <% if visual_print.name == "Left Sleeve Print" %>
             <% visual.sleeve_designs_left.each do |sleeve_design_left| %>
               <div>
-                <div>
-                  <%= image_tag sleeve_design_left.attachment_url %>
-                </div>
+                <%= image_tag sleeve_design_left.attachment_url %>
               </div>
             <% end %>
           <% elsif visual_print.name == "Right Sleeve Print" %>
             <% visual.sleeve_designs_right.each do |sleeve_design_right| %>
               <% if sleeve_design_right.attachment %>
                 <div>
-                  <div>
-                    <%= image_tag sleeve_design_right.attachment_url %>
-                  </div>
+                  <%= image_tag sleeve_design_right.attachment_url %>
                 </div>
               <% end %>
             <% end %>
