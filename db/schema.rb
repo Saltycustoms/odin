@@ -65,16 +65,6 @@ ActiveRecord::Schema.define(version: 20171009092215) do
     t.index ["deleted_at"], name: "index_attachments_on_deleted_at"
   end
 
-  create_table "coupons", force: :cascade do |t|
-    t.integer "discount_id"
-    t.string "name"
-    t.string "code"
-    t.datetime "from"
-    t.datetime "to"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "deadlines", force: :cascade do |t|
     t.bigint "deal_id"
     t.date "deadline"
@@ -128,17 +118,6 @@ ActiveRecord::Schema.define(version: 20171009092215) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_gateways_on_deleted_at"
-  end
-
-  create_table "job_request_products", force: :cascade do |t|
-    t.bigint "job_request_id"
-    t.integer "product_id"
-    t.jsonb "metadata"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_job_request_products_on_deleted_at"
-    t.index ["job_request_id"], name: "index_job_request_products_on_job_request_id"
   end
 
   create_table "job_request_properties", force: :cascade do |t|
@@ -367,7 +346,6 @@ ActiveRecord::Schema.define(version: 20171009092215) do
   add_foreign_key "add_ons", "quotations"
   add_foreign_key "deadlines", "deals"
   add_foreign_key "discounts", "deals"
-  add_foreign_key "job_request_products", "job_requests"
   add_foreign_key "job_request_properties", "job_requests"
   add_foreign_key "orders", "deals"
   add_foreign_key "packing_list_items", "packing_lists"

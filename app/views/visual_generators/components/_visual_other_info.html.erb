@@ -8,7 +8,7 @@
     <div class="small-6 columns callout">
       <h5>Fabric</h5>
       <% @product_colors.each do |color| %>
-        <%= render partial: "visual_generators/components/color_box", locals: { label: color.name, hex: color.hex } %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: color.color.name, hex: color.color.hex } %>
       <% end %>
     </div>
     <div class="small-6 columns callout">
@@ -47,6 +47,21 @@
               <%= image_tag visual_print.artwork_url, alt: visual_print.name %>
             </div>
           </div>
+          <% if visual_print.name == "Left Sleeve Print" %>
+            <% visual.sleeve_designs_left.each do |sleeve_design_left| %>
+              <div>
+                <%= image_tag sleeve_design_left.attachment_url %>
+              </div>
+            <% end %>
+          <% elsif visual_print.name == "Right Sleeve Print" %>
+            <% visual.sleeve_designs_right.each do |sleeve_design_right| %>
+              <% if sleeve_design_right.attachment %>
+                <div>
+                  <%= image_tag sleeve_design_right.attachment_url %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
         <% visual.pantones.each do |pantone| %>
           <% next if pantone.visual_print_id != visual_print.id %>
