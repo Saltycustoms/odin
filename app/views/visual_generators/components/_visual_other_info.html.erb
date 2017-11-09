@@ -8,7 +8,7 @@
     <div class="small-6 columns callout">
       <h5>Fabric</h5>
       <% @product_colors.each do |color| %>
-        <%= render partial: "visual_generators/components/color_box", locals: { label: color.color.name, hex: color.color.hex } %>
+        <%= render partial: "visual_generators/components/color_box", locals: { label: color.name, hex: color.hex } %>
       <% end %>
     </div>
     <div class="small-6 columns callout">
