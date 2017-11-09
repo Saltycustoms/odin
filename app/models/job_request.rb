@@ -28,12 +28,12 @@ class JobRequest < ApplicationRecord
   end
 
   def design_name
-    job_request_designs = designs
-    if job_request_designs.present?
-      job_request_designs.first.name
-    else
-      name
-    end
+    # job_request_designs = designs
+    # if job_request_designs.present?
+    #   job_request_designs.first.name
+    # else
+    name
+    # end
   end
 
   def configurator_price_per_piece
