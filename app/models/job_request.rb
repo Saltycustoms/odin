@@ -16,7 +16,6 @@ class JobRequest < ApplicationRecord
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
   validates :product_id, :colors, :name, :sizes, presence: true
   before_save :update_quotation_and_lines
-  before_save :update_artwork
 
   def as_json(*)
     previous = super
@@ -108,15 +107,6 @@ class JobRequest < ApplicationRecord
 
       quotation.calculate_total
       quotation.save
-    end
-  end
-
-  def update_artwork
-    if provide_artwork
-      self.design_brief = nil
-      self.concept = nil
-    else
-      self.attachments.delete_all
     end
   end
 end

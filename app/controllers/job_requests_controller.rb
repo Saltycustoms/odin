@@ -113,8 +113,6 @@ class JobRequestsController < ApplicationController
 
   def create_duplicate
     new_params = job_request_params.deep_dup.merge(@job_request.attributes.slice("remark", "budget", "client_comment", "provide_artwork", "design_brief", "concept"))
-    if @job_request.provide_artwork
-    end
     print_details_attributes = {}
     job_request_properties_attributes = {}
     attachments_attributes = {}
